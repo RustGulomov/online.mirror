@@ -18,8 +18,8 @@ app.definitions.TableFillMarkerSection = class TableFillMarkerSection extends (
 	drawingOrder: number = app.CSections.TableFillMarker.drawingOrder;
 	zIndex: number = app.CSections.TableFillMarker.zIndex;
 
-	constructor() {
-		super(app.CSections.TableFillMarker.name);
+	constructor(name: string) {
+		super(name);
 		// Draw the triangle in onDraw(); '' stops the container filling a square.
 		this.sectionProperties.fillColor = this.backgroundColor;
 		this.backgroundColor = '';
@@ -55,14 +55,13 @@ app.definitions.TableFillMarkerSection = class TableFillMarkerSection extends (
 		// not used for TableFillMarkerSection
 	}
 
-	// Give bottom right position of the bottom right cell of table style area, in core pixels.
-	// It is Called with null parameter when table fill marker is not visible.
-	public calculatePositionViaCellCursor(point: Array<number> | null) {
+	// Give bottom-right position of the table's bottom-right cell, in core pixels.
+	public calculatePositionViaCellCursor(point: Array<number>) {
 		// Anchor the marker's bottom-right at the point.
-		this.sectionProperties.cellCursorPoint =
-			point === null
-				? null
-				: [point[0] - this.size[0], point[1] - this.size[1]];
+		this.sectionProperties.cellCursorPoint = [
+			point[0] - this.size[0],
+			point[1] - this.size[1],
+		];
 		this.setMarkerPosition();
 	}
 
@@ -73,7 +72,7 @@ app.definitions.TableFillMarkerSection = class TableFillMarkerSection extends (
 	) {
 		if (
 			dragDistance === null ||
-			!this.sectionProperties.docLayer._tableAutoFillAreaPixels
+			!this.sectionProperties.docLayer._tableFillMarkersVisible
 		)
 			return; // No dragging or no event handling or table fill marker is not visible.
 
