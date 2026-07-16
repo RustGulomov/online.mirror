@@ -653,6 +653,8 @@ private:
 
     bool                mbTrackFormulasPending  : 1;
     bool                mbFinalTrackFormulas    : 1;
+    // True while CompileDBFormula() recompiles table/DB refs (its SetDirty is not a user edit).
+    bool                mbCompilingDBFormula    : 1;
     // This indicates if a ScDocShell::DoRecalc() or ScDocShell::DoHardRecalc() is in progress.
     bool                mbDocShellRecalc        : 1;
     // This indicates if a ScOutputData::LayoutStrings() is in progress.
@@ -2657,6 +2659,8 @@ public:
     bool                IsTrackFormulasPending() const { return mbTrackFormulasPending; }
     void                FinalTrackFormulas( SfxHintId nHintId );
     bool                IsFinalTrackFormulas() const { return mbFinalTrackFormulas; }
+    bool                IsCompilingDBFormula() const { return mbCompilingDBFormula; }
+    void                SetCompilingDBFormula(bool bSet) { mbCompilingDBFormula = bSet; }
     inline bool         IsInFormulaTree( const ScFormulaCell* pCell ) const;
     inline bool         IsInFormulaTrack( const ScFormulaCell* pCell ) const;
     HardRecalcState     GetHardRecalcState() const { return eHardRecalcState; }
@@ -3091,6 +3095,24 @@ public:
     ~ScDocShellRecalcGuard()
     {
         mrDoc.SetDocShellRecalc(false);
+    }
+};
+
+class ScCompilingDBFormulaGuard
+{
+    ScDocument& mrDoc;
+
+public:
+    ScCompilingDBFormulaGuard(ScDocument& rDoc)
+        : mrDoc(rDoc)
+    {
+        assert(!mrDoc.IsCompilingDBFormula());
+        mrDoc.SetCompilingDBFormula(true);
+    }
+
+    ~ScCompilingDBFormulaGuard()
+    {
+        mrDoc.SetCompilingDBFormula(false);
     }
 };
 
