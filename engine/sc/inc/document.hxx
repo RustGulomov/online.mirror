@@ -1713,7 +1713,8 @@ public:
      */
     SC_DLLPUBLIC void           GetDataArea( SCTAB nTab, SCCOL& rStartCol, SCROW& rStartRow,
                                              SCCOL& rEndCol, SCROW& rEndRow,
-                                             bool bIncludeOld, bool bOnlyDown ) const;
+                                             bool bIncludeOld, bool bOnlyDown,
+                                             bool bExcludeDBRange = false ) const;
 
     /**
      * Returns true if there is a non-empty subrange in the range given as input.
