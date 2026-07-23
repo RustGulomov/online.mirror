@@ -2594,6 +2594,13 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 								'text': _UNO('.uno:Validation', 'spreadsheet'),
 								'command': '.uno:Validation',
 								'accessibility': { focusBack: true,	combination: 'DV', de: null }
+							},
+							{
+								'id': 'data-handle-duplicate-records',
+								'type': 'toolitem',
+								'text': _UNO('.uno:HandleDuplicateRecords', 'spreadsheet'),
+								'command': '.uno:HandleDuplicateRecords',
+								'accessibility': { focusBack: true,	combination: 'HD', de: null }
 							}
 						]
 					}
