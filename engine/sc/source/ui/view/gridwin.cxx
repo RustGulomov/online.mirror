@@ -2078,6 +2078,7 @@ void ScGridWindow::HandleMouseButtonDown( const MouseEvent& rMEvt, MouseEventSta
 
     RfCorner rCorner = NONE;
     bool bFound = HitRangeFinder(rMEvt.GetPosPixel(), rCorner, &nRFIndex, &nRFAddX, &nRFAddY);
+    bRFSize = (rCorner != NONE);
     aRFSelectedCorned = rCorner;
 
     if (bFound)
