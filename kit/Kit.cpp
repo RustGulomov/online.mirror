@@ -1052,13 +1052,17 @@ void Document::renderTiles(TileCombined &tileCombined)
         LOG_DBG("Skipping the render of the gone part " << tileCombined.getPart());
         return;
     }
-
+    //COKitTileMode
     const auto blenderFunc = [&](unsigned char* data, int offsetX, int offsetY,
-                                 std::size_t pixmapWidth, std::size_t pixmapHeight,
-                                 int pixelWidth, int pixelHeight, COKitTileMode mode) {
+                                                 std::size_t tilesPixmapWidth, std::size_t tilesPixmapHeight,
+                                                 int pixelWidth, int pixelHeight, COKitTileMode mode,
+                                                 long tilePosX, long tilePosY, long tileTwipWidth, long tileTwipHeight) {
         if (session->watermark())
-            session->watermark()->blending(data, offsetX, offsetY, pixmapWidth, pixmapHeight,
-                                           pixelWidth, pixelHeight, mode);
+            session->watermark()->blending2(data, tilesPixmapWidth, tilesPixmapHeight,
+                                            Watermark::TileParams{.twipPosX = tilePosX, .twipPosY = tilePosY,
+                                            .twipWidth = tileTwipWidth, .twipHeight = tileTwipHeight,
+                                            .width = pixelWidth, .height = pixelHeight,
+                                            .offsetX = offsetX, .offsetY = offsetY}, mode);
     };
 
     const auto postMessageFunc = [&](const char* buffer, std::size_t length)
