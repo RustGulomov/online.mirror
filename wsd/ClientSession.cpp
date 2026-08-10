@@ -2590,6 +2590,23 @@ bool ClientSession::filterMessage(const std::string& message) const
             allowed = false;
             LOG_WRN("WOPI host has disabled copying from the document");
         }
+        else if (_wopiFileInfo->getHideRepairOption() && tokens.equals(0, "uno") &&
+                (tokens.equals(1, ".uno:Undo") || tokens.equals(1, ".uno:Redo")))
+        {
+            if (const auto bracePos = message.find('{'); bracePos != std::string::npos)
+            {
+                const std::string json = message.substr(bracePos);
+                try
+                {
+                    Poco::JSON::Parser parser;
+                    Poco::Dynamic::Var result = parser.parse(json);
+                }
+                catch (const Poco::Exception& exc)
+                {
+                    LOG_ERR("Failed to parse JSON from " << tokens[1] << " message: " << exc.displayText());
+                }
+            }
+        }
     }
 
     return allowed;

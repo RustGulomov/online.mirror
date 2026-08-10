@@ -1602,6 +1602,9 @@ DocumentBroker::updateSessionWithWopiInfo(const std::shared_ptr<ClientSession>& 
     if (!templateSource.empty())
         wopiInfo->set("TemplateSource", templateSource);
 
+    if (wopiFileInfo->getOwnerId() != userId)
+        wopiFileInfo->setHideRepairOption(true);
+
     wopiInfo->set("HidePrintOption", wopiFileInfo->getHidePrintOption());
     wopiInfo->set("HideSaveOption", wopiFileInfo->getHideSaveOption());
     wopiInfo->set("HideExportOption", wopiFileInfo->getHideExportOption());
