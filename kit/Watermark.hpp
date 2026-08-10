@@ -20,18 +20,32 @@
 #include <cmath>
 #include <unordered_map>
 #include <memory>
-
-struct BytesDeleter
-{
-    void operator()(unsigned char* bytes) { std::free(bytes); }
-};
-using ScopedBytes = std::unique_ptr<unsigned char, BytesDeleter>;
+#include <numbers>
+#include <cstring>
 
 class Watermark final
 {
+    static constexpr int GridPeriod = 2;
+
+    struct PixmapSet
+    {
+        std::array<std::vector<unsigned char>, GridPeriod * GridPeriod> fragments;
+    };
+
 public:
-    Watermark(const std::shared_ptr<COKitDocument>& loKitDoc, const std::string& text,
-              double opacity)
+    struct TileParams
+    {
+        long twipPosX;
+        long twipPosY;
+        long twipWidth;
+        long twipHeight;
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+    };
+
+    Watermark(const std::shared_ptr<COKitDocument>& loKitDoc, const std::string& text, double opacity)
         : _loKitDoc(loKitDoc)
         , _text(Util::replace(text, "\\n", "\n"))
         , _font("Carlito")
@@ -67,6 +81,25 @@ public:
             alphaBlend(*pixmap, width, height, offsetX, offsetY,
                        tilePixmap, tilesPixmapWidth, tilesPixmapHeight,
                        /*isFontBlending*/ false,  isSlideShowLayer);
+        }
+    }
+
+    void blending2(unsigned char* batchCanvas, int canvasWidth, int canvasHeight, const TileParams& p, COKitTileMode, bool isSlideShowLayer = false)
+    {
+        if (p.twipWidth <= 0 || p.twipHeight <= 0 || p.twipPosX < 0 || p.twipPosY < 0)
+        {
+            return;
+        }
+
+        const int multiTilePixmapWidth = p.width * GridPeriod;
+        const int multiTilePixmapHeight = p.height * GridPeriod;
+
+        const std::vector<unsigned char>* multiTilePixmap = getPixmap2(multiTilePixmapWidth, multiTilePixmapHeight, p);
+
+        if (multiTilePixmap && batchCanvas)
+        {
+            alphaBlend(*multiTilePixmap, p.width, p.height, p.offsetX, p.offsetY,
+                       batchCanvas, canvasWidth, canvasHeight, false, isSlideShowLayer);
         }
     }
 
@@ -119,30 +152,89 @@ private:
         }
 
         const size_t key = width + height * 10000;
-
         if (_pixmaps.find(key) != _pixmaps.end())
         {
             return &_pixmaps[key];
         }
 
+        auto pixmap = drawPixmap(width, height);
+        if (pixmap.empty())
+        {
+            return nullptr;
+        }
+
+        auto [it, inserted] = _pixmaps.emplace(key, std::move(pixmap));
+        return &it->second;
+    }
+
+    /// Create bitmap consisting of 4 tiles.
+    const std::vector<unsigned char>* getPixmap2(int width, int height, const TileParams& p)
+    {
+        if (_loKitDoc == nullptr)
+        {
+            return nullptr;
+        }
+
+        const size_t key = (static_cast<size_t>(width) << 32) | static_cast<uint32_t>(height);
+        const long tileCol = p.twipPosX / p.twipWidth;
+        const long tileRow = p.twipPosY / p.twipHeight;
+        const int localRow = tileRow % GridPeriod;
+        const int localCol = tileCol % GridPeriod;
+        const int fragment = localRow * GridPeriod + localCol;
+
+        auto [it, inserted] = _pixmaps2.try_emplace(key);
+        if (!inserted)
+        {
+            return &it->second.fragments[fragment];
+        }
+
+        auto& fragments = it->second.fragments;
+
+        std::vector<unsigned char> multiTilesPixmap = drawPixmap(width, height);
+
+        const int tileWidth = width / GridPeriod;
+        const int tileHeight = height / GridPeriod;
+
+        for (int r = 0; r < GridPeriod; ++r)
+        {
+            for (int c = 0; c < GridPeriod; ++c)
+            {
+                auto& tile = fragments[r * GridPeriod + c];
+                tile.resize(tileWidth * tileHeight * 4);
+
+                const int cropX = static_cast<int>(c) * tileWidth;
+                const int cropY = static_cast<int>(r) * tileHeight;
+
+                for (int y = 0; y < tileHeight; ++y)
+                {
+                    const unsigned char* srcRow = multiTilesPixmap.data() + 4 * ((cropY + y) * width + cropX);
+                    unsigned char* dstRow = tile.data() + 4 * (y * tileWidth);
+                    std::memcpy(dstRow, srcRow, tileWidth * 4);
+                }
+            }
+        }
+
+        return &it->second.fragments[fragment];
+    }
+
+    std::vector<unsigned char> drawPixmap(int width, int height)
+    {
+        assert(_loKitDoc);
+
         // renderFont returns a buffer based on RGBA mode, where r, g, b
         // are always set to 0 (black) and the alpha level is 0 everywhere
         // except on the text area; the alpha level take into account of
         // performing anti-aliasing over the text edges.
-        ScopedBytes textPixels(_loKitDoc->renderFontOrientation(_font.c_str(), _text.c_str(), &width, &height, 0));
-
+        std::unique_ptr<unsigned char, decltype(&std::free)> textPixels(_loKitDoc->renderFontOrientation(_font.c_str(), _text.c_str(), &width, &height, 0), std::free);
         if (!textPixels)
         {
             LOG_ERR("Watermark: rendering failed.");
-            return nullptr;
+            return {};
         }
-
-        const unsigned int pixel_count = width * height * 4;
-
-        std::vector<unsigned char> text(textPixels.get(), textPixels.get() + pixel_count);
-
-        _pixmaps.emplace(key, std::vector<unsigned char>(pixel_count));
-        std::vector<unsigned char>& _pixmap = _pixmaps[key];
+        const unsigned int pixelCount = width * height * 4;
+        std::vector<unsigned char> text(textPixels.get(), textPixels.get() + pixelCount);
+        std::vector<unsigned char> rotatedText(pixelCount);
+        std::vector<unsigned char> pixmap(pixelCount);
 
         /*
             apply 2d rotation transformation (counter-clockwise):
@@ -153,13 +245,11 @@ private:
         // Use box blur, it's enough for our purposes
 
         // PI / 4 (45 degrees): sin = cos = 1/sqrt(2)
-        const double sin = 0.707106781186547524;
+        const double sin = std::sin(std::numbers::pi / 4);
         const double cos = sin;
 
         const double x0 = width / 2.0;
         const double y0 = height / 2.0;
-
-        std::vector<unsigned char> _rotatedText(pixel_count);
 
         const int r = 2;
         const double weight = (r+1) * (r+1);
@@ -176,17 +266,17 @@ private:
                 if (rX >= 0 && rX <= width && rY >= 0 && rY <= height && pos < text.size())
                 {
                     unsigned char* p = text.data() + 4 * (rY * width + rX);
-                    _rotatedText[4 * (y * width + x) + 0] = p[0];
-                    _rotatedText[4 * (y * width + x) + 1] = p[1];
-                    _rotatedText[4 * (y * width + x) + 2] = p[2];
-                    _rotatedText[4 * (y * width + x) + 3] = p[3];
+                    rotatedText[4 * (y * width + x) + 0] = p[0];
+                    rotatedText[4 * (y * width + x) + 1] = p[1];
+                    rotatedText[4 * (y * width + x) + 2] = p[2];
+                    rotatedText[4 * (y * width + x) + 3] = p[3];
                 }
                 else
                 {
-                    _rotatedText[4 * (y * width + x) + 0] = 0.0;
-                    _rotatedText[4 * (y * width + x) + 1] = 0.0;
-                    _rotatedText[4 * (y * width + x) + 2] = 0.0;
-                    _rotatedText[4 * (y * width + x) + 3] = 0.0;
+                    rotatedText[4 * (y * width + x) + 0] = 0.0;
+                    rotatedText[4 * (y * width + x) + 1] = 0.0;
+                    rotatedText[4 * (y * width + x) + 2] = 0.0;
+                    rotatedText[4 * (y * width + x) + 3] = 0.0;
                 }
 
                 double t = 0;
@@ -207,23 +297,23 @@ private:
 
                 // Pre-multiplied alpha, but use white for the resulting color
                 const double alpha = avg / 255.0;
-                _pixmap[4 * (y * width + x) + 0] = 0xff * alpha;
-                _pixmap[4 * (y * width + x) + 1] = 0xff * alpha;
-                _pixmap[4 * (y * width + x) + 2] = 0xff * alpha;
-                _pixmap[4 * (y * width + x) + 3] = avg;
+                pixmap[4 * (y * width + x) + 0] = 0xff * alpha;
+                pixmap[4 * (y * width + x) + 1] = 0xff * alpha;
+                pixmap[4 * (y * width + x) + 2] = 0xff * alpha;
+                pixmap[4 * (y * width + x) + 3] = avg;
             }
         }
 
         // Now copy the (black) text over the (white) blur
-        alphaBlend(_rotatedText, width, height, 0, 0, _pixmap.data(), width, height, true);
+        alphaBlend(rotatedText, width, height, 0, 0, pixmap.data(), width, height, true);
 
         // Make the resulting pixmap semi-transparent
-        for (unsigned char* p = _pixmap.data(); p < _pixmap.data() + pixel_count; p++)
+        for (unsigned char* p = pixmap.data(); p < pixmap.data() + pixelCount; p++)
         {
             *p = static_cast<unsigned char>(*p * _alphaLevel);
         }
 
-        return &_pixmap;
+        return pixmap;
     }
 
 private:
@@ -232,6 +322,7 @@ private:
     const std::string _font;
     const double _alphaLevel;
     std::unordered_map<size_t, std::vector<unsigned char>> _pixmaps;
+    std::unordered_map<size_t, PixmapSet> _pixmaps2;
 };
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
