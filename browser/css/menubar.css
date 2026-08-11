@@ -42,7 +42,7 @@
 
 .document-title {
 	white-space: nowrap;
-	display: flex;
+	display: none !important;
 	align-items: baseline;
 	justify-content: center;
 	flex-direction: row;
@@ -569,3 +569,296 @@ nav.hasnotebookbar [id^='save'].saved::after {
 .restricted-item {
 	display: none !important;
 }
+
+/*vaulterix changes*/
+
+main-nav #main-menu {
+	height: 100% !important;
+}
+.main-nav,
+.main-nav.hasnotebookbar:not(.readonly) {
+	background: rgb(var(--doc-type));
+}
+.main-nav .lo-menu > li > a {
+	color: var(--color-primary-text);
+}
+.main-nav .lo-menu > li > a:hover {
+	color: var(--color-text-darker);
+}
+.main-nav .lo-menu > li > a.highlighted {
+	background: var(--color-primary-text);
+	color: var(--color-text-darker);
+	border-color: transparent;
+	border-bottom: none;
+}
+.main-nav .lo-menu > li > a.highlighted:hover {
+	background: var(--color-primary-text);
+	color: var(--color-text-darker);
+	border-color: transparent;
+	border-bottom: none;
+}
+
+.lo-menu a:hover:not(.disabled) {
+	color: black !important;
+	background: #F5F5F5 !important;
+}
+
+.lo-menu a.has-submenu.highlighted:not(:hover),
+.lo-menu a.highlighted:not(:hover) {
+	background-color: white !important;
+	color: black !important;
+}
+
+#optionstoolboxdown-row .unotoolbutton:hover {
+	background-color: white !important;
+}
+
+#document-name-input {
+	color: white !important;
+}
+
+#main-menu #menu-editmenu,
+#main-menu #menu-format,
+#main-menu #menu-references,
+#main-menu #menu-table,
+#main-menu #menu-form,
+#main-menu #menu-tools,
+#main-menu #menu-help,
+#main-menu #menu-last-mod,
+#main-menu #menu-file,
+#main-menu #menu-view,
+#main-menu #menu-insert,
+#main-menu #menu-sheet,
+#main-menu #menu-data,
+#main-menu #menu-slide {
+	height: 100% !important;
+}
+
+#main-menu #menu-editmenu > :first-child,
+#main-menu #menu-format > :first-child,
+#main-menu #menu-references > :first-child,
+#main-menu #menu-table > :first-child,
+#main-menu #menu-form > :first-child,
+#main-menu #menu-tools > :first-child,
+#main-menu #menu-help > :first-child,
+#main-menu #menu-last-mod > :first-child,
+#main-menu #menu-file > :first-child,
+#main-menu #menu-view > :first-child,
+#main-menu #menu-insert > :first-child,
+#main-menu #menu-sheet > :first-child,
+#main-menu #menu-data > :first-child,
+#main-menu #menu-slide > :first-child {
+	height: 100% !important;
+	border-radius: 0px !important;
+	border: none !important;
+}
+
+#main-menu #menu-editmenu > :first-child:not(.highlighted),
+#main-menu #menu-format > :first-child:not(.highlighted),
+#main-menu #menu-references > :first-child:not(.highlighted),
+#main-menu #menu-table > :first-child:not(.highlighted),
+#main-menu #menu-form > :first-child:not(.highlighted),
+#main-menu #menu-tools > :first-child:not(.highlighted),
+#main-menu #menu-help > :first-child:not(.highlighted),
+#main-menu #menu-last-mod > :first-child:not(.highlighted),
+#main-menu #menu-file > :first-child:not(.highlighted),
+#main-menu #menu-view > :first-child:not(.highlighted),
+#main-menu #menu-insert > :first-child:not(.highlighted),
+#main-menu #menu-sheet > :first-child:not(.highlighted),
+#main-menu #menu-data > :first-child:not(.highlighted),
+#main-menu #menu-slide > :first-child:not(.highlighted) {
+	color: white;
+}
+
+.notebookbar#transitions_icons.ui-iconview,
+.notebookbar#stylesview.ui-iconview {
+	width: 300px !important;
+	min-width: 300px !important;
+}
+.main-nav.hasnotebookbar .ui-tab.selected.notebookbar:hover:not(.dummy-class) {
+	box-shadow: none !important;
+}
+#userListPopover {
+	max-height: 300px !important;
+	overflow-y: auto !important;
+}
+.jsdialog-container:has(#DocumentPropertiesDialog) {
+	max-width: 800px;
+}
+#DocumentPropertiesDialog #DocumentInfoPage #grid1 .uitext {
+	word-break: break-word;
+}
+#DocumentPropertiesDialog #DocumentInfoPage #showlocation {
+	word-break: break-word;
+}
+
+.notebookbar-tabs-container .ui-tab {
+	color: white !important;
+	height: 100% !important;
+}
+.ui-tab.selected.notebookbar:not(.hovered) {
+	background: var(--color-primary-text) !important;
+	color: rgb(var(--doc-type)) !important;
+	box-shadow: none !important;
+	height: 100% !important;
+}
+.ui-tab.notebookbar:hover:not(.selected) {
+	background: rgba(255, 255, 255, 0.22) !important;
+	box-shadow: none !important;
+	height: 100% !important;
+	color: white !important;
+}
+
+form.snackbar.jsdialog-container.ui-dialog.ui-widget-content.lokdialog_container {
+	display: none !important;
+}
+.ui-header:has(.fullscreen) {
+	display: none !important;
+}
+.ui-header:has(.latestupdates) {
+	display: none !important;
+}
+.ui-header:has(.feedback) {
+	display: none !important;
+}
+.ui-header:has(.about) {
+	display: none !important;
+}
+.ui-header:has(.downloadas) {
+	display: none !important;
+}
+.jsdialog.ui-button-box-right:has(#modal-dialog-switch-to-edit-mode-modal-nobutton)
+.d-flex.justify-content-center:has(#modal-dialog-switch-to-edit-mode-modal-yesbutton) {
+	display: none !important;
+}
+@media all and (max-width: 767px) {
+	.ui-header:has(.defineprintarea) {
+		display: none !important;
+	}
+	.ui-header:has(.deleteprintarea) {
+		display: none !important;
+	}
+}
+
+/* .main-nav.hasnotebookbar #closebuttonwrapper {
+	display: none !important;
+} */
+/* #menu-toggledarktheme {
+	display: none !important;
+}
+.notebookbar .unotoggledarktheme {
+	display: none !important;
+} */
+/* .main-nav.hasnotebookbar #document-header {
+	display: none !important;
+} */
+/* #Help-tab-label {
+	display: none !important;
+} */
+/* #menu-help {
+	display: none !important;
+} */
+/* #fullscreen {
+	display: none !important;
+} */
+/* #view-presentation-in-window {
+	display: none !important;
+} */
+/* does nothing. removed 'id': 'view-presentation:Presentation' instead*/
+/* #view-presentation {
+	display: none !important;
+} */
+/* #presentation {
+	display: none !important;
+} */
+/* #menu-present-in-window {
+	display: none !important;
+} */
+/* #menu-presentation-currentslide {
+	display: none !important;
+} */
+/* VLT-4001 Убрать кнопку переименования */
+/* #renamedocument {
+	display: none !important;
+} */
+/* #menu-savecomments {
+	display: none !important;
+} */
+/* seems useless */
+/* #menu-fullscreen {
+	display: none !important;
+} */
+/* seems useless */
+/* #menu-fullscreen + li {
+	display: none !important;
+} */
+/* seems useless */ /* VLT-4001 Убрать кнопку переименования */
+/* #menu-renamedocument {
+	display: none !important;
+} */
+/* VLT-4224 */
+/* #downloadas {
+	display: none !important;
+} */
+/* VLT-4224 */ /* seems useless */
+/* #menu-downloadas {
+	display: none !important;
+} */
+/* VLT-4321 Убрать кнопку signature line */
+/* #signature {
+	display: none !important;
+} */
+/* VLT-4321 */
+/* #menu-signature {
+	display: none !important;
+} */
+/* VLT-4321 */ /* seems useless */
+/* #menu-insert-signatureline {
+	display: none !important;
+} */
+/* looks useless */
+/* #large_copy_paste_warning p:last-child {
+	display: none !important;
+} */
+/* looks useless */
+/* .iframe-welcome-wrap {
+	display: none !important;
+} */
+/* looks useless */
+/* .leaflet-container.leaflet-progress-layer.brand-label {
+	display: none !important;
+} */
+/* VLT-4869 */ /* looks useless */
+/* #menu-runmacro {
+	display: none !important;
+} */
+/* #document-header:has(.document-logo) {
+	display: none !important;
+} */
+/* #closebutton {
+	display: none !important;
+} */
+/* VLT-4869 Скрыть выполнить макрос в коллаборе */
+/* .unoRunMacro {
+	display: none !important;
+} */
+/* 4993 Скрытие "Сохранить как" и "Экспортировать как" */
+/* #file-saveas {
+	display: none !important;
+} */
+/* 4993 */
+/* #menu-saveas {
+	display: none !important;
+} */
+/* 4993 */
+/* #exportas {
+	display: none !important;
+} */
+/*seems useless*/ /* 4993 */
+/* #menu-exportas {
+	display: none !important;
+} */
+/* disableIframePrintDisplay() */
+/* .brand-label {
+	display: none !important;
+} */

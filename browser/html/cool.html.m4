@@ -174,9 +174,11 @@ m4_ifelse(MOBILEAPP, [true],
         <div id="viewMode">
         </div>
         <div id="closebuttonwrapperseparator"></div>
+        <!--
         <div id="closebuttonwrapper">
           <button class="closebuttonimage" id="closebutton" accesskey="ZC"></button>
         </div>
+        -->
       </nav>
 
       <div id="toolbar-wrapper" role="toolbar" aria-orientation="horizontal">

@@ -26,21 +26,21 @@ L.ProgressOverlay = window.L.Layer.extend({
 		this._spinner = window.L.DomUtil.create('div', 'leaflet-progress-spinner', this._container);
 		this._spinnerCanvas = window.L.DomUtil.create('canvas', 'leaflet-progress-spinner-canvas', this._spinner);
 
-		var productName;
-		if (window.ThisIsAMobileApp) {
-			productName = window.MobileAppName;
-		} else {
-			productName = (typeof brandProductName !== 'undefined') ? brandProductName : 'Collabora Online Development Edition (unbranded)';
-		}
-		if (window.logoURL) {
-			this._spinner.style.setProperty(
-				'--spinner-logo',
-				`url("${window.logoURL}")`
-			);
-			this._spinnerCanvas.style.opacity = '0';
-		}
-		this._brandLabel = window.L.DomUtil.create('div', 'leaflet-progress-label brand-label', this._container);
-		this._brandLabel.innerHTML = productName;
+		// var productName;
+		// if (window.ThisIsAMobileApp) {
+		// 	productName = window.MobileAppName;
+		// } else {
+		// 	productName = (typeof brandProductName !== 'undefined') ? brandProductName : 'Collabora Online Development Edition (unbranded)';
+		// }
+		// if (window.logoURL) {
+		// 	this._spinner.style.setProperty(
+		// 		'--spinner-logo',
+		// 		`url("${window.logoURL}")`
+		// 	);
+		// 	this._spinnerCanvas.style.opacity = '0';
+		// }
+		// this._brandLabel = window.L.DomUtil.create('div', 'leaflet-progress-label brand-label', this._container);
+		// this._brandLabel.innerHTML = productName;
 
 
 		this._label = window.L.DomUtil.create('div', 'leaflet-progress-label', this._container);

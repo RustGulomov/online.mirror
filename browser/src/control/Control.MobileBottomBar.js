@@ -202,7 +202,7 @@ class MobileBottomBar extends JSDialog.Toolbar {
 				{type: 'toolitem', id: 'duplicatepage', text: _UNO('.uno:DuplicatePage', 'presentation', true), command: '.uno:DuplicatePage', context: ['DrawPage']},
 				{type: 'toolitem', id: 'deletepage', text: _UNO('.uno:DeletePage', 'presentation', true), command: '.uno:DeletePage', context: ['DrawPage']},
 				{type: 'separator', context: ['DrawPage']},
-				{type: 'customtoolitem', id: 'fullscreen', command: 'fullscreen-' + this.docType, text: _UNO('.uno:FullScreen', this.docType), context: ['DrawPage']},
+				// {type: 'customtoolitem', id: 'fullscreen', command: 'fullscreen-' + this.docType, text: _UNO('.uno:FullScreen', this.docType), context: ['DrawPage']},
 				// context: ['default', 'Text', 'DrawText', 'Table']
 				{type: 'toolitem', id: 'bold', text: _UNO('.uno:Bold'), command: '.uno:Bold', context: ['default', 'Text', 'DrawText', 'TextObject', 'Table']},
 				{type: 'toolitem', id: 'italic', text: _UNO('.uno:Italic'), command: 'Italic', context: ['default', 'Text', 'DrawText', 'TextObject', 'Table']},

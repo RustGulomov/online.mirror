@@ -114,12 +114,12 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 				'name': 'Extensions',
 				'accessibility': { focusBack: true, combination: 'X' }
 			},
-			{
-				'id': 'Help-tab-label',
-				'text': _('Help'),
-				'name': 'Help',
-				'accessibility': { focusBack: true,	combination: 'Y', de: null }
-			}
+			// {
+			// 	'id': 'Help-tab-label',
+			// 	'text': _('Help'),
+			// 	'name': 'Help',
+			// 	'accessibility': { focusBack: true,	combination: 'Y', de: null }
+			// }
 		]);
 	},
 
@@ -140,7 +140,7 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 			this.getSparklineTab(),
 			this.getCalcTableTab(),
 			this.getExtensionsTab(),
-			this.getHelpTab()
+			// this.getHelpTab()
 		]);
 	},
 
@@ -171,34 +171,34 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 		}
 
 		if (hasSaveAs) {
-			content.push(
-				(window.prefs.get('saveAsMode') === 'group') ? {
-					'id': 'saveas:SaveAsMenu',
-					'command': 'saveas',
-					'class': 'unosaveas',
-					'type': 'exportmenubutton',
-					'text': _('Save As'),
-					'accessibility': { focusBack: true,	combination: 'A', de: null }
-				}:
-				{
-					'id': 'file-saveas',
-					'type': 'bigtoolitem',
-					'text': _UNO('.uno:SaveAs', 'spreadsheet'),
-					'command': '.uno:SaveAs',
-					'accessibility': { focusBack: true,	combination: 'A', de: null }
-				}
-			);
+			// content.push(
+			// 	(window.prefs.get('saveAsMode') === 'group') ? {
+			// 		'id': 'saveas:SaveAsMenu',
+			// 		'command': 'saveas',
+			// 		'class': 'unosaveas',
+			// 		'type': 'exportmenubutton',
+			// 		'text': _('Save As'),
+			// 		'accessibility': { focusBack: true,	combination: 'A', de: null }
+			// 	}:
+			// 	{
+			// 		'id': 'file-saveas',
+			// 		'type': 'bigtoolitem',
+			// 		'text': _UNO('.uno:SaveAs', 'spreadsheet'),
+			// 		'command': '.uno:SaveAs',
+			// 		'accessibility': { focusBack: true,	combination: 'A', de: null }
+			// 	}
+			// );
 		}
 
 		if (hasSaveAs) {
-			content.push({
-				'id': 'exportas:ExportAsMenu',
-				'command': 'exportas',
-				'class': 'unoexportas',
-				'type': 'exportmenubutton',
-				'text': _('Export As'),
-				'accessibility': { focusBack: true,	combination: 'E', de: null }
-			});
+			// content.push({
+			// 	'id': 'exportas:ExportAsMenu',
+			// 	'command': 'exportas',
+			// 	'class': 'unoexportas',
+			// 	'type': 'exportmenubutton',
+			// 	'text': _('Export As'),
+			// 	'accessibility': { focusBack: true,	combination: 'E', de: null }
+			// });
 		}
 
 		if (hasShare && hasRevisionHistory) {
@@ -299,28 +299,28 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 			content.push({
 				'type': 'toolbox',
 				'children': [
-					{
-						'id': 'runmacro',
-						'type': 'bigtoolitem',
-						'text': _UNO('.uno:RunMacro', 'text'),
-						'command': '.uno:RunMacro',
-						'accessibility': { focusBack: true,	combination: 'M', de: null }
-					}
+					// {
+					// 	'id': 'runmacro',
+					// 	'type': 'bigtoolitem',
+					// 	'text': _UNO('.uno:RunMacro', 'text'),
+					// 	'command': '.uno:RunMacro',
+					// 	'accessibility': { focusBack: true,	combination: 'M', de: null }
+					// }
 				]
 			});
 		}
 
 		if (!this.map['wopi'].HideExportOption) {
-			content.push({
-				'id': 'downloadas:DownloadAsMenu',
-				'command': 'downloadas',
-				'class': 'unodownloadas',
-				'type': 'exportmenubutton',
-				'text': !window.ThisIsAMobileApp ? _('Download') :
-					(window.ThisIsTheWindowsApp ? _('Export as') :
-					 _('Save As')),
-				'accessibility': { focusBack: true,	combination: 'DA', de: null }
-			});
+			// content.push({
+			// 	'id': 'downloadas:DownloadAsMenu',
+			// 	'command': 'downloadas',
+			// 	'class': 'unodownloadas',
+			// 	'type': 'exportmenubutton',
+			// 	'text': !window.ThisIsAMobileApp ? _('Download') :
+			// 		(window.ThisIsTheWindowsApp ? _('Export as') :
+			// 		 _('Save As')),
+			// 	'accessibility': { focusBack: true,	combination: 'DA', de: null }
+			// });
 		}
 
 		content.push( { type: 'separator', id: 'file-downloadas-break', orientation: 'vertical' } );
@@ -358,13 +358,13 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 			content.push({
 				'type': 'container',
 				'children': [
-					{
-						'id': 'signature',
-						'type': 'bigtoolitem',
-						'text': _('Signature'),
-						'command': '.uno:Signature',
-						'accessibility': { focusBack: true, combination: 'GN' }
-					}
+					// {
+					// 	'id': 'signature',
+					// 	'type': 'bigtoolitem',
+					// 	'text': _('Signature'),
+					// 	'command': '.uno:Signature',
+					// 	'accessibility': { focusBack: true, combination: 'GN' }
+					// }
 				]
 			});
 		}
@@ -373,13 +373,13 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 				{
 					'type': 'container',
 					'children': [
-						{
-							'id': 'renamedocument',
-							'class': 'unoRenameDocument',
-							'type': 'bigcustomtoolitem',
-							'text': _('Rename'),
-							'accessibility': { focusBack: true, combination: 'RN', de: null }
-						}
+						// {
+						// 	'id': 'renamedocument',
+						// 	'class': 'unoRenameDocument',
+						// 	'type': 'bigcustomtoolitem',
+						// 	'text': _('Rename'),
+						// 	'accessibility': { focusBack: true, combination: 'RN', de: null }
+						// }
 					]
 				}
 			);
@@ -1566,13 +1566,13 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 							'text': _('Read mode'),
 							'command': 'closetablet',
 						} : {},
-					{
-						'id': 'fullscreen',
-						'type': 'bigtoolitem',
-						'text': _UNO('.uno:FullScreen'),
-						'command': '.uno:FullScreen',
-						'accessibility': { focusBack: true,	combination: 'FS', de: null }
-					},
+					// {
+					// 	'id': 'fullscreen',
+					// 	'type': 'bigtoolitem',
+					// 	'text': _UNO('.uno:FullScreen'),
+					// 	'command': '.uno:FullScreen',
+					// 	'accessibility': { focusBack: true,	combination: 'FS', de: null }
+					// },
 					{
 						'id': 'zoomreset',
 						'class': 'unozoomreset',
@@ -1652,13 +1652,13 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 				'vertical': 'true'
 			},
 			{ type: 'separator', id: 'layout-showstatusbar-break', orientation: 'vertical' },
-			{
-				'id':'toggledarktheme',
-				'class': 'unotoggledarktheme',
-				'type': 'bigcustomtoolitem',
-				'text': _('Dark Mode'),
-				'accessibility': { focusBack: true,	combination: 'DT', de: null }
-			},
+			// {
+			// 	'id':'toggledarktheme',
+			// 	'class': 'unotoggledarktheme',
+			// 	'type': 'bigcustomtoolitem',
+			// 	'text': _('Dark Mode'),
+			// 	'accessibility': { focusBack: true,	combination: 'DT', de: null }
+			// },
 			{
 				'id':'invertbackground',
 				'class': 'unoinvertbackground',

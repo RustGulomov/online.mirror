@@ -52,6 +52,7 @@ span.notebookbar.static-label,
 	display: inline-flex;
 	flex: 0.1 0.1 auto;
 	margin-inline-start: 5px;
+	height: 100% !important;
 }
 
 .ui-tabs.notebookbar {
