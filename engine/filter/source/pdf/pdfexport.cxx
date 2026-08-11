@@ -1457,92 +1457,126 @@ void PDFExport::ImplWriteWatermark( vcl::pdf::PDFWriter& rWriter, const Size& rP
 
 void PDFExport::ImplWriteTiledWatermark( vcl::pdf::PDFWriter& rWriter, const Size& rPageSize )
 {
-    OUString watermark = msTiledWatermark;
-    // Maximum number of characters in one line.
-    // it is set to 21 to make it look like tiled watermarks as online in secure view
-    const int lineLength = 21;
-    vcl::Font aFont( u"Liberation Sans"_ustr, Size( 0, 40 ) );
-    aFont.SetItalic( ITALIC_NONE );
-    aFont.SetWidthType( WIDTH_NORMAL );
-    aFont.SetWeight( WEIGHT_NORMAL );
-    aFont.SetAlignment( ALIGN_BOTTOM );
-    aFont.SetFontHeight(40);
-    aFont.SetOrientation(450_deg10);
-
-    OutputDevice* pDev = rWriter.GetReferenceDevice();
-    pDev->SetFont(aFont);
-    pDev->Push();
-    pDev->SetFont(aFont);
-    pDev->SetMapMode( MapMode( MapUnit::MapPoint ) );
-    int w = 0;
-    int watermarkcount = ((rPageSize.Width()) / 200)+1;
-    tools::Long nTextWidth = rPageSize.Width() / (watermarkcount*1.5);
-    OUString oneLineText = watermark;
-
-    if(watermark.getLength() > lineLength)
-        oneLineText = watermark.copy(0, lineLength);
-
-    while((w = pDev->GetTextWidth(oneLineText)) > nTextWidth)
-    {
-        if(w==0)
-            break;
-
-        tools::Long nNewHeight = aFont.GetFontHeight() * nTextWidth / w;
-        aFont.SetFontHeight(nNewHeight);
-        pDev->SetFont( aFont );
-    }
-    // maximum number of watermark count for the width
-    if(watermarkcount > 8)
-        watermarkcount = 8;
-
-    pDev->Pop();
+    if (msTiledWatermark.isEmpty())
+        return;
 
     rWriter.Push();
-    // tdf#152235 tag around the reference to the XObject on the page
-    sal_Int32 const id = rWriter.EnsureStructureElement();
-    rWriter.InitStructureElement(id, vcl::pdf::StructElement::NonStructElement, ::std::u16string_view());
-    rWriter.BeginStructureElement(id);
-    rWriter.SetStructureAttribute(vcl::pdf::PDFWriter::Type, vcl::pdf::PDFWriter::Pagination);
-    rWriter.SetStructureAttribute(vcl::pdf::PDFWriter::Subtype, vcl::pdf::PDFWriter::Watermark);
-    // HACK: this should produce *nothing* itself but is necessary to output
-    // the Artifact tag here, not inside the XObject
-    rWriter.DrawPolyLine({});
-    rWriter.SetMapMode( MapMode( MapUnit::MapPoint ) );
-    rWriter.SetFont(aFont);
-    rWriter.SetTextColor( Color(19,20,22) );
-    // center watermarks horizontally
-    Point aTextPoint( (rPageSize.Width()/2) - (((nTextWidth*watermarkcount)+(watermarkcount-1)*nTextWidth)/2),
-                      pDev->GetTextHeight());
 
-    for( int i = 0; i < watermarkcount; i ++)
+    const Degree10 fontAngle = Degree10(450);
+    const Size pageSize100mm(static_cast<tools::Long>(rPageSize.Width()  * 2540.0 / 72.0),
+                    static_cast<tools::Long>(rPageSize.Height() * 2540.0 / 72.0));
+    const double fRad = fontAngle.get() * M_PI / (180.0 * 10);
+    const double sin = std::sin(fRad), cos = std::cos(fRad);
+    constexpr int watermarkCountPerRow = 3;
+    constexpr int maxLineSize = 30;
+    constexpr int horizontalMargin = 500, verticalMargin = 1000;
+    constexpr tools::Long initialFontHeight = 5000;
+
+    vcl::Font font(u"Liberation Sans"_ustr, Size(0, initialFontHeight));
+    font.SetOrientation(fontAngle);
+    font.SetWidthType(WIDTH_NORMAL);
+    font.SetWeight(WEIGHT_NORMAL);
+
+    OutputDevice* helperDevice = rWriter.GetReferenceDevice();
+    helperDevice->SetFont(font);
+
+    struct
     {
-        while(aTextPoint.getY()+pDev->GetTextHeight()*3 <= rPageSize.Height())
+        const tools::Long columnSpacing{10};
+        tools::Long lineHeight{0};        
+        tools::Long widestWidth{0};
+        std::size_t widestLineIdx{0};
+        tools::Long textHeight{0};
+        tools::Long projectedWidth{0};
+        tools::Long projectedHeight{0};
+        tools::Long rowSpacing{0};
+        std::vector<tools::Long> linesWidth;
+    } metrics;
+
+    std::vector<OUString> lines;
+
+    for (int begin = 0, end = 0; ; ++end)
+    {
+        auto* data = msTiledWatermark.getStr();
+        if (data[begin] == ' ') 
         {
-            tools::Rectangle aTextRect(aTextPoint, Size(nTextWidth*2,pDev->GetTextHeight()*4));
-
-            pDev->Push();
-            rWriter.SetClipRegion();
-            rWriter.BeginTransparencyGroup();
-            rWriter.SetTextColor( Color(19,20,22) );
-            rWriter.DrawText(aTextRect, watermark, DrawTextFlags::MultiLine|DrawTextFlags::Center|DrawTextFlags::VCenter|DrawTextFlags::WordBreak|DrawTextFlags::Bottom);
-            rWriter.EndTransparencyGroup( aTextRect, 50 );
-            pDev->Pop();
-
-            pDev->Push();
-            rWriter.SetClipRegion();
-            rWriter.BeginTransparencyGroup();
-            rWriter.SetTextColor( Color(236,235,233) );
-            rWriter.DrawText(aTextRect, watermark, DrawTextFlags::MultiLine|DrawTextFlags::Center|DrawTextFlags::VCenter|DrawTextFlags::WordBreak|DrawTextFlags::Bottom);
-            rWriter.EndTransparencyGroup( aTextRect, 50 );
-            pDev->Pop();
-
-            aTextPoint.Move(0, pDev->GetTextHeight()*3);
+            ++begin;
+            continue;
         }
-        aTextPoint=Point( aTextPoint.getX(), pDev->GetTextHeight() );
-        aTextPoint.Move( nTextWidth*1.5, 0 );
+        if (sal_Unicode last = data[end]; last == '\0' || last == '\n' || ((end - begin) == maxLineSize) )
+        {
+            if (end - begin)
+            {
+                lines.push_back(msTiledWatermark.copy(begin, end - begin));
+                if (auto lineWidth = helperDevice->GetTextWidth(lines.back()); metrics.widestWidth < lineWidth)
+                {
+                    metrics.widestWidth = lineWidth;
+                    metrics.widestLineIdx = lines.size() - 1;
+                }
+            }
+            if (last == '\0')
+                break;
+            begin = last == '\n' ? end + 1 : end;
+        }
     }
 
-    rWriter.EndStructureElement();
+    if (lines.empty())
+        return;
+
+    const auto updateMetrics = [&metrics, &lines, helperDevice, sin, cos]() {
+        metrics.rowSpacing = helperDevice->GetFont().GetFontHeight();
+        metrics.widestWidth = helperDevice->GetTextWidth(lines[metrics.widestLineIdx]);
+        metrics.lineHeight = helperDevice->GetTextHeight();
+        metrics.textHeight = lines.size() * helperDevice->GetTextHeight() + (lines.size() - 1) * metrics.rowSpacing;
+        metrics.projectedWidth = std::abs(metrics.widestWidth * cos) + std::abs(metrics.textHeight * sin);
+        metrics.projectedHeight = std::abs(metrics.widestWidth * sin) + std::abs(metrics.textHeight * cos);
+    };
+
+    const auto getColumnSpacing = [&pageSize100mm, &metrics]() {
+        return (pageSize100mm.Width() - watermarkCountPerRow * metrics.projectedWidth - horizontalMargin * 2) / (watermarkCountPerRow - 1);
+    };
+
+    updateMetrics();
+
+    for (int columnSpacing = getColumnSpacing(); columnSpacing < metrics.columnSpacing; columnSpacing = getColumnSpacing())
+    {
+        tools::Long targetWidth = (pageSize100mm.Width() - horizontalMargin * 2 - metrics.columnSpacing * (watermarkCountPerRow - 1)) / watermarkCountPerRow;
+        tools::Long newHeight = font.GetFontHeight() * targetWidth / metrics.projectedWidth;
+        font.SetFontHeight(newHeight);
+        helperDevice->SetFont(font);
+        updateMetrics();
+    }
+
+    for (const auto& line : lines)
+    {
+        metrics.linesWidth.push_back(helperDevice->GetTextWidth(line));
+    }
+
+    rWriter.SetFont(font);
+    rWriter.SetTextColor( Color(164, 163, 163) );
+    tools::Rectangle rect(Point{0, 0}, Size(pageSize100mm.getWidth(), pageSize100mm.getHeight()));
+    rWriter.SetClipRegion();
+    rWriter.BeginTransparencyGroup();
+
+    for (Point startPos = {horizontalMargin, verticalMargin + static_cast<tools::Long>(metrics.widestWidth * cos)};
+         startPos.getY() + metrics.projectedHeight - metrics.widestWidth * sin <= pageSize100mm.getHeight();)
+    {
+        for (int i = 0; i < watermarkCountPerRow; ++i)
+        {
+            for (size_t j = 0; j < lines.size(); ++j)
+            {
+                tools::Long lineWidth = metrics.linesWidth[j];
+                tools::Long leftShift = (metrics.widestWidth - lineWidth) / 2;
+                Point pos(startPos.X() + j * (metrics.rowSpacing + metrics.lineHeight) * sin + leftShift * cos,
+                          startPos.Y() + j * (metrics.rowSpacing + metrics.lineHeight) * cos - leftShift * sin);
+                rWriter.DrawText(pos, lines[j]);
+            }
+            startPos = Point{startPos.getX() + metrics.projectedWidth + metrics.columnSpacing, startPos.getY()};
+        }
+        startPos = Point{horizontalMargin, startPos.getY() + metrics.columnSpacing + metrics.projectedHeight};
+    }
+
+    rWriter.EndTransparencyGroup(rect, 25);
     rWriter.Pop();
 }
 
