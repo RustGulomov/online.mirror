@@ -1951,7 +1951,7 @@ class UIManager extends window.L.Control {
 				const show = userPrivateInfo.SignatureCert && userPrivateInfo.SignatureKey;
 				// Show or hide the signature button on the notebookbar depending on if we
 				// have a signing cert/key specified.
-				this.showButton('signature', show);
+				// this.showButton('signature', show);
 			}
 			const serverPrivateInfo = myViewData.serverprivateinfo;
 			if (serverPrivateInfo) {

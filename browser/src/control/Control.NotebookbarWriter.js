@@ -111,12 +111,12 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 				'name': 'Extensions',
 				'accessibility': { focusBack: true, combination: 'X' }
 			},
-			{
-				'text': _('Help'),
-				'id': helpTabName + '-tab-label',
-				'name': helpTabName,
-				'accessibility': { focusBack: true, combination: 'Y', de: 'E' }
-			},
+			// {
+			// 	'text': _('Help'),
+			// 	'id': helpTabName + '-tab-label',
+			// 	'name': helpTabName,
+			// 	'accessibility': { focusBack: true, combination: 'Y', de: 'E' }
+			// },
 			{
 				'text': _('Formula'),
 				'id': formulaTabName + '-tab-label',
@@ -143,7 +143,7 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			this.getChartTab(),
 			this.getViewTab(),
 			this.getExtensionsTab(),
-			this.getHelpTab(),
+			// this.getHelpTab(),
 			this.getFormulaTab()
 		]);
 	},
@@ -179,34 +179,34 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 		}
 
 		if (hasSaveAs) {
-			if (hasGroupedSaveAs) {
-				content.push({
-					'id': 'saveas:SaveAsMenu',
-					'command': 'saveas',
-					'type': 'exportmenubutton',
-					'text': _('Save As'),
-					'accessibility': { focusBack: true,	combination: 'SA' }
-				});
-			} else {
-				content.push({
-					'id': 'file-saveas',
-					'type': 'bigtoolitem',
-					'text': _UNO('.uno:SaveAs', 'text'),
-					'command': '.uno:SaveAs',
-					'accessibility': { focusBack: true,	combination: 'SA' }
-				});
+			// if (hasGroupedSaveAs) {
+			// 	content.push({
+			// 		'id': 'saveas:SaveAsMenu',
+			// 		'command': 'saveas',
+			// 		'type': 'exportmenubutton',
+			// 		'text': _('Save As'),
+			// 		'accessibility': { focusBack: true,	combination: 'SA' }
+			// 	});
+			// } else {
+			// 	content.push({
+			// 		'id': 'file-saveas',
+			// 		'type': 'bigtoolitem',
+			// 		'text': _UNO('.uno:SaveAs', 'text'),
+			// 		'command': '.uno:SaveAs',
+			// 		'accessibility': { focusBack: true,	combination: 'SA' }
+			// 	});
 			}
 		}
 
 		if (hasSaveAs) {
-			content.push({
-				'id': 'exportas:ExportAsMenu',
-				'command': 'exportas',
-				'class': 'unoexportas',
-				'type': 'exportmenubutton',
-				'text': _('Export As'),
-				'accessibility': { focusBack: true,	combination: 'EA' }
-			});
+			// content.push({
+			// 	'id': 'exportas:ExportAsMenu',
+			// 	'command': 'exportas',
+			// 	'class': 'unoexportas',
+			// 	'type': 'exportmenubutton',
+			// 	'text': _('Export As'),
+			// 	'accessibility': { focusBack: true,	combination: 'EA' }
+			// });
 		}
 
 		if (hasShare && hasRevisionHistory) {
@@ -309,29 +309,29 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			{
 				'type': 'toolbox',
 				'children': [
-					{
-						'id': 'runmacro',
-						'type': 'bigtoolitem',
-						'text': _UNO('.uno:RunMacro', 'text'),
-						'command': '.uno:RunMacro',
-						'accessibility': { focusBack: true,	combination: 'Z' }
-					}
+					// {
+					// 	'id': 'runmacro',
+					// 	'type': 'bigtoolitem',
+					// 	'text': _UNO('.uno:RunMacro', 'text'),
+					// 	'command': '.uno:RunMacro',
+					// 	'accessibility': { focusBack: true,	combination: 'Z' }
+					// }
 				]
 			});
 		}
 
 		if (!this.map['wopi'].HideExportOption) {
-			content.push({
-				'id': 'downloadas:DownloadAsMenu',
-				'command': 'downloadas',
-				'class': 'unodownloadas',
-				'type': 'exportmenubutton',
-				// In CODA-W, the functionality that we actually have at the moment is "Export as".
-				'text': !window.ThisIsAMobileApp ? _('Download') :
-					(window.ThisIsTheWindowsApp? _('Export as') :
-					 _('Save As')),
-				'accessibility': { focusBack: true,	combination: 'A', de: 'M' }
-			});
+			// content.push({
+			// 	'id': 'downloadas:DownloadAsMenu',
+			// 	'command': 'downloadas',
+			// 	'class': 'unodownloadas',
+			// 	'type': 'exportmenubutton',
+			// 	// In CODA-W, the functionality that we actually have at the moment is "Export as".
+			// 	'text': !window.ThisIsAMobileApp ? _('Download') :
+			// 		(window.ThisIsTheWindowsApp? _('Export as') :
+			// 		 _('Save As')),
+			// 	'accessibility': { focusBack: true,	combination: 'A', de: 'M' }
+			// });
 		}
 
 		content.push( { 'id': 'file-downloadas-break', 'type': 'separator', 'orientation': 'vertical' } );
@@ -369,13 +369,13 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			content.push({
 				'type': 'container',
 				'children': [
-					{
-						'id': 'signature',
-						'type': 'bigtoolitem',
-						'text': _('Signature'),
-						'command': '.uno:Signature',
-						'accessibility': { focusBack: true, combination: 'GN' }
-					}
+					// {
+					// 	'id': 'signature',
+					// 	'type': 'bigtoolitem',
+					// 	'text': _('Signature'),
+					// 	'command': '.uno:Signature',
+					// 	'accessibility': { focusBack: true, combination: 'GN' }
+					// }
 				]
 			});
 		}
@@ -384,13 +384,13 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			content.push({
 				'type': 'container',
 				'children': [
-					{
-						'id': 'renamedocument',
-						'class': 'unoRenameDocument',
-						'type': 'bigcustomtoolitem',
-						'text': _('Rename'),
-						'accessibility': { focusBack: true,	combination: 'RN' },
-					}
+					// {
+					// 	'id': 'renamedocument',
+					// 	'class': 'unoRenameDocument',
+					// 	'type': 'bigcustomtoolitem',
+					// 	'text': _('Rename'),
+					// 	'accessibility': { focusBack: true,	combination: 'RN' },
+					// }
 				]
 			});
 		}
@@ -440,152 +440,152 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 		var hasServerAudit = this.getHiddenItems() ? !this.getHiddenItems().includes('server-audit') : true;
 
 		var content = [
-				{
-					'type': 'toolbox',
-					'children': [
-						{
-							'id': 'online-help',
-							'type': 'bigtoolitem',
-							'text': _('Online Help'),
-							'command': '.uno:OnlineHelp',
-							'accessibility': { focusBack: false, combination: 'H', de: null }
-						}
-					]
-				},
-				{ type: 'separator', id: 'help-keyboardshortcuts-break', orientation: 'vertical' },
-				{
-					'type': 'toolbox',
-					'children': [
-						{
-							'id': 'keyboard-shortcuts',
-							'type': 'bigtoolitem',
-							'text': _('Keyboard shortcuts'),
-							'command': '.uno:KeyboardShortcuts',
-							'accessibility': { focusBack: false, combination: 'SH', de: null }
-						}
-					]
-				},
-				{ type: 'separator', id: 'help-forum-break', orientation: 'vertical' },
-				{
-					'type': 'toolbox',
-					'children': [
-						{
-							'id': 'forum',
-							'type': 'bigtoolitem',
-							'text': _('Forum'),
-							'command': '.uno:ForumHelp',
-							'accessibility': { focusBack: true, combination: 'C', de: null }
-						}
-					]
-				},
-				{
-					'type': 'toolbox',
-					'children': [
-						{
-							'id': 'report-an-issue',
-							'type': 'bigtoolitem',
-							'text': _('Report an issue'),
-							'command': '.uno:ReportIssue',
-							'accessibility': { focusBack: true, combination: 'K', de: null }
-						},
-					]
-				},
-				hasLatestUpdates ?
-					{
-						'type': 'toolbox',
-						'children': [
-							{
-								'id': 'latestupdates',
-								'type': 'bigtoolitem',
-								'text': _('Latest Updates'),
-								'command': '.uno:LatestUpdates',
-								'accessibility': { focusBack: true,	combination: 'LU', de: null }
+				// {
+				// 	'type': 'toolbox',
+				// 	'children': [
+				// 		{
+				// 			'id': 'online-help',
+				// 			'type': 'bigtoolitem',
+				// 			'text': _('Online Help'),
+				// 			'command': '.uno:OnlineHelp',
+				// 			'accessibility': { focusBack: false, combination: 'H', de: null }
+				// 		}
+				// 	]
+				// },
+				// { type: 'separator', id: 'help-keyboardshortcuts-break', orientation: 'vertical' },
+				// {
+				// 	'type': 'toolbox',
+				// 	'children': [
+				// 		{
+				// 			'id': 'keyboard-shortcuts',
+				// 			'type': 'bigtoolitem',
+				// 			'text': _('Keyboard shortcuts'),
+				// 			'command': '.uno:KeyboardShortcuts',
+				// 			'accessibility': { focusBack: false, combination: 'SH', de: null }
+				// 		}
+				// 	]
+				// },
+				// { type: 'separator', id: 'help-forum-break', orientation: 'vertical' },
+				// {
+				// 	'type': 'toolbox',
+				// 	'children': [
+				// 		{
+				// 			'id': 'forum',
+				// 			'type': 'bigtoolitem',
+				// 			'text': _('Forum'),
+				// 			'command': '.uno:ForumHelp',
+				// 			'accessibility': { focusBack: true, combination: 'C', de: null }
+				// 		}
+				// 	]
+				// },
+				// {
+				// 	'type': 'toolbox',
+				// 	'children': [
+				// 		{
+				// 			'id': 'report-an-issue',
+				// 			'type': 'bigtoolitem',
+				// 			'text': _('Report an issue'),
+				// 			'command': '.uno:ReportIssue',
+				// 			'accessibility': { focusBack: true, combination: 'K', de: null }
+				// 		},
+				// 	]
+				// },
+				// hasLatestUpdates ?
+				// 	{
+				// 		'type': 'toolbox',
+				// 		'children': [
+				// 			{
+				// 				'id': 'latestupdates',
+				// 				'type': 'bigtoolitem',
+				// 				'text': _('Latest Updates'),
+				// 				'command': '.uno:LatestUpdates',
+				// 				'accessibility': { focusBack: true,	combination: 'LU', de: null }
 
-							}
-						]
-					} : {},
-				hasFeedback ?
-					{
-						'type': 'toolbox',
-						'children': [
-							{
-								'id': 'feedback',
-								'type': 'bigtoolitem',
-								'text': _('Send Feedback'),
-								'command': '.uno:Feedback',
-								'accessibility': { focusBack: true,	combination: 'SF', de: null }
-							}
-						]
-					} : {},
-				hasServerAudit ?
-					{
-						'id': 'help-serveraudit-break',
-						'type': 'separator',
-						'orientation': 'vertical'
-					} : {},
-				hasServerAudit ?
-					{
-						'id': 'server-audit',
-						'type': 'bigcustomtoolitem',
-						'text': _('Server audit'),
-						'command': 'serveraudit',
-						'accessibility': { focusBack: false, combination: 'SA', de: null }
-					} : {},
-				hasAccessibilitySupport || hasAccessibilityCheck ?
-					{
-						'id': 'help-accessibility-break',
-						'type': 'separator',
-						'orientation': 'vertical'
-					} : {},
-				hasAccessibilitySupport ?
-					{
-						'id':'togglea11ystate',
-						'type': 'bigcustomtoolitem',
-						'text': _('Screen Reading'),
-						'accessibility': { focusBack: true,	combination: 'SR', de: null }
-					} : {},
-				hasAccessibilityCheck ?
-					{
-						'id': 'accessibility-check',
-						'class': 'unoAccessibilityCheck',
-						'type': 'bigtoolitem',
-						'text': _UNO('.uno:AccessibilityCheck', 'text', true),
-						'command': '.uno:SidebarDeck.A11yCheckDeck',
-						'accessibility': { focusBack: false, combination: 'A', de: null }
-					} : {},
-					{
-						'id': 'validatesidebara11y',
-						'type': 'bigcustomtoolitem',
-						'text': _('Validate Sidebar'),
-						'visible': isDebugOn ? 'true' : 'false',
-						'accessibility': { focusBack: true,	combination: 'VS', de: null }
-					},
-					{
-						'id': 'validatedialogsa11y',
-						'type': 'bigcustomtoolitem',
-						'text': _('Validate Dialog'),
-						'visible': isDebugOn ? 'true' : 'false',
-						'accessibility': { focusBack: true,	combination: 'VD', de: null }
-					},
-				hasAbout ?
-					{
-						'id': 'help-about-break',
-						'type': 'separator',
-						'orientation': 'vertical'
-					} : {},
-				hasAbout ?
-					{
-						'type': 'toolbox',
-						'children': [
-							{
-								'id': 'about',
-								'type': 'bigtoolitem',
-								'text': _('About'),
-								'command': '.uno:About',
-								'accessibility': { focusBack: false, combination: 'W', de: null }
-							}
-						]
-					} : {}
+				// 			}
+				// 		]
+				// 	} : {},
+				// hasFeedback ?
+				// 	{
+				// 		'type': 'toolbox',
+				// 		'children': [
+				// 			{
+				// 				'id': 'feedback',
+				// 				'type': 'bigtoolitem',
+				// 				'text': _('Send Feedback'),
+				// 				'command': '.uno:Feedback',
+				// 				'accessibility': { focusBack: true,	combination: 'SF', de: null }
+				// 			}
+				// 		]
+				// 	} : {},
+				// hasServerAudit ?
+				// 	{
+				// 		'id': 'help-serveraudit-break',
+				// 		'type': 'separator',
+				// 		'orientation': 'vertical'
+				// 	} : {},
+				// hasServerAudit ?
+				// 	{
+				// 		'id': 'server-audit',
+				// 		'type': 'bigcustomtoolitem',
+				// 		'text': _('Server audit'),
+				// 		'command': 'serveraudit',
+				// 		'accessibility': { focusBack: false, combination: 'SA', de: null }
+				// 	} : {},
+				// hasAccessibilitySupport || hasAccessibilityCheck ?
+				// 	{
+				// 		'id': 'help-accessibility-break',
+				// 		'type': 'separator',
+				// 		'orientation': 'vertical'
+				// 	} : {},
+				// hasAccessibilitySupport ?
+				// 	{
+				// 		'id':'togglea11ystate',
+				// 		'type': 'bigcustomtoolitem',
+				// 		'text': _('Screen Reading'),
+				// 		'accessibility': { focusBack: true,	combination: 'SR', de: null }
+				// 	} : {},
+				// hasAccessibilityCheck ?
+				// 	{
+				// 		'id': 'accessibility-check',
+				// 		'class': 'unoAccessibilityCheck',
+				// 		'type': 'bigtoolitem',
+				// 		'text': _UNO('.uno:AccessibilityCheck', 'text', true),
+				// 		'command': '.uno:SidebarDeck.A11yCheckDeck',
+				// 		'accessibility': { focusBack: false, combination: 'A', de: null }
+				// 	} : {},
+				// 	{
+				// 		'id': 'validatesidebara11y',
+				// 		'type': 'bigcustomtoolitem',
+				// 		'text': _('Validate Sidebar'),
+				// 		'visible': isDebugOn ? 'true' : 'false',
+				// 		'accessibility': { focusBack: true,	combination: 'VS', de: null }
+				// 	},
+				// 	{
+				// 		'id': 'validatedialogsa11y',
+				// 		'type': 'bigcustomtoolitem',
+				// 		'text': _('Validate Dialog'),
+				// 		'visible': isDebugOn ? 'true' : 'false',
+				// 		'accessibility': { focusBack: true,	combination: 'VD', de: null }
+				// 	},
+				// hasAbout ?
+				// 	{
+				// 		'id': 'help-about-break',
+				// 		'type': 'separator',
+				// 		'orientation': 'vertical'
+				// 	} : {},
+				// hasAbout ?
+				// 	{
+				// 		'type': 'toolbox',
+				// 		'children': [
+				// 			{
+				// 				'id': 'about',
+				// 				'type': 'bigtoolitem',
+				// 				'text': _('About'),
+				// 				'command': '.uno:About',
+				// 				'accessibility': { focusBack: false, combination: 'W', de: null }
+				// 			}
+				// 		]
+				// 	} : {}
 		];
 
 		return this.getTabPage(helpTabName, content);
@@ -1824,13 +1824,13 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 				'accessibility': { focusBack: true, combination: 'AI', de: null }
 			} : {},
 			{ type: 'separator', id: 'view-sidebar-break', orientation: 'vertical' },
-			{
-				'id':'toggledarktheme',
-				'class': 'unotoggledarktheme',
-				'type': 'bigcustomtoolitem',
-				'text': _('Dark Mode'),
-				'accessibility': { focusBack: true, combination: 'D', de: null }
-			},
+			// {
+			// 	'id':'toggledarktheme',
+			// 	'class': 'unotoggledarktheme',
+			// 	'type': 'bigcustomtoolitem',
+			// 	'text': _('Dark Mode'),
+			// 	'accessibility': { focusBack: true, combination: 'D', de: null }
+			// },
 			{
 			    'id':'invertbackground',
 			    'class': 'unoinvertbackground',

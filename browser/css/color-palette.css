@@ -110,7 +110,7 @@
 	--color-background-document: #FFFFFF;
 }
 
-[data-doctype='text'] {--doc-type: 3, 105, 163;}
-[data-doctype='spreadsheet'] {--doc-type: 16, 104, 2;}
-[data-doctype='presentation'] {--doc-type: 163, 62, 3;}
-[data-doctype='drawing'] {--doc-type: 135, 105, 0;}
+[data-doctype='text'] {--doc-type: 77, 104, 146;}
+[data-doctype='spreadsheet'] {--doc-type: 78, 126, 88;}
+[data-doctype='presentation'] {--doc-type: 170, 97, 73;}
+[data-doctype='drawing'] {--doc-type: 158, 87, 84;}

@@ -49,12 +49,12 @@ class PresentationBar {
 				id: 'presentation-buttons-toolbar',
 				type: 'toolbox',
 				children: [
-					{
-						id: 'presentation',
-						type: 'customtoolitem',
-						text: this._getItemUnoName('presentation'),
-						command: 'presentation'
-					},
+					// {
+					// 	id: 'presentation',
+					// 	type: 'customtoolitem',
+					// 	text: this._getItemUnoName('presentation'),
+					// 	command: 'presentation'
+					// },
 					{
 						id: 'insertpage',
 						type: 'customtoolitem',
