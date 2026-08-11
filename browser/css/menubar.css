@@ -572,6 +572,45 @@ nav.hasnotebookbar [id^='save'].saved::after {
 
 /*vaulterix changes*/
 
+main-nav #main-menu {
+	height: 100% !important;
+}
+.main-nav,
+.main-nav.hasnotebookbar:not(.readonly) {
+	background: rgb(var(--doc-type));
+}
+.main-nav .lo-menu > li > a {
+	color: var(--color-primary-text);
+}
+.main-nav .lo-menu > li > a:hover {
+	color: var(--color-text-darker);
+}
+.main-nav .lo-menu > li > a.highlighted {
+	background: var(--color-primary-text);
+	color: var(--color-text-darker);
+	border-color: transparent;
+	border-bottom: none;
+}
+.main-nav .lo-menu > li > a.highlighted:hover {
+	background: var(--color-primary-text);
+	color: var(--color-text-darker);
+	border-color: transparent;
+	border-bottom: none;
+}
+
+.lo-menu a:hover:not(.disabled) {
+	color: black !important;
+	background: #F5F5F5 !important;
+}
+
+#optionstoolboxdown-row .unotoolbutton:hover {
+	background-color: white !important;
+}
+
+#document-name-input {
+	color: white !important;
+}
+
 #main-menu #menu-editmenu,
 #main-menu #menu-format,
 #main-menu #menu-references,

@@ -1566,7 +1566,7 @@ window.L.Control.NotebookbarCalc = window.L.Control.NotebookbarWriter.extend({
 							'text': _('Read mode'),
 							'command': 'closetablet',
 						} : {},
-					{
+					// {
 					// 	'id': 'fullscreen',
 					// 	'type': 'bigtoolitem',
 					// 	'text': _UNO('.uno:FullScreen'),

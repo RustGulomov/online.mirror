@@ -2600,6 +2600,17 @@ bool ClientSession::filterMessage(const std::string& message) const
                 {
                     Poco::JSON::Parser parser;
                     Poco::Dynamic::Var result = parser.parse(json);
+                    Poco::JSON::Object::Ptr object = result.extract<Poco::JSON::Object::Ptr>();
+
+                    if (object->has("Repair"))
+                    {
+                        Poco::JSON::Object::Ptr repairObj = object->getObject("Repair");
+                        if (const bool isRepair = repairObj->getValue<bool>("value"); isRepair)
+                        {
+                            allowed = false;
+                            LOG_WRN("Document repair (" << tokens[1] << ") is disabled for this session");
+                        }
+                    }
                 }
                 catch (const Poco::Exception& exc)
                 {

@@ -195,7 +195,6 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			// 		'command': '.uno:SaveAs',
 			// 		'accessibility': { focusBack: true,	combination: 'SA' }
 			// 	});
-			}
 		}
 
 		if (hasSaveAs) {

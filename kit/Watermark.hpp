@@ -84,7 +84,7 @@ public:
         }
     }
 
-    void blending2(unsigned char* batchCanvas, int canvasWidth, int canvasHeight, const TileParams& p, LibreOfficeKitTileMode, bool isSlideShowLayer = false)
+    void blending2(unsigned char* batchCanvas, int canvasWidth, int canvasHeight, const TileParams& p, COKitTileMode, bool isSlideShowLayer = false)
     {
         if (p.twipWidth <= 0 || p.twipHeight <= 0 || p.twipPosX < 0 || p.twipPosY < 0)
         {
@@ -225,7 +225,7 @@ private:
         // are always set to 0 (black) and the alpha level is 0 everywhere
         // except on the text area; the alpha level take into account of
         // performing anti-aliasing over the text edges.
-        std::unique_ptr<unsigned char, decltype(&std::free)> textPixels(_loKitDoc->renderFont(_font.c_str(), _text.c_str(), &width, &height, 0), std::free);
+        std::unique_ptr<unsigned char, decltype(&std::free)> textPixels(_loKitDoc->renderFontOrientation(_font.c_str(), _text.c_str(), &width, &height, 0), std::free);
         if (!textPixels)
         {
             LOG_ERR("Watermark: rendering failed.");
