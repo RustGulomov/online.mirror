@@ -4377,3 +4377,9 @@ img#collab-choice-avatar {
 	outline: 2px solid var(--color-primary);
 	outline-offset: -2px;
 }
+
+.ui-combobox-entry[aria-selected='true'],
+.ui-combobox-entry[aria-selected='true'] > span {
+	background-color: white !important;
+	color: #000 !important;
+}

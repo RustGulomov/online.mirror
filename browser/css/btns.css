@@ -47,7 +47,7 @@
 /* view mode dropdown (jsdialog menubutton) */
 #viewModeDropdown .unotoolbutton {
 	border: 1px solid var(--color-btn-border);
-	background-color: transparent;
+	background-color: var(--color-background-tabs-group);
 	color: var(--color-main-text);
 	padding: 0;
 }
