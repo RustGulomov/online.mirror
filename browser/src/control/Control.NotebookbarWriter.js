@@ -1802,13 +1802,13 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 				],
 				'vertical': 'true'
 			},
-			{
-				'id': 'view-sidebar-property-deck',
-				'type': 'bigtoolitem',
-				'text': _UNO('.uno:Sidebar'),
-				'command': '.uno:SidebarDeck.PropertyDeck',
-				'accessibility': { focusBack: true, combination: 'SB', de: null }
-			},
+			// {
+			// 	'id': 'view-sidebar-property-deck',
+			// 	'type': 'bigtoolitem',
+			// 	'text': _UNO('.uno:Sidebar'),
+			// 	'command': '.uno:SidebarDeck.PropertyDeck',
+			// 	'accessibility': { focusBack: true, combination: 'SB', de: null }
+			// },
 			// Show the AI Assistant only to a non-anonymous user who may either
 			// configure AI or already has a configured provider. A guest can do
 			// neither, so they never see it.
@@ -1822,7 +1822,7 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 				'command': 'aichat',
 				'accessibility': { focusBack: true, combination: 'AI', de: null }
 			} : {},
-			{ type: 'separator', id: 'view-sidebar-break', orientation: 'vertical' },
+			// { type: 'separator', id: 'view-sidebar-break', orientation: 'vertical' },
 			// {
 			// 	'id':'toggledarktheme',
 			// 	'class': 'unotoggledarktheme',
@@ -1831,7 +1831,7 @@ window.L.Control.NotebookbarWriter = window.L.Control.Notebookbar.extend({
 			// 	'accessibility': { focusBack: true, combination: 'D', de: null }
 			// },
 			{
-			    'id':'invertbackground',
+			    'id': 'invertbackground',
 			    'class': 'unoinvertbackground',
 			    'type': 'bigcustomtoolitem',
 			    'text': _('Invert Background'),
