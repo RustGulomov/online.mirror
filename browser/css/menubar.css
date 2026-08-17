@@ -664,10 +664,8 @@ main-nav #main-menu {
 	color: white;
 }
 
-.notebookbar#transitions_icons.ui-iconview,
-.notebookbar#stylesview.ui-iconview {
+.ui-iconview {
 	width: 300px !important;
-	min-width: 300px !important;
 }
 .main-nav.hasnotebookbar .ui-tab.selected.notebookbar:hover:not(.dummy-class) {
 	box-shadow: none !important;
