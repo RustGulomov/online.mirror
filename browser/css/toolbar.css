@@ -236,49 +236,41 @@
 }
 .ui-scroll-left {
 	left: 0;
-	border-radius: 0 8px 8px 0;
 }
 .ui-scroll-right {
 	right: 0;
-	border-radius: 8px 0 0 8px;
 }
 .ui-scroll-left,
 .ui-scroll-right {
 	display: none;
 	position: absolute;
 	top: 0px;
-	width: 24px;
+	width: 18px;
 	height: 100%;
 	z-index: 1001;
-	background-color: color-mix(in srgb, rgb(var(--doc-type)) 60%, transparent);
+	background-color: var(--color-background-dark);
 	box-shadow: 0px 0px 7px var(--color-box-shadow);
 }
 .ui-scroll-left::before,
 .ui-scroll-right::after {
 	position: absolute;
 	display: block;
-	top: calc(50% - 8px);
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 1;
-	color: var(--color-primary-text);
+	content: '';
+	border: 10px solid transparent;
+	border-top-color: var(--color-primary);
+	top: calc(50% - 10px);
 }
 .ui-scroll-left::before {
 	rotate: 90deg;
 	right: 0px;
-	content: '<<';
-	left: 2px;
 }
 .ui-scroll-right::after {
 	rotate: 270deg;
 	left: 0px;
-	content: '>>';
-	right: 2px;
 }
 .ui-scroll-left:hover,
 .ui-scroll-right:hover {
 	background-color: var(--color-background-darker);
-	background-color: rgb(var(--doc-type));
 }
 
 /* center the toolbar */
