@@ -603,12 +603,6 @@ main-nav #main-menu {
 	background: #F5F5F5 !important;
 }
 
-.lo-menu a.has-submenu.highlighted:not(:hover),
-.lo-menu a.highlighted:not(:hover) {
-	background-color: white !important;
-	color: black !important;
-}
-
 #optionstoolboxdown-row .unotoolbutton:hover {
 	background-color: white !important;
 }
