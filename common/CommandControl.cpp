@@ -25,6 +25,26 @@
 #include <string>
 #include <unordered_set>
 
+namespace
+{
+    std::unordered_set<std::string> getCommandsFromString(const std::string& commandListString)
+    {
+        std::unordered_set<std::string> res;
+        std::string commandListStringTrimmed = Util::trimmed(commandListString);
+        StringVector commandList = StringVector::tokenize(commandListStringTrimmed);
+
+        for (std::size_t i = 0; i < commandList.size(); ++i)
+        {
+            std::string command = commandList[i];
+            if (!command.empty())
+            {
+                res.emplace(command);
+            }
+        }
+        return res;
+    }
+}
+
 namespace CommandControl
 {
 bool LockManager::_isLockedUser = false;
@@ -163,43 +183,61 @@ void LockManager::mapUnlockLink(const std::string& host, const std::string& path
 }
 
 bool RestrictionManager::_isRestrictedUser = false;
+bool RestrictionManager::_configLoaded = false;
 std::unordered_set<std::string> RestrictionManager::RestrictedCommandList;
+std::unordered_set<std::string> RestrictionManager::RestrictedCommandListSession;
+std::unordered_set<std::string> RestrictionManager::RestrictedCommandListWOPI;
 std::string RestrictionManager::RestrictedCommandListString;
+std::optional<std::unordered_set<std::string>> RestrictionManager::RestrictedActions;
 
-RestrictionManager::RestrictionManager() {}
-
-void RestrictionManager::setRestrictedCommandList(const std::string& commandListString)
+void RestrictionManager::setRestrictedCommandList(const std::string& commandListString, bool wopi)
 {
 #if defined(ENABLE_FEATURE_RESTRICTION) || ENABLE_DEBUG
-    RestrictedCommandListString = Util::trimmed(commandListString);
-    RestrictedCommandList.clear();
+    std::unordered_set<std::string>& commands = wopi ? RestrictedCommandListWOPI : RestrictedCommandListSession;
+    commands = getCommandsFromString(commandListString);
+    RestrictedCommandList = RestrictedCommandListSession;
+    RestrictedCommandList.insert(RestrictedCommandListWOPI.begin(), RestrictedCommandListWOPI.end());
+    RestrictedCommandListString.clear();
+    for (const auto& s : RestrictedCommandList)
+    {
+        RestrictedCommandListString.append(s);
+        RestrictedCommandListString.push_back(' ');
+    }
+    if (!RestrictedCommandListString.empty())
+    {
+        RestrictedCommandListString.pop_back();
+    }
 #endif
 }
 
 const std::unordered_set<std::string>& RestrictionManager::getRestrictedCommandList()
 {
-    if (RestrictedCommandList.empty() && !RestrictedCommandListString.empty())
+    if (RestrictedCommandListString.empty() || !_configLoaded)
     {
-        StringVector commandList = StringVector::tokenize(RestrictedCommandListString);
-        for (std::size_t i = 0; i < commandList.size(); i++)
-        {
-            std::string command = commandList[i];
-            if (!command.empty())
-                RestrictedCommandList.emplace(command);
-        }
+        getRestrictedCommandListString();
     }
-
     return RestrictedCommandList;
 }
 
 std::string RestrictionManager::getRestrictedCommandListString()
 {
 #ifdef ENABLE_FEATURE_RESTRICTION
-    if (RestrictedCommandListString.empty())
-        setRestrictedCommandList(ConfigUtil::getString("restricted_commands", ""));
+    if (!_configLoaded)
+    {
+        setRestrictedCommandList(ConfigUtil::getString("restricted_commands", ""), false);
+        _configLoaded = true;
+    }
 #endif
-
     return RestrictedCommandListString;
+}
+
+const std::unordered_set<std::string>& RestrictionManager::getRestrictedActions()
+{
+    if (!RestrictedActions)
+    {
+        RestrictedActions = getCommandsFromString(ConfigUtil::getString("restricted_actions", ""));
+    }
+    return *RestrictedActions;
 }
 } // namespace CommandControl
 

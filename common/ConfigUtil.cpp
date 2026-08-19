@@ -258,6 +258,7 @@ const Util::UnorderedStringMap<std::string> DefAppConfig = {
     { "remote_asset_config.url", "" },
     { "remote_config.remote_url", "" },
     { "remote_font_config.url", "" },
+    { "restricted_actions", "" },
 #if ENABLE_FEATURE_RESTRICTION
     { "restricted_commands", "" },
 #endif

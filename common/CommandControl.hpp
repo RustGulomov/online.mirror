@@ -22,6 +22,7 @@
 
 #include <string>
 #include <unordered_set>
+#include <optional>
 
 namespace CommandControl
 {
@@ -134,18 +135,25 @@ public:
 class RestrictionManager
 {
     static std::unordered_set<std::string> RestrictedCommandList;
+    static std::unordered_set<std::string> RestrictedCommandListSession;
+    static std::unordered_set<std::string> RestrictedCommandListWOPI;
     static bool _isRestrictedUser;
+    static bool _configLoaded;
     static std::string RestrictedCommandListString;
 
+    static std::optional<std::unordered_set<std::string>> RestrictedActions;
+
 public:
-    RestrictionManager();
-    static void setRestrictedCommandList(const std::string& commandListString);
+    RestrictionManager() = default;
+    static void setRestrictedCommandList(const std::string& commandListString, bool wopi = true);
     static const std::unordered_set<std::string>& getRestrictedCommandList();
     static std::string getRestrictedCommandListString();
 
-    static bool isRestrictedUser() { return _isRestrictedUser; }
+    static bool isRestrictedUser() { return _isRestrictedUser || !ConfigUtil::getString("restricted_commands", "").empty(); }
 
     static void setRestrictedUser(bool isRestrictedUser) { _isRestrictedUser = isRestrictedUser; }
+
+    static const std::unordered_set<std::string>& getRestrictedActions();
 };
 } // namespace CommandControl
 

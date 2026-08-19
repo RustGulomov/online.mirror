@@ -332,6 +332,8 @@ public:
     void sendRestrictionInfo();
 #endif
 
+    void sendRestrictedActionsInfo();
+
     /// Process an SVG to replace embedded file:/// media URIs with public http URLs.
     std::string processSVGContent(const std::string& svg);
 

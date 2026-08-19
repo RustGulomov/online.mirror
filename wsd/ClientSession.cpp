@@ -2428,6 +2428,8 @@ bool ClientSession::loadDocument(const char* /*buffer*/, int /*length*/,
 #if ENABLE_FEATURE_RESTRICTION
         sendRestrictionInfo();
 #endif
+        sendRestrictedActionsInfo();
+
         if (docBroker->getIsFollowmeSlideShowOn())
         {
             sendTextFrame("slideshowfollow displayslide {\"currentSlide\": " + std::to_string(docBroker->getLeaderSlide()) +"}");
@@ -2498,6 +2500,21 @@ void ClientSession::sendRestrictionInfo()
     sendTextFrame("restrictedCommands: " + restrictionInfoString);
 }
 #endif
+
+void ClientSession::sendRestrictedActionsInfo()
+{
+    Poco::JSON::Object::Ptr restrictedActionsInfo = new Poco::JSON::Object();
+    std::vector<std::string> restrictedActionsList(
+        CommandControl::RestrictionManager::getRestrictedActions().cbegin(),
+        CommandControl::RestrictionManager::getRestrictedActions().cend());
+    restrictedActionsInfo->set("RestrictedActionsList", restrictedActionsList);
+
+    std::ostringstream ossRestrictedActionsInfo;
+    restrictedActionsInfo->stringify(ossRestrictedActionsInfo);
+    const std::string restrictedActionsInfoString = ossRestrictedActionsInfo.str();
+    LOG_TRC("Sending command restricted actions info to client: " << restrictedActionsInfoString);
+    sendTextFrame("restrictedActions: " + restrictedActionsInfoString);
+}
 
 bool ClientSession::getCommandValues(const char *buffer, int length, const StringVector& tokens,
                                      const std::shared_ptr<DocumentBroker>& docBroker)

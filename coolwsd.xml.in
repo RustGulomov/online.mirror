@@ -413,7 +413,9 @@
 
     @LOCK_CONFIGURATION@
 
-    @FEATURE_RESTRICTION_CONFIGURATION@
+    <restricted_commands desc="List of uno commands to be disabled">.uno:FullScreen .uno:RunMacro .uno:SaveAs .uno:Signature .uno:HelpMenu .uno:Watermark</restricted_commands>
+
+    <restricted_actions>saveas saveas-odt saveas-doc saveas-docx saveas-rtf saveas-odp saveas-ppt saveas-pptx saveas-ods saveas-xls saveas-xlsx exportas exportas-pdf exportas-epub exportas-md exportpdf exportepub exportdirectpdf renamedocument downloadas downloadas-epub downloadas-html downloadas-docx downloadas-rtf downloadas-odt downloadas-pdf downloadas-ods downloadas-xls downloadas-xlsx downloadas-csv downloadas-md online-help forum report-an-issue latestupdates feedback serveraudit about closedocument toggledarktheme</restricted_actions>
 
     <zotero desc="Zotero plugin configuration. For more details about Zotero visit https://www.zotero.org/">
         <enable desc="Enable Zotero plugin." type="bool" default="true">true</enable>
