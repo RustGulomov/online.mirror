@@ -127,6 +127,7 @@ interface MapInterface extends Evented {
 	welcome: WelcomeInterface;
 	_setLockProps(lockInfo: ParsedJSONResult): void;
 	_setRestrictions(restrictionInfo: ParsedJSONResult): void;
+	_setRestrictedActions(restrictedActions: ParsedJSONResult): void;
 	hideRestrictedItems(it: any, item: any, button: any): void;
 	disableLockedItem(it: any, item: any, button: any): void;
 	isLockedItem(data: any): boolean;

@@ -274,12 +274,28 @@ window.L.Control.Notebookbar = window.L.Control.extend({
 	// by one.  Drop the Extensions label when extension support is disabled by
 	// runtime config, or when no extension is installed; the matching page is a
 	// null from getExtensionsTab in those cases and is dropped by the !t guard.
+	//
+	// Tabs listed in restricted_actions are dropped here as well, so a
+	// restricted tab is never built at all (neither its strip button nor
+	// its page).  Labels carry the '<name>-tab-label' id directly; tab
+	// pages have an empty id and expose '<name>-container' as their first
+	// child, so the label id is derived from it to run the same
+	// isRestrictedAction check against both lists.
 	_filterExtensionsTab: function(arr) {
 		var noExtensions = Object.keys(app.map._extensions || {}).length === 0;
 		return arr.filter(function(t) {
 			if (!t) return false;
 			if (t.name === 'Extensions' && (!window.enableExperimentalFeatures || noExtensions))
 				return false;
+
+			var labelId = t.id
+				? t.id
+				: (t.children && t.children[0] && t.children[0].id
+					? t.children[0].id.replace(/-container$/, '') + '-tab-label'
+					: null);
+			if (labelId && app.map.isRestrictedAction({ id: labelId }))
+				return false;
+
 			return true;
 		});
 	},

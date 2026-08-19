@@ -3825,7 +3825,7 @@ bool ChildSession::updateBlockingCommandStatus(const StringVector& tokens)
     if (restrictedStatus == "true")
     {
         blockedCommands += CommandControl::RestrictionManager::getRestrictedCommandListString();
-#if ENABLE_DEBUG
+#if 0
         // Extract restricted commands passed from the wsd process.
         // Format: blockingcommandstatus isRestrictedUser=true isLockedUser=... test_restrictedCommands=cmd1 cmd2 ...
         std::string firstCmd;

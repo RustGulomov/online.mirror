@@ -1362,6 +1362,12 @@ class Socket {
 			);
 			this._map._setRestrictions(restrictionInfo);
 			return;
+		} else if (textMsg.startsWith('restrictedActions: ')) {
+			const restrictedActions = JSON.parse(
+				textMsg.substring(textMsg.indexOf('{')),
+			);
+			this._map._setRestrictedActions(restrictedActions);
+			return;
 		} else if (textMsg.startsWith('blockedcommand: ')) {
 			this._onBlockedCommandMsg(textMsg);
 			return;

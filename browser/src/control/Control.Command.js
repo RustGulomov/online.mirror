@@ -129,6 +129,7 @@ window.L.Map.include({
 	Restriction: {
 		isRestrictedUser: false,
 		restrictedCommandList: [],
+		restrictedActionsList: []
 	},
 
 	_setRestrictions: function(restrictionInfo) {
@@ -136,12 +137,16 @@ window.L.Map.include({
 		this.Restriction.restrictedCommandList = restrictionInfo['RestrictedCommandList'];
 	},
 
+	_setRestrictedActions: function(restrictedActions) {
+		this.Restriction.restrictedActionsList = restrictedActions['RestrictedActionsList'];
+	},
+
 	isRestrictedUser: function() {
 		return this.Restriction.isRestrictedUser;
 	},
 
 	hideRestrictedItems: function(item, DOMParentElement, buttonToDisable) {
-		if (this.isRestrictedUser() && this.isRestrictedItem(item)) {
+		if ((this.isRestrictedUser() && this.isRestrictedItem(item)) || this.isRestrictedAction(item)) {
 			$(buttonToDisable).addClass('restricted-item');
 			window.app.console.log();
 		}
@@ -154,6 +159,13 @@ window.L.Map.include({
 		for (var i in commands) {
 			if (this.Restriction.restrictedCommandList.indexOf(commands[i]) >= 0)
 				return true;
+		}
+		return false;
+	},
+
+	isRestrictedAction:  function(item) {
+		if (item.id && this.Restriction.restrictedActionsList.indexOf(item.id) >= 0) {
+			return true;
 		}
 		return false;
 	},
@@ -184,9 +196,11 @@ window.L.Map.include({
 		}
 		else if (item.command) // in notebookbar uno commands are stored as command
 			commandArray.push(item.command);
-		else if (item.id)
+		else if (item.id) {
+			if (item.unoid)
+				commandArray.push(item.unoid);
 			commandArray.push(item.id);
-		else if (typeof item === 'string')
+		} else if (typeof item === 'string')
 			commandArray.push(item);
 
 		for (var command in commandArray) {
