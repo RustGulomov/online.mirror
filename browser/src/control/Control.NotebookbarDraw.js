@@ -129,12 +129,12 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 				'name': 'Extensions',
 				'accessibility': { focusBack: true, combination: 'X' }
 			},
-			// {
-			// 	'id': 'Help-tab-label',
-			// 	'text': _('Help'),
-			// 	'name': 'Help',
-			// 	'accessibility': { focusBack: true, combination: 'Y', de: null }
-			// }
+			{
+				'id': 'Help-tab-label',
+				'text': _('Help'),
+				'name': 'Help',
+				'accessibility': { focusBack: true, combination: 'Y', de: null }
+			}
 		]);
 	},
 
@@ -152,7 +152,7 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 			this.getChartTab(),
 			this.getViewTab(),
 			this.getExtensionsTab(),
-			// this.getHelpTab()
+			this.getHelpTab()
 		]);
 	},
 
@@ -185,27 +185,27 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 
 		if (hasSaveAs) {
 			content.push(
-				// {
-				// 	'id': 'file-saveas',
-				// 	'type': 'bigtoolitem',
-				// 	'text': _UNO('.uno:SaveAs', 'presentation'),
-				// 	'command': '.uno:SaveAs',
-				// 	'accessibility': { focusBack: true, combination: 'SA', de: null }
-				// }
+				{
+					'id': 'file-saveas',
+					'type': 'bigtoolitem',
+					'text': _UNO('.uno:SaveAs', 'presentation'),
+					'command': '.uno:SaveAs',
+					'accessibility': { focusBack: true, combination: 'SA', de: null }
+				}
 			);
 		}
 
 		if (hasSaveAs) {
-			// content.push(
-			// 	{
-			// 		'id': 'exportas:ExportAsMenu',
-			// 		'command': 'exportas',
-			// 		'class': 'unoexportas',
-			// 		'type': 'exportmenubutton',
-			// 		'text': _('Export As'),
-			// 		'accessibility': { focusBack: true, combination: 'EA', de: null }
-			// 	}
-			// );
+			content.push(
+				{
+					'id': 'exportas:ExportAsMenu',
+					'command': 'exportas',
+					'class': 'unoexportas',
+					'type': 'exportmenubutton',
+					'text': _('Export As'),
+					'accessibility': { focusBack: true, combination: 'EA', de: null }
+				}
+			);
 		}
 
 		if (hasShare && hasRevisionHistory) {
@@ -305,14 +305,14 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 		}
 
 		if (!this.map['wopi'].HideExportOption) {
-			// content.push({
-			// 	'id': 'downloadas:DownloadAsMenu',
-			// 	'command': 'downloadas',
-			// 	'class': 'unodownloadas',
-			// 	'type': 'exportmenubutton',
-			// 	'text': _('Download'),
-			// 	'accessibility': { focusBack: true, combination: 'DA', de: null }
-			// });
+			content.push({
+				'id': 'downloadas:DownloadAsMenu',
+				'command': 'downloadas',
+				'class': 'unodownloadas',
+				'type': 'exportmenubutton',
+				'text': _('Download'),
+				'accessibility': { focusBack: true, combination: 'DA', de: null }
+			});
 		}
 
 		content.push(
@@ -379,13 +379,13 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 				{
 					'type': 'container',
 					'children': [
-						// {
-						// 	'id': 'signature',
-						// 	'type': 'bigtoolitem',
-						// 	'text': _('Signature'),
-						// 	'command': '.uno:Signature',
-						// 	'accessibility': { focusBack: true, combination: 'GN' }
-						// }
+						{
+							'id': 'signature',
+							'type': 'bigtoolitem',
+							'text': _('Signature'),
+							'command': '.uno:Signature',
+							'accessibility': { focusBack: true, combination: 'GN' }
+						}
 					]
 				}
 			);
@@ -395,13 +395,13 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 				{
 					'type': 'container',
 					'children': [
-						// {
-						// 	'id': 'renamedocument',
-						// 	'class': 'unoRenameDocument',
-						// 	'type': 'bigcustomtoolitem',
-						// 	'text': _('Rename'),
-						// 	'accessibility': { focusBack: true, combination: 'RN', de: null }
-						// }
+						{
+							'id': 'renamedocument',
+							'class': 'unoRenameDocument',
+							'type': 'bigcustomtoolitem',
+							'text': _('Rename'),
+							'accessibility': { focusBack: true, combination: 'RN', de: null }
+						}
 					]
 				}
 			);
@@ -565,12 +565,12 @@ window.L.Control.NotebookbarDraw = window.L.Control.NotebookbarImpress.extend({
 				]
 			},
 			{ type: 'separator', id: 'view-griduse-break', orientation: 'vertical' },
-			// {
-			// 	'id':'toggledarktheme',
-			// 	'type': 'bigcustomtoolitem',
-			// 	'text': _('Dark Mode'),
-			// 	'accessibility': { focusBack: true, combination: 'DT', de: null }
-			// },
+			{
+				'id':'toggledarktheme',
+				'type': 'bigcustomtoolitem',
+				'text': _('Dark Mode'),
+				'accessibility': { focusBack: true, combination: 'DT', de: null }
+			},
 			{
 				'id':'invertbackground',
 				'class': 'unoinvertbackground',

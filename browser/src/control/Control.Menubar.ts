@@ -100,32 +100,32 @@ class Menubar extends window.L.Control {
 		text:  [
 			{name: _UNO('.uno:PickList', 'text'), id: 'file', type: 'menu', accessibility: {combination: 'MF'}, menu: [
 				{name: _UNO('.uno:Save', 'text'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'text'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
-				// 	{name: _('ODF text document (.odt)'), id: 'saveas-odt', type: 'action'},
-				// 	{name: _('Word 2003 Document (.doc)'), id: 'saveas-doc', type: 'action'},
-				// 	{name: _('Word Document (.docx)'), id: 'saveas-docx', type: 'action'},
-				// 	{name: _('Rich Text (.rtf)'), id: 'saveas-rtf', type: 'action'},
-				// ]},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'},
-				// 	{name: _('EPUB (.epub)'), id: 'exportas-epub', type: 'action'},
-				// 	{name: _('Markdown (.md)'), id: 'exportas-md', type: 'action'}
-				// ]},
-				// {name: _('Rename Document'), id: 'renamedocument', type: 'action'},
+				{name: _UNO('.uno:SaveAs', 'text'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
+					{name: _('ODF text document (.odt)'), id: 'saveas-odt', type: 'action'},
+					{name: _('Word 2003 Document (.doc)'), id: 'saveas-doc', type: 'action'},
+					{name: _('Word Document (.docx)'), id: 'saveas-docx', type: 'action'},
+					{name: _('Rich Text (.rtf)'), id: 'saveas-rtf', type: 'action'},
+				]},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'},
+					{name: _('EPUB (.epub)'), id: 'exportas-epub', type: 'action'},
+					{name: _('Markdown (.md)'), id: 'exportas-md', type: 'action'}
+				]},
+				{name: _('Rename Document'), id: 'renamedocument', type: 'action'},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
-				// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-				// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
-				// 	{name: _('ODF text document (.odt)'), id: 'downloadas-odt', type: 'action'},
-				// 	{name: _('Word 2003 Document (.doc)'), id: 'downloadas-doc', type: 'action'},
-				// 	{name: _('Word Document (.docx)'), id: 'downloadas-docx', type: 'action'},
-				// 	{name: _('Rich Text (.rtf)'), id: 'downloadas-rtf', type: 'action'},
-				// 	{name: _('EPUB (.epub)'), id: !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', type: 'action'},
-				// 	{name: _('HTML file (.html)'), id: 'downloadas-html', type: 'action'},
-				// 	{name: _('Markdown (.md)'), id: 'downloadas-md', type: 'action'}]},
+				{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+					{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
+					{name: _('ODF text document (.odt)'), id: 'downloadas-odt', type: 'action'},
+					{name: _('Word 2003 Document (.doc)'), id: 'downloadas-doc', type: 'action'},
+					{name: _('Word Document (.docx)'), id: 'downloadas-docx', type: 'action'},
+					{name: _('Rich Text (.rtf)'), id: 'downloadas-rtf', type: 'action'},
+					{name: _('EPUB (.epub)'), id: !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', type: 'action'},
+					{name: _('HTML file (.html)'), id: 'downloadas-html', type: 'action'},
+					{name: _('Markdown (.md)'), id: 'downloadas-md', type: 'action'}]},
 				{name: _UNO('.uno:SetDocumentProperties', 'text'), uno: '.uno:SetDocumentProperties', id: 'properties'},
-				// {name: _UNO('.uno:Signature', 'text'), uno: '.uno:Signature', id: 'signature'},
+				{name: _UNO('.uno:Signature', 'text'), uno: '.uno:Signature', id: 'signature'},
 				{name: _('Options'), id: 'settings-dialog', type: 'action', mobileapp: false},
 				{type: 'separator'},
 				{name: _UNO('.uno:Print', 'text'), unoid: '.uno:Print', id: 'print', type: 'action'},
@@ -168,7 +168,7 @@ class Menubar extends window.L.Control {
 			 menu: (window.mode.isTablet() ? [
 					{name: _('Reset zoom'), id: 'zoomreset', type: 'action'},
 				] as MenuItem[] : [
-					// {name: _UNO('.uno:FullScreen', 'text'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
+					{name: _UNO('.uno:FullScreen', 'text'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
 					{type: 'separator'},
 					{name: _UNO('.uno:ZoomPlus', 'text'), unoid: '.uno:ZoomPlus', id: 'zoomin', type: 'action'},
 					{name: _UNO('.uno:ZoomMinus', 'text'), unoid: '.uno:ZoomMinus', id: 'zoomout', type: 'action',},
@@ -180,7 +180,7 @@ class Menubar extends window.L.Control {
 					{name: _('Show Ruler'), id: 'showruler', type: 'action'},
 					{name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 					{name: _('Hide Menu Bar'), id: 'togglemenubar', type: 'action'},
-					// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+					{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 					{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 					{uno: '.uno:SidebarDeck.PropertyDeck', id: 'view-sidebar-property-deck', name: _UNO('.uno:Sidebar')},
 					{uno: '.uno:SidebarDeck.StyleListDeck', name: _('Style list')},
@@ -431,55 +431,55 @@ class Menubar extends window.L.Control {
 				{uno: '.uno:LineNumberingDialog'},
 				{uno: '.uno:FootnoteDialog'},
 				{type: 'separator'},
-				// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
+				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 			]},
 			{name: _('Extensions'), id: 'extensions-menu', type: 'menu', menu: []},
-			// {name: _UNO('.uno:HelpMenu', 'text'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
-			// 	{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
-			// 	{type: 'separator', iosapp: false},
-			// 	{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Forum'), id: 'forum', type: 'action'},
-			// 	{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
-			// 	{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// 	{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('About'), id: 'about', type: 'action'}]
-			// },
+			{name: _UNO('.uno:HelpMenu', 'text'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
+				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
+				{type: 'separator', iosapp: false},
+				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
+				{type: 'separator'},
+				{name: _('Forum'), id: 'forum', type: 'action'},
+				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
+				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('About'), id: 'about', type: 'action'}]
+			},
 			{name: _('Last modification'), id: 'last-mod', type: 'action', tablet: false}
 		],
 
 		presentation: [
 			{name: _UNO('.uno:PickList', 'presentation'), id: 'file', type: 'menu', accessibility: {combination: 'MF'}, menu: [
 				{name: _UNO('.uno:Save', 'presentation'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'presentation'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
-				// 	{name: _('ODF presentation (.odp)'), id: 'saveas-odp', type: 'action'},
-				// 	{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'saveas-ppt', type: 'action'},
-				// 	{name: _('PowerPoint Presentation (.pptx)'), id: 'saveas-pptx', type: 'action'},
-				// ]},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'presentation'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
+					{name: _('ODF presentation (.odp)'), id: 'saveas-odp', type: 'action'},
+					{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'saveas-ppt', type: 'action'},
+					{name: _('PowerPoint Presentation (.pptx)'), id: 'saveas-pptx', type: 'action'},
+				]},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Save Comments'), id: 'savecomments', type: 'action'},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
-				// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-				// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
-				// 	{name: _('ODF presentation (.odp)'), id: 'downloadas-odp', type: 'action'},
-				// 	{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'downloadas-ppt', type: 'action'},
-				// 	{name: _('PowerPoint Presentation (.pptx)'), id: 'downloadas-pptx', type: 'action'},
-				// 	{name: _('HTML Document (.html)'), id: 'downloadas-html', type: 'action'},
-				// 	{name: _('Scalable Vector Graphics (.svg)'), id: 'downloadas-svg', type: 'action'},
-				// 	{name: _('Current slide as Bitmap (.bmp)'), id: 'downloadas-bmp', type: 'action'},
-				// 	{name: _('Current slide as Graphics Interchange Format (.gif)'), id: 'downloadas-gif', type: 'action'},
-				// 	{name: _('Current slide as Portable Network Graphics (.png)'), id: 'downloadas-png', type: 'action'},
-				// 	{name: _('Current slide as Tag Image File Format (.tiff)'), id: 'downloadas-tiff', type: 'action'},
-				// ]},
+				{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+					{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
+					{name: _('ODF presentation (.odp)'), id: 'downloadas-odp', type: 'action'},
+					{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'downloadas-ppt', type: 'action'},
+					{name: _('PowerPoint Presentation (.pptx)'), id: 'downloadas-pptx', type: 'action'},
+					{name: _('HTML Document (.html)'), id: 'downloadas-html', type: 'action'},
+					{name: _('Scalable Vector Graphics (.svg)'), id: 'downloadas-svg', type: 'action'},
+					{name: _('Current slide as Bitmap (.bmp)'), id: 'downloadas-bmp', type: 'action'},
+					{name: _('Current slide as Graphics Interchange Format (.gif)'), id: 'downloadas-gif', type: 'action'},
+					{name: _('Current slide as Portable Network Graphics (.png)'), id: 'downloadas-png', type: 'action'},
+					{name: _('Current slide as Tag Image File Format (.tiff)'), id: 'downloadas-tiff', type: 'action'},
+				]},
 				{name: _UNO('.uno:SetDocumentProperties', 'presentation'), uno: '.uno:SetDocumentProperties', id: 'properties'},
-				// {name: _UNO('.uno:Signature', 'presentation'), uno: '.uno:Signature', id: 'signature'},
+				{name: _UNO('.uno:Signature', 'presentation'), uno: '.uno:Signature', id: 'signature'},
 				{name: _('Options'), id: 'settings-dialog', type: 'action', mobileapp: false},
 				{type: 'separator'},
 				{name: _UNO('.uno:Print', 'presentation'), id: 'print', type: 'menu', menu: [
@@ -506,7 +506,7 @@ class Menubar extends window.L.Control {
 			 menu: (window.mode.isTablet() ? [
 					{name: _('Reset zoom'), id: 'zoomreset', type: 'action'},
 				] as MenuItem[] : [
-					// {name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
+					{name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
 				   {type: 'separator'},
 					{name: _UNO('.uno:ZoomPlus', 'presentation'), unoid: '.uno:ZoomPlus', id: 'zoomin', type: 'action'},
 					{name: _UNO('.uno:ZoomMinus', 'presentation'), unoid: '.uno:ZoomMinus', id: 'zoomout', type: 'action'},
@@ -521,7 +521,7 @@ class Menubar extends window.L.Control {
 				   {name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 				   {name: _('Notes View'), id: 'notesmode', type: 'action'},
 				   {name: _('Hide Menu Bar'), id: 'togglemenubar', type: 'action'},
-				//    {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				   {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				   {name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 				   {name: _('Master View'), uno: '.uno:SlideMasterPage'},
 				   {uno: '.uno:SidebarDeck.PropertyDeck', name: _UNO('.uno:Sidebar')},
@@ -646,34 +646,34 @@ class Menubar extends window.L.Control {
 				{name: _UNO('.uno:LanguageMenu'), type: 'menu', menu: [
 					{name: _('None (Do not check spelling)'), id: 'nonelanguage', uno: '.uno:LanguageStatus?Language:string=Default_LANGUAGE_NONE'}]},
 				{type: 'separator'},
-				// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
+				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 
 			]},
 			{name: _('Extensions'), id: 'extensions-menu', type: 'menu', menu: []},
-			// {name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
-			// 	{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
-			// 	{type: 'separator', iosapp: false},
-			// 	{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Forum'), id: 'forum', type: 'action'},
-			// 	{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
-			// 	{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// 	{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('About'), id: 'about', type: 'action'}]
-			// },
+			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
+				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
+				{type: 'separator', iosapp: false},
+				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
+				{type: 'separator'},
+				{name: _('Forum'), id: 'forum', type: 'action'},
+				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
+				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('About'), id: 'about', type: 'action'}]
+			},
 			{name: _('Last modification'), id: 'last-mod', type: 'action', tablet: false}
 		],
 
 		drawing: [
 			{name: _UNO('.uno:PickList', 'presentation'), id: 'file', type: 'menu', accessibility: {combination: 'MF'}, menu: [
 				{name: _UNO('.uno:Save', 'presentation'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Save Comments'), id: 'savecomments', type: 'action'},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _UNO('.uno:Print', 'presentation'), unoid: '.uno:Print', id: 'print', type: 'action'},
@@ -684,7 +684,7 @@ class Menubar extends window.L.Control {
 					{name: _('ODF Drawing (.odg)'), id: 'downloadas-odg', type: 'action'}
 				]},
 				{name: _UNO('.uno:SetDocumentProperties', 'presentation'), uno: '.uno:SetDocumentProperties', id: 'properties'},
-				// {name: _UNO('.uno:Signature', 'presentation'), uno: '.uno:Signature', id: 'signature'},
+				{name: _UNO('.uno:Signature', 'presentation'), uno: '.uno:Signature', id: 'signature'},
 				{name: _('Options'), id: 'settings-dialog', type: 'action', mobileapp: false},
 				{type: 'separator'},
 				{name: _('Close document'), id: 'closedocument', type: 'action'}
@@ -707,7 +707,7 @@ class Menubar extends window.L.Control {
 			 menu: (window.mode.isTablet() ? [
 					{name: _('Reset zoom'), id: 'zoomreset', type: 'action'},
 				] as MenuItem[] : [
-					// {name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
+					{name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action'},
 					{type: 'separator'},
 					{name: _UNO('.uno:ZoomPlus', 'presentation'), unoid: '.uno:ZoomPlus', id: 'zoomin', type: 'action'},
 					{name: _UNO('.uno:ZoomMinus', 'presentation'), unoid: '.uno:ZoomMinus', id: 'zoomout', type: 'action'},
@@ -718,7 +718,7 @@ class Menubar extends window.L.Control {
 					{uno: '.uno:GridUse', name: _UNO('.uno:GridUse')},
 					{type: 'separator'},
 					{name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
-					// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+					{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 					{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 					{uno: '.uno:SidebarDeck.PropertyDeck', name: _UNO('.uno:Sidebar')},
 					{uno: '.uno:Navigator', id: 'navigator'},
@@ -749,7 +749,7 @@ class Menubar extends window.L.Control {
 					{name: _UNO('.uno:InsertPageTitleField', 'presentation'), uno: '.uno:InsertPageTitleField'},
 					{name: _UNO('.uno:InsertPagesField', 'presentation'), uno: '.uno:InsertPagesField'},
 				]},
-				// {name: _UNO('.uno:InsertSignatureLine'), unoid: '.uno:InsertSignatureLine', id: 'insert-signatureline', type: 'action'},
+				{name: _UNO('.uno:InsertSignatureLine'), unoid: '.uno:InsertSignatureLine', id: 'insert-signatureline', type: 'action'},
 			]},
 			{name: _UNO('.uno:FormatMenu', 'presentation'), id: 'format', type: 'menu', accessibility: {combination: 'MO'}, menu: [
 				{uno: '.uno:FontDialog'},
@@ -823,47 +823,46 @@ class Menubar extends window.L.Control {
 					{name: _('None (Do not check spelling)'), id: 'nonelanguage', uno: '.uno:LanguageStatus?Language:string=Default_LANGUAGE_NONE'}]}
 			]},
 			{name: _('Extensions'), id: 'extensions-menu', type: 'menu', menu: []},
-		// 	{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
-		// 		{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
-		// 		{type: 'separator', iosapp: false},
-		// 		{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
-		// 		{type: 'separator'},
-		// 		{name: _('Forum'), id: 'forum', type: 'action'},
-		// 		{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
-		// 		{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-		// 		{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-		// 		{type: 'separator'},
-		// 		{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
-		// 		{type: 'separator'},
-		// 		{name: _('About'), id: 'about', type: 'action'}]
-		// 	},
-		// 	{name: _('Last modification'), id: 'last-mod', type: 'action', tablet: false}
-		// ],
+			{name: _UNO('.uno:HelpMenu', 'presentation'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
+				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
+				{type: 'separator', iosapp: false},
+				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
+				{type: 'separator'},
+				{name: _('Forum'), id: 'forum', type: 'action'},
+				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
+				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('About'), id: 'about', type: 'action'}]
+			},
+			{name: _('Last modification'), id: 'last-mod', type: 'action', tablet: false}
 		],
 
 		spreadsheet: [
 			{name: _UNO('.uno:PickList', 'spreadsheet'), id: 'file', type: 'menu', accessibility: {combination: 'MF'}, menu: [
 				{name: _UNO('.uno:Save', 'spreadsheet'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'spreadsheet'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
-				// 	{name: _('ODF spreadsheet (.ods)'), id: 'saveas-ods', type: 'action'},
-				// 	{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'saveas-xls', type: 'action'},
-				// 	{name: _('Excel Spreadsheet (.xlsx)'), id: 'saveas-xlsx', type: 'action'},
-				// ]},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'spreadsheet'), id: 'saveas', type: window.prefs.get('saveAsMode') === 'group' ? 'menu' : 'action', menu: [
+					{name: _('ODF spreadsheet (.ods)'), id: 'saveas-ods', type: 'action'},
+					{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'saveas-xls', type: 'action'},
+					{name: _('Excel Spreadsheet (.xlsx)'), id: 'saveas-xlsx', type: 'action'},
+				]},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
-				// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-				// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
-				// 	{name: _('ODF spreadsheet (.ods)'), id: 'downloadas-ods', type: 'action'},
-				// 	{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'downloadas-xls', type: 'action'},
-				// 	{name: _('Excel Spreadsheet (.xlsx)'), id: 'downloadas-xlsx', type: 'action'},
-				// 	{name: _('CSV file (.csv)'), id: 'downloadas-csv', type: 'action'},
-				// 	{name: _('HTML file (.html)'), id: 'downloadas-html', type: 'action'}]},
+				{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+					{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
+					{name: _('ODF spreadsheet (.ods)'), id: 'downloadas-ods', type: 'action'},
+					{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'downloadas-xls', type: 'action'},
+					{name: _('Excel Spreadsheet (.xlsx)'), id: 'downloadas-xlsx', type: 'action'},
+					{name: _('CSV file (.csv)'), id: 'downloadas-csv', type: 'action'},
+					{name: _('HTML file (.html)'), id: 'downloadas-html', type: 'action'}]},
 				{name: _UNO('.uno:SetDocumentProperties', 'spreadsheet'), uno: '.uno:SetDocumentProperties', id: 'properties'},
-				// {name: _UNO('.uno:Signature', 'spreadsheet'), uno: '.uno:Signature', id: 'signature'},
+				{name: _UNO('.uno:Signature', 'spreadsheet'), uno: '.uno:Signature', id: 'signature'},
 				{name: _('Options'), id: 'settings-dialog', type: 'action', mobileapp: false},
 				{type: 'separator'},
 				{name: _UNO('.uno:Print', 'spreadsheet'), id: 'print', type: 'menu', menu: [
@@ -900,7 +899,7 @@ class Menubar extends window.L.Control {
 				   {name: _('Toggle UI Mode'), id: 'toggleuimode', type: 'action'},
 				   {name: _('Show Status Bar'), id: 'showstatusbar', type: 'action'},
 				   {name: _('Hide Menu Bar'), id: 'togglemenubar', type: 'action'},
-				//    {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				   {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				   {name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 				   {uno: '.uno:SidebarDeck.PropertyDeck', name: _UNO('.uno:Sidebar')},
 				   {uno: '.uno:Navigator', id: 'navigator'},
@@ -1131,23 +1130,23 @@ class Menubar extends window.L.Control {
 				{uno: '.uno:GoalSeekDialog'},
 				{uno: '.uno:Protect'},
 				{type: 'separator'},
-				// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
+				{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'}
 			]},
 			{name: _('Extensions'), id: 'extensions-menu', type: 'menu', menu: []},
-			// {name: _UNO('.uno:HelpMenu', 'spreadsheet'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
-			// 	{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
-			// 	{type: 'separator', iosapp: false},
-			// 	{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Forum'), id: 'forum', type: 'action'},
-			// 	{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
-			// 	{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// 	{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
-			// 	{type: 'separator'},
-			// 	{name: _('About'), id: 'about', type: 'action'}]
-			// },
+			{name: _UNO('.uno:HelpMenu', 'spreadsheet'), id: 'help', type: 'menu', accessibility: {combination: 'MY'}, menu: [
+				{name: _('Online Help'), id: 'online-help', type: 'action', iosapp: false},
+				{type: 'separator', iosapp: false},
+				{name: _('Keyboard shortcuts'), id: 'keyboard-shortcuts', type: 'action', iosapp: false},
+				{type: 'separator'},
+				{name: _('Forum'), id: 'forum', type: 'action'},
+				{name: _('Report an issue'), id: 'report-an-issue', type: 'action', iosapp: false},
+				{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+				{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('Server audit'), id: 'serveraudit', type: 'action', mobileapp: false},
+				{type: 'separator'},
+				{name: _('About'), id: 'about', type: 'action'}]
+			},
 			{name: _('Last modification'), id: 'last-mod', type: 'action', tablet: false}
 		],
 
@@ -1155,27 +1154,27 @@ class Menubar extends window.L.Control {
 			{name: _('Search'), id: 'recsearch', type: 'action'},
 			{name: _UNO('.uno:PickList', 'text'), id: 'file', type: 'menu', menu: [
 				{name: _UNO('.uno:Save', 'text'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'text'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'},
-				// 	{name: _('EPUB (.epub)'), id: 'exportas-epub', type: 'action'},
-				// 	{name: _('Markdown (.md)'), id: 'exportas-md', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'text'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'},
+					{name: _('EPUB (.epub)'), id: 'exportas-epub', type: 'action'},
+					{name: _('Markdown (.md)'), id: 'exportas-md', type: 'action'}
+				]},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
 				{type: 'separator'},
 				{name: _UNO('.uno:Print', 'text'), unoid: '.uno:Print', id: 'print', type: 'action'},
 			]},
-			// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
-			// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-			// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf', type: 'action'},
-			// 	{name: _('ODF text document (.odt)'), id: 'downloadas-odt', type: 'action'},
-			// 	{name: _('Word 2003 Document (.doc)'), id: 'downloadas-doc', type: 'action'},
-			// 	{name: _('Word Document (.docx)'), id: 'downloadas-docx', type: 'action'},
-			// 	{name: _('Rich Text (.rtf)'), id: 'downloadas-rtf', type: 'action'},
-			// 	{name: _('EPUB (.epub)'), id: !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', type: 'action'},
-			// 	{name: _('Markdown (.md)'), id: 'downloadas-md', type: 'action'},
-			// ]},
+			{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id: 'downloadas', type: 'menu', menu: [
+				{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+				{name: _('PDF Document (.pdf) as...'), id: 'exportpdf', type: 'action'},
+				{name: _('ODF text document (.odt)'), id: 'downloadas-odt', type: 'action'},
+				{name: _('Word 2003 Document (.doc)'), id: 'downloadas-doc', type: 'action'},
+				{name: _('Word Document (.docx)'), id: 'downloadas-docx', type: 'action'},
+				{name: _('Rich Text (.rtf)'), id: 'downloadas-rtf', type: 'action'},
+				{name: _('EPUB (.epub)'), id: !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', type: 'action'},
+				{name: _('Markdown (.md)'), id: 'downloadas-md', type: 'action'},
+			]},
 			{name: _UNO('.uno:EditMenu', 'text'), id: 'editmenu', type: 'menu', menu: [
 				{uno: '.uno:Undo'},
 				{uno: '.uno:Redo'},
@@ -1196,11 +1195,11 @@ class Menubar extends window.L.Control {
 				{uno: '.uno:NextTrackedChange'}
 			]},
 			{name: _UNO('.uno:ViewMenu', 'text'), id: 'view', type: 'menu', menu: [
-				// {name: _UNO('.uno:FullScreen', 'text'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
+				{name: _UNO('.uno:FullScreen', 'text'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
 				{uno: '.uno:ControlCodes', id: 'formattingmarks'},
 				{uno: '.uno:SpellOnline'},
 				{name: _UNO('.uno:ShowResolvedAnnotations', 'text'), id: 'showresolved', uno: '.uno:ShowResolvedAnnotations'},
-				// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 			]
 			},
@@ -1213,33 +1212,33 @@ class Menubar extends window.L.Control {
 				{
 					uno: '.uno:Translate'
 				} : {},
-			// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
-			// {name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// {name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// {name: _('About'), id: 'about', type: 'action'},
+			{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
+			{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+			{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+			{name: _('About'), id: 'about', type: 'action'},
 		],
 
 		mobilepresentation: [
 			{name: _('Search'), id: 'recsearch', type: 'action'},
 			{name: _UNO('.uno:PickList', 'presentation'), id: 'file', type: 'menu', menu: [
 				{name: _UNO('.uno:Save', 'presentation'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
 				{type: 'separator'},
 				{name: _UNO('.uno:Print', 'presentation'), uno: '.uno:Print', id: 'print', type: 'action'},
 			]},
-			// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
-			// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-			// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
-			// 	{name: _('ODF presentation (.odp)'), id: 'downloadas-odp', type: 'action'},
-			// 	{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'downloadas-ppt', type: 'action'},
-			// 	{name: _('PowerPoint Presentation (.pptx)'), id: 'downloadas-pptx', type: 'action'},
-			// 	{name: _('ODF Drawing (.odg)'), id: 'downloadas-odg', type: 'action'}
-			// ]},
+			{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
+				{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+				{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
+				{name: _('ODF presentation (.odp)'), id: 'downloadas-odp', type: 'action'},
+				{name: _('PowerPoint 2003 Presentation (.ppt)'), id: 'downloadas-ppt', type: 'action'},
+				{name: _('PowerPoint Presentation (.pptx)'), id: 'downloadas-pptx', type: 'action'},
+				{name: _('ODF Drawing (.odg)'), id: 'downloadas-odg', type: 'action'}
+			]},
 			{name: _UNO('.uno:EditMenu', 'presentation'), id: 'editmenu', type: 'menu', menu: [
 				{uno: '.uno:Undo'},
 				{uno: '.uno:Redo'},
@@ -1252,8 +1251,8 @@ class Menubar extends window.L.Control {
 			]},
 			{name: _UNO('.uno:ViewMenu', 'presentation'), id: 'view', type: 'menu', menu: [
 				{uno: '.uno:SpellOnline'},
-				// {name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
-				// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				{name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
+				{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 			]
 			},
@@ -1277,30 +1276,30 @@ class Menubar extends window.L.Control {
 				{name: _UNO('.uno:DuplicateSlide', 'presentation'), unoid: '.uno:DuplicateSlide', id: 'duplicatepage', type: 'action'},
 				{name: _UNO('.uno:DeleteSlide', 'presentation'), unoid: '.uno:DeleteSlide', id: 'deletepage', type: 'action'}]
 			},
-			// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
-			// {name: _('Fullscreen presentation'), id: 'fullscreen-presentation', type: 'action'},
-			// {name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// {name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// {name: _('About'), id: 'about', type: 'action'},
+			{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
+			{name: _('Fullscreen presentation'), id: 'fullscreen-presentation', type: 'action'},
+			{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+			{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+			{name: _('About'), id: 'about', type: 'action'},
 		],
 
 		mobiledrawing: [
 			{name: _('Search'), id: 'recsearch', type: 'action'},
 			{name: _UNO('.uno:PickList', 'presentation'), id: 'file', type: 'menu', menu: [
 				{name: _UNO('.uno:Save', 'presentation'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'presentation'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _UNO('.uno:Print', 'presentation'), unoid: '.uno:Print', id: 'print', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
 			]},
-			// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
-			// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-			// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf', type: 'action'},
-			// 	{name: _('ODF Drawing (.odg)'), id: 'downloadas-odg', type: 'action'}
-			// ]},
+			{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
+				{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+				{name: _('PDF Document (.pdf) as...'), id: 'exportpdf', type: 'action'},
+				{name: _('ODF Drawing (.odg)'), id: 'downloadas-odg', type: 'action'}
+			]},
 			{name: _UNO('.uno:EditMenu', 'presentation'), id: 'editmenu', type: 'menu', menu: [
 				{uno: '.uno:Undo'},
 				{uno: '.uno:Redo'},
@@ -1313,8 +1312,8 @@ class Menubar extends window.L.Control {
 			]},
 			{name: _UNO('.uno:ViewMenu', 'presentation'), id: 'view', type: 'menu', menu: [
 				{uno: '.uno:SpellOnline'},
-				// {name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
-				// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				{name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
+				{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 			]
 			},
@@ -1333,20 +1332,20 @@ class Menubar extends window.L.Control {
 				{name: _UNO('.uno:DuplicatePage', 'presentation'), unoid: '.uno:DuplicatePage', id: 'duplicatepage', type: 'action'},
 				{name: _UNO('.uno:DeletePage', 'presentation'), unoid: '.uno:DeletePage', id: 'deletepage', type: 'action'}]
 			},
-			// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
-			// {name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// {name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// {name: _('About'), id: 'about', type: 'action'},
+			{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
+			{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+			{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+			{name: _('About'), id: 'about', type: 'action'},
 		],
 
 		mobilespreadsheet: [
 			{name: _('Search'), id: 'recsearch', type: 'action'},
 			{name: _UNO('.uno:PickList', 'spreadsheet'), id: 'file', type: 'menu', menu: [
 				{name: _UNO('.uno:Save', 'spreadsheet'), unoid: '.uno:Save', id: 'save', type: 'action'},
-				// {name: _UNO('.uno:SaveAs', 'spreadsheet'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
-				// {name: _('Export as'), id: 'exportas', type: 'menu', menu: [
-				// 	{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
-				// ]},
+				{name: _UNO('.uno:SaveAs', 'spreadsheet'), unoid: '.uno:SaveAs', id: 'saveas', type: 'action'},
+				{name: _('Export as'), id: 'exportas', type: 'menu', menu: [
+					{name: _('PDF Document (.pdf)'), id: 'exportas-pdf', type: 'action'}
+				]},
 				{name: _('Share...'), id:'shareas', type: 'action'},
 				{name: _('See revision history'), id: 'rev-history', type: 'action'},
 				{type: 'separator'},
@@ -1354,13 +1353,13 @@ class Menubar extends window.L.Control {
 				{name: _('Define print area'), uno: '.uno:DefinePrintArea' },
 				{name: _('Remove print area'), uno: '.uno:DeletePrintArea' },
 			]},
-			// {name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
-			// 	{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
-			// 	{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
-			// 	{name: _('ODF spreadsheet (.ods)'), id: 'downloadas-ods', type: 'action'},
-			// 	{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'downloadas-xls', type: 'action'},
-			// 	{name: _('Excel Spreadsheet (.xlsx)'), id: 'downloadas-xlsx', type: 'action'}
-			// ]},
+			{name: !window.ThisIsAMobileApp ? _('Download as') : _('Export as'), id:'downloadas', type: 'menu', menu: [
+				{name: _('PDF Document (.pdf)'), id: !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', type: 'action'},
+				{name: _('PDF Document (.pdf) as...'), id: 'exportpdf' , type: 'action'},
+				{name: _('ODF spreadsheet (.ods)'), id: 'downloadas-ods', type: 'action'},
+				{name: _('Excel 2003 Spreadsheet (.xls)'), id: 'downloadas-xls', type: 'action'},
+				{name: _('Excel Spreadsheet (.xlsx)'), id: 'downloadas-xlsx', type: 'action'}
+			]},
 			{name: _UNO('.uno:EditMenu', 'spreadsheet'), id: 'editmenu', type: 'menu', menu: [
 				{uno: '.uno:Undo'},
 				{uno: '.uno:Redo'},
@@ -1373,8 +1372,8 @@ class Menubar extends window.L.Control {
 			]},
 			{name: _UNO('.uno:ViewMenu', 'spreadsheet'), id: 'view', type: 'menu', menu: [
 				{uno: '.uno:SpellOnline'},
-				// {name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
-				// {name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
+				{name: _UNO('.uno:FullScreen', 'presentation'), unoid: '.uno:FullScreen', id: 'fullscreen', type: 'action', mobileapp: false},
+				{name: _('Dark Mode'), id: 'toggledarktheme', type: 'action'},
 				{name: _('Invert Background'), id: 'invertbackground', type: 'action'},
 			]
 			},
@@ -1408,10 +1407,10 @@ class Menubar extends window.L.Control {
 					{uno: '.uno:HideDetail'},
 					{uno: '.uno:ShowDetail'}]}
 			]},
-			// {name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
-			// {name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
-			// {name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
-			// {name: _('About'), id: 'about', type: 'action'},
+			{name: _UNO('.uno:RunMacro'), id: 'runmacro', uno: '.uno:RunMacro'},
+			{name: _('Latest Updates'), id: 'latestupdates', type: 'action', iosapp: false},
+			{name: _('Send Feedback'), id: 'feedback', type: 'action', mobileapp: false},
+			{name: _('About'), id: 'about', type: 'action'},
 		],
 
 		mobileInsertMenu : {
@@ -1537,7 +1536,7 @@ class Menubar extends window.L.Control {
 
 		// Only these UNO commands will be enabled in readonly mode
 		allowedViewModeCommands: [
-			// '.uno:Signature',
+			'.uno:Signature',
 			// Copying, selecting and navigating do not change the document, so
 			// a viewer is allowed to use them. Copy, Select All and Go to Page
 			// live in the Edit menu, which is why 'editmenu' is kept visible in
@@ -1551,16 +1550,16 @@ class Menubar extends window.L.Control {
 		],
 
 		allowedViewModeActions: [
-			//() => app.sectionContainer.getSectionWithName(app.CSections.CommentList.name).hasAnyComments() ? 'savecomments' : undefined,
+			() => app.sectionContainer.getSectionWithName(app.CSections.CommentList.name).hasAnyComments() ? 'savecomments' : undefined,
 			'shareas', //file menu
 			'print','print-active-sheet', 'print-all-sheets', 'print-notespages', // file menu
-			// 'downloadas-odt', 'downloadas-doc', 'downloadas-docx', 'downloadas-rtf', // file menu
-			// 'downloadas-odp', 'downloadas-ppt', 'downloadas-pptx', 'downloadas-odg', 'exportpdf' , // file menu
-			// !window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', // file menu
-			// 'downloadas-ods', 'downloadas-xls', 'downloadas-xlsx', 'downloadas-csv', 'closedocument', // file menu
-			/* () => !window.L.Browser.edge ? 'fullscreen' : undefined,*/ 'zoomin', 'zoomout', 'zoomreset', 'fitwidthzoom', 'showruler', 'showstatusbar', 'showresolved', 'showannotations', /*'toggledarktheme',*/ // view menu
-			// 'insert-signatureline', // insert menu
-			/*'about', 'keyboard-shortcuts', 'latestupdates', 'feedback', 'serveraudit', 'online-help', 'report-an-issue',*/ // help menu
+			'downloadas-odt', 'downloadas-doc', 'downloadas-docx', 'downloadas-rtf', // file menu
+			'downloadas-odp', 'downloadas-ppt', 'downloadas-pptx', 'downloadas-odg', 'exportpdf' , // file menu
+			!window.ThisIsAMobileApp ? 'exportdirectpdf' : 'downloadas-pdf', !window.ThisIsAMobileApp ? 'exportepub' : 'downloadas-epub', // file menu
+			'downloadas-ods', 'downloadas-xls', 'downloadas-xlsx', 'downloadas-csv', 'closedocument', // file menu
+			() => !window.L.Browser.edge ? 'fullscreen' : undefined, 'zoomin', 'zoomout', 'zoomreset', 'fitwidthzoom', 'showruler', 'showstatusbar', 'showresolved', 'showannotations', 'toggledarktheme', // view menu
+			'insert-signatureline', // insert menu
+			'about', 'keyboard-shortcuts', 'latestupdates', 'feedback', 'serveraudit', 'online-help', 'report-an-issue', // help menu
 			'insertcomment',
 			'find' // edit menu
 		],
@@ -1618,8 +1617,8 @@ class Menubar extends window.L.Control {
 			$('#main-menu-state').attr('type', 'hidden');
 		}
 
-		// if (!this._map['wopi'].DisablePresentation)
-		// 	this.options.allowedViewModeActions = this.options.allowedViewModeActions.concat(['fullscreen-presentation', 'presentation-currentslide', 'present-in-window','presentation-in-console']);
+		if (!this._map['wopi'].DisablePresentation)
+			this.options.allowedViewModeActions = this.options.allowedViewModeActions.concat(['fullscreen-presentation', 'presentation-currentslide', 'present-in-window','presentation-in-console']);
 
 		this._initializeMenu(this.options.initial);
 
@@ -1878,7 +1877,7 @@ class Menubar extends window.L.Control {
 
 		document.getElementById('main-menu')?.setAttribute('role', 'menubar');
 		this._addTabIndexPropsToMainMenu();
-		// this._createFileIcon();
+		this._createFileIcon();
 	}
 
 	/**
@@ -2527,7 +2526,7 @@ class Menubar extends window.L.Control {
 		} else if (id.startsWith('downloadas-')
 			|| id.startsWith('saveas-')
 			|| id.startsWith('export')
-			// || id === 'renamedocument'
+			|| id === 'renamedocument'
 			|| id.startsWith('zotero')
 			|| id === 'deletepage'
 			|| id === 'remotelink'
