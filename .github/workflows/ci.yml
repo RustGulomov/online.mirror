@@ -1,0 +1,75 @@
+name: Build CO (vaulterix/co-26.04)
+
+on:
+  push:
+    branches: ["vaulterix/co-26.04"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vaulterix-co-build
+  cancel-in-progress: false
+
+env:
+  BUILD_J: 8
+
+jobs:
+  build-on-selfhosted:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout (do not wipe the persisted build tree)
+        uses: actions/checkout@v4
+        with:
+          clean: false
+          ref: vaulterix/co-26.04
+
+      - name: Prepare LibreOffice translations
+        working-directory: engine
+        run: |
+          TRANSLATIONS_DIR="$PWD/translations"
+
+          if [ ! -d "$TRANSLATIONS_DIR/.git" ]; then
+            echo "Cloning LibreOffice translations (distro/collabora/co-26.04)"
+            git clone --depth 1 \
+              --branch distro/collabora/co-26.04 \
+              https://git.libreoffice.org/translations \
+              "$TRANSLATIONS_DIR"
+          else
+            echo "Translations already present, skipping clone"
+          fi
+
+      - name: Configure engine (release)
+        working-directory: engine
+        run: |
+          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor
+
+      - name: Build engine (incremental)
+        working-directory: engine
+        run: make -j ${BUILD_J}
+
+      - name: Configure
+        run: |
+          ./autogen.sh --enable-feature-restriction --with-app-branding="${GITHUB_WORKSPACE}/branding" --disable-tests
+
+      - name: Build incremental
+        run: make -j ${BUILD_J} build-nocheck
+
+      - name: Install build
+        run: |
+          rm -rf "$RUNNER_TEMP/co-install"
+          make install DESTDIR="$RUNNER_TEMP/co-install"
+
+      - name: Create archive
+        run: |
+          tar -C "$RUNNER_TEMP/co-install" \
+            -czf "$RUNNER_TEMP/co-26.04.tar.gz" .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: co-26.04
+          path: ${{ runner.temp }}/co-26.04.tar.gz
+          retention-days: 5
+          if-no-files-found: error
