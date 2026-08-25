@@ -14,6 +14,7 @@ concurrency:
 
 env:
   BUILD_J: 8
+  TAG: ${{ vars.TAG }}
 
 jobs:
   build-on-selfhosted:
@@ -43,33 +44,70 @@ jobs:
       - name: Configure engine (release)
         working-directory: engine
         run: |
-          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor
+          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols
 
       - name: Build engine (incremental)
         working-directory: engine
-        run: make -j ${BUILD_J}
+        run: make
 
       - name: Configure
         run: |
-          ./autogen.sh --enable-feature-restriction --with-app-branding="${GITHUB_WORKSPACE}/branding" --disable-tests
+          ./autogen.sh \
+          --enable-feature-restriction \
+          --with-app-branding="${GITHUB_WORKSPACE}/branding" \
+          --disable-tests \
+          --disable-symbols \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --with-lokit-path="${GITHUB_WORKSPACE}/engine/include" \
+          --with-lo-path=/opt/collaboraoffice \
+          --localstatedir=/var
 
       - name: Build incremental
         run: make -j ${BUILD_J} build-nocheck
 
       - name: Install build
         run: |
-          rm -rf "$RUNNER_TEMP/co-install"
-          make install DESTDIR="$RUNNER_TEMP/co-install"
+          CTX="$RUNNER_TEMP/docker-ctx"
+          rm -rf "$CTX"
+          mkdir -p "$CTX/instdir"
+          make install DESTDIR="$CTX/instdir"
+          mkdir -p "$CTX/instdir/opt"
+          make -C engine install INSTALLDIR="$CTX/instdir/opt/collaboraoffice"
 
-      - name: Create archive
-        run: |
-          tar -C "$RUNNER_TEMP/co-install" \
-            -czf "$RUNNER_TEMP/co-26.04.tar.gz" .
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Docker Registry login
+        uses: docker/login-action@v3
         with:
-          name: co-26.04
-          path: ${{ runner.temp }}/co-26.04.tar.gz
-          retention-days: 5
-          if-no-files-found: error
+          registry: registry.vaulterix.ru
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ runner.temp }}/docker-ctx
+          file: ${{ github.workspace }}/docker/from-source/Debian
+          push: true
+          tags: |
+            registry.vaulterix.ru/dev/collabora:${{ env.TAG }}
+
+  deploy-to-dev:
+    runs-on: ubuntu-22.04
+    needs: build-on-selfhosted
+    steps:
+      - name: Deploy to Dev2
+        uses: appleboy/ssh-action@master
+        env:
+          SERVICE_NAME: collabora
+          TAG: ${{ env.TAG }}
+        with:
+          host: dev.vaulterix.ru
+          username: ${{ secrets.DEPLOY_SSH_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: 2210
+          envs: TAG,SERVICE_NAME
+          script: |
+            cd /opt/vaulterix-2.0
+            sed -i "s/^${SERVICE_NAME^^}_VER:.*$/${SERVICE_NAME^^}_VER: ${TAG}/I" .env
+            docker compose pull "$SERVICE_NAME"
+            docker compose --profile dev-vaulterix up -d --force-recreate "$SERVICE_NAME"
