@@ -414,7 +414,7 @@
 
     @LOCK_CONFIGURATION@
 
-    <restricted_commands desc="List of uno commands to be disabled">.uno:FullScreen .uno:RunMacro .uno:SaveAs .uno:Signature .uno:HelpMenu .uno:Watermark .uno:SidebarDeck.A11yCheckDeck</restricted_commands>
+    <restricted_commands desc="List of uno commands to be disabled">.uno:FullScreen .uno:RunMacro .uno:SaveAs .uno:Signature .uno:HelpMenu .uno:Watermark .uno:SidebarDeck.A11yCheckDeck .uno:InsertSignatureLine</restricted_commands>
 
     <restricted_actions desc="List of UI action IDs to be hidden or disabled in the web interface. Unlike restricted_commands, these are not UNO commands but browser-side UI actions identified by their element IDs">saveas saveas-odt saveas-doc saveas-docx saveas-rtf saveas-odp saveas-ppt saveas-pptx saveas-ods saveas-xls saveas-xlsx exportas exportas-pdf exportas-epub exportas-md exportpdf exportepub exportdirectpdf renamedocument downloadas downloadas-epub downloadas-html downloadas-docx downloadas-rtf downloadas-odt downloadas-pdf downloadas-ods downloadas-xls downloadas-xlsx downloadas-csv downloadas-md online-help forum report-an-issue latestupdates feedback serveraudit about closedocument toggledarktheme savecomments Slideshow-tab-label server-audit</restricted_actions>
 
