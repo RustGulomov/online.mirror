@@ -63,7 +63,7 @@ jobs:
           --with-lo-path=/opt/collaboraoffice \
           --localstatedir=/var
 
-      - name: Build incremental
+      - name: Build
         run: make -j ${BUILD_J} build-nocheck
 
       - name: Install build
@@ -90,6 +90,12 @@ jobs:
           push: true
           tags: |
             registry.vaulterix.ru/dev/collabora:${{ env.TAG }}
+
+      - name: Cleanup Docker images on host
+        if: always()
+        run: |
+            docker rmi registry.vaulterix.ru/dev/collabora:${{ env.TAG }} || true
+            docker builder prune -f
 
   deploy-to-dev:
     runs-on: ubuntu-22.04

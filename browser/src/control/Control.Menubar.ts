@@ -2790,6 +2790,9 @@ class Menubar extends window.L.Control {
 		if (window.ThisIsTheiOSApp && menuItem.iosapp === false) {
 			return false;
 		}
+		if (menuItem.id && this._map.Restriction.restrictedActionsList.indexOf(menuItem.id) >= 0) {
+			return false;
+		}
 		if (menuItem.id === 'about' && (window.L.DomUtil.get('about-dialog') === null)) {
 			return false;
 		}

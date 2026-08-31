@@ -201,6 +201,11 @@ form.snackbar.jsdialog-container.ui-dialog.ui-widget-content.lokdialog_container
 
 #view-sidebar-break,
 #view-griduse-break,
-#layout-showstatusbar-break {
+#layout-showstatusbar-break,
+#help-forum-break,
+#help-serveraudit-break,
+#help-about-break,
+#help-accessibility-break,
+#help-keyboardshortcuts-break {
     display: none !important;
 }
