@@ -1,0 +1,1922 @@
+#. extracted from basctl/inc
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.libreoffice.org/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED&component=UI\n"
+"POT-Creation-Date: 2026-09-01 17:32+0300\n"
+"PO-Revision-Date: 2025-11-19 18:54+0000\n"
+"Last-Translator: Helen <helenrussian@gmail.com>\n"
+"Language-Team: Russian <https://translations.documentfoundation.org/projects/libo_ui-master/basctlmessages/ru/>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Accelerator-Marker: ~\n"
+"X-Generator: LibreOffice\n"
+"X-POOTLE-MTIME: 1554827256.000000\n"
+
+#. fniWp
+#: basctl/inc/strings.hrc:25
+msgctxt "RID_STR_FILTER_ALLFILES"
+msgid "<All>"
+msgstr "<Все>"
+
+#. S2GR5
+#: basctl/inc/strings.hrc:26
+msgctxt "RID_STR_NOMODULE"
+msgid "< No Module >"
+msgstr "< Без модуля >"
+
+#. XoGeT
+#: basctl/inc/strings.hrc:27
+msgctxt "RID_STR_WRONGPASSWORD"
+msgid "Incorrect Password"
+msgstr "Неправильный пароль"
+
+#. LGqtN
+#: basctl/inc/strings.hrc:28
+msgctxt "RID_STR_NOLIBINSTORAGE"
+msgid "The file does not contain any BASIC libraries"
+msgstr "Этот файл не содержит библиотек Basic"
+
+#. 3UEnC
+#: basctl/inc/strings.hrc:29
+msgctxt "RID_STR_BADSBXNAME"
+msgid "Invalid Name"
+msgstr "Неправильное имя"
+
+#. tYTFm
+#: basctl/inc/strings.hrc:30
+msgctxt "RID_STR_LIBNAMETOLONG"
+msgid "A library name can have up to 30 characters."
+msgstr "Имя библиотеки не может содержать более 30 символов."
+
+#. hGBUF
+#: basctl/inc/strings.hrc:31
+msgctxt "RID_STR_ERRORCHOOSEMACRO"
+msgid "Macros from other documents are not accessible."
+msgstr "Макросы из других документов недоступны."
+
+#. nqQPr
+#: basctl/inc/strings.hrc:32
+msgctxt "RID_STR_LIBISREADONLY"
+msgid "This library is read-only."
+msgstr "Библиотека только для чтения."
+
+#. 8DoDR
+#: basctl/inc/strings.hrc:33
+msgctxt "RID_STR_REPLACELIB"
+msgid "'XX' cannot be replaced."
+msgstr "«XX» не может быть заменён."
+
+#. ZrC8a
+#: basctl/inc/strings.hrc:34
+msgctxt "RID_STR_IMPORTNOTPOSSIBLE"
+msgid "'XX' cannot be added."
+msgstr "Импорт «XX» невозможен."
+
+#. HEGQB
+#: basctl/inc/strings.hrc:35
+msgctxt "RID_STR_NOIMPORT"
+msgid "'XX' was not added."
+msgstr "«XX» не был добавлен."
+
+#. BEk6F
+#: basctl/inc/strings.hrc:36
+msgctxt "RID_STR_ENTERPASSWORD"
+msgid "Enter password for 'XX'"
+msgstr "Введите пароль для «XX»"
+
+#. kQpnq
+#: basctl/inc/strings.hrc:37
+msgctxt "RID_STR_SBXNAMEALLREADYUSED"
+msgid "Name already exists"
+msgstr "Имя уже используется"
+
+#. JWDCy
+#: basctl/inc/strings.hrc:38
+msgctxt "RID_STR_SIGNED"
+msgid "(Signed)"
+msgstr "(Подписано)"
+
+#. 6ubXB
+#: basctl/inc/strings.hrc:39
+msgctxt "RID_STR_SBXNAMEALLREADYUSED2"
+msgid "Object with same name already exists"
+msgstr "Объект с таким именем уже существует"
+
+#. Gnb5H
+#: basctl/inc/strings.hrc:40
+msgctxt "RID_STR_CANNOTRUNMACRO"
+msgid ""
+"For security reasons, you cannot run this macro.\n"
+"\n"
+"For more information, check the security settings."
+msgstr ""
+"Невозможно запустить этот макрос из соображений безопасности.\n"
+"\n"
+"За дополнительной информацией обращайтесь к настройкам безопасности."
+
+#. FGWLw
+#: basctl/inc/strings.hrc:41
+msgctxt "RID_STR_SEARCHNOTFOUND"
+msgid "Search key not found"
+msgstr "Строка поиска не найдена"
+
+#. ZJgvX
+#: basctl/inc/strings.hrc:42
+msgctxt "RID_STR_SEARCHFROMSTART"
+msgid "Search to last module complete. Continue at first module?"
+msgstr "Поиск до последнего модуля завершён. Продолжить поиск с первого модуля?"
+
+#. 4yDcC
+#: basctl/inc/strings.hrc:43
+msgctxt "RID_STR_SEARCHREPLACES"
+msgid "Search key replaced XX times"
+msgstr "Искомая строка заменена XX раз(а)"
+
+#. 85z2z
+#: basctl/inc/strings.hrc:44
+msgctxt "RID_STR_COULDNTREAD"
+msgid "The file could not be read"
+msgstr "Невозможно прочесть файл"
+
+#. VSAAi
+#: basctl/inc/strings.hrc:45
+msgctxt "RID_STR_COULDNTWRITE"
+msgid "The file could not be saved"
+msgstr "Невозможно сохранить файл"
+
+#. qgd4b
+#: basctl/inc/strings.hrc:46
+msgctxt "RID_STR_CANNOTCHANGENAMESTDLIB"
+msgid "The name of the default library cannot be changed."
+msgstr "Невозможно изменить имя стандартной библиотеки."
+
+#. EobDV
+#: basctl/inc/strings.hrc:47
+msgctxt "RID_STR_GENERATESOURCE"
+msgid "Generating source"
+msgstr "Создание исходного текста"
+
+#. Re6Gc
+#: basctl/inc/strings.hrc:48
+msgctxt "RID_STR_FILENAME"
+msgid "File name:"
+msgstr "Имя файла:"
+
+#. zYyVi
+#: basctl/inc/strings.hrc:49
+msgctxt "RID_STR_APPENDLIBS"
+msgid "Import Libraries"
+msgstr "Добавить библиотеки"
+
+#. tasV7
+#: basctl/inc/strings.hrc:50
+msgctxt "RID_STR_QUERYDELMACRO"
+msgid "Do you want to delete the macro XX?"
+msgstr "Удалить макрос XX?"
+
+#. Nw7mk
+#: basctl/inc/strings.hrc:51
+msgctxt "RID_STR_QUERYDELDIALOG"
+msgid "Do you want to delete the XX dialog?"
+msgstr "Удалить диалог XX?"
+
+#. 3Vw9F
+#: basctl/inc/strings.hrc:52
+msgctxt "RID_STR_QUERYDELLIB"
+msgid "Do you want to delete the XX library?"
+msgstr "Удалить библиотеку XX?"
+
+#. x2D9Y
+#: basctl/inc/strings.hrc:53
+msgctxt "RID_STR_QUERYDELLIBREF"
+msgid "Do you want to delete the reference to the XX library?"
+msgstr "Удалить ссылку на библиотеку XX?"
+
+#. oUGKc
+#: basctl/inc/strings.hrc:54
+msgctxt "RID_STR_QUERYDELMODULE"
+msgid "Do you want to delete the XX module?"
+msgstr "Удалить модуль XX?"
+
+#. Ctsr7
+#: basctl/inc/strings.hrc:55
+msgctxt "RID_STR_BASIC"
+msgid "BASIC"
+msgstr "Basic"
+
+#. WMcJq
+#. Abbreviation for 'line'
+#: basctl/inc/strings.hrc:57
+msgctxt "RID_STR_LINE"
+msgid "Ln"
+msgstr "Стр"
+
+#. pKEQb
+#. Abbreviation for 'column'
+#: basctl/inc/strings.hrc:59
+msgctxt "RID_STR_COLUMN"
+msgid "Col"
+msgstr "Стлб"
+
+#. 86aZY
+#: basctl/inc/strings.hrc:60
+msgctxt "RID_STR_CANNOTCLOSE"
+msgid "The window cannot be closed while BASIC is running."
+msgstr "Невозможно закрыть окно во время выполнения программы."
+
+#. CUG7C
+#: basctl/inc/strings.hrc:61
+msgctxt "RID_STR_REPLACESTDLIB"
+msgid "The default library cannot be replaced."
+msgstr "Невозможно заменить стандартную библиотеку."
+
+#. eWwfN
+#: basctl/inc/strings.hrc:62
+msgctxt "RID_STR_REFNOTPOSSIBLE"
+msgid "Reference to 'XX' not possible."
+msgstr "Невозможна ссылка на «XX»."
+
+#. A7sSq
+#: basctl/inc/strings.hrc:63
+msgctxt "RID_STR_WATCHNAME"
+msgid "Watch"
+msgstr "Контрольное значение"
+
+#. 84TYn
+#: basctl/inc/strings.hrc:64
+msgctxt "RID_STR_STACKNAME"
+msgid "Call Stack"
+msgstr "Стек вызовов"
+
+#. DBfyu
+#: basctl/inc/strings.hrc:65
+msgctxt "RID_STR_STDDIALOGNAME"
+msgid "Dialog"
+msgstr "Диалог"
+
+#. hUHfi
+#: basctl/inc/strings.hrc:66
+msgctxt "RID_STR_NEWLIB"
+msgid "New Library"
+msgstr "Новая библиотека"
+
+#. kisd2
+#: basctl/inc/strings.hrc:67
+msgctxt "RID_STR_NEWMOD"
+msgid "New Module"
+msgstr "Новый модуль"
+
+#. YeULe
+#: basctl/inc/strings.hrc:68
+msgctxt "RID_STR_NEWDLG"
+msgid "New Dialog"
+msgstr "Новый диалог"
+
+#. jYa97
+#: basctl/inc/strings.hrc:69
+msgctxt "RID_STR_ALL"
+msgid "All"
+msgstr "Все"
+
+#. yF2LY
+#: basctl/inc/strings.hrc:70
+msgctxt "RID_STR_PAGE"
+msgid "Page"
+msgstr "Страница"
+
+#. DHuFN
+#: basctl/inc/strings.hrc:71
+msgctxt "RID_STR_WILLSTOPPRG"
+msgid ""
+"You will have to restart the program after this edit.\n"
+"Continue?"
+msgstr ""
+"После этого изменения нужно будет перезапустить программу.\n"
+"Продолжить?"
+
+#. 4qWED
+#: basctl/inc/strings.hrc:72
+msgctxt "RID_STR_SEARCHALLMODULES"
+msgid "Do you want to replace the text in all active modules?"
+msgstr "Заменить текст во всех активных модулях?"
+
+#. FFBmA
+#: basctl/inc/strings.hrc:73
+msgctxt "RID_STR_REMOVEWATCH"
+msgid "Watch:"
+msgstr "Контрольное значение:"
+
+#. ndtng
+#: basctl/inc/strings.hrc:74
+msgctxt "RID_STR_STACK"
+msgid "Calls: "
+msgstr "Стек вызовов: "
+
+#. wwfg3
+#: basctl/inc/strings.hrc:75
+msgctxt "RID_STR_USERMACROS"
+msgid "My Macros"
+msgstr "Мои макросы"
+
+#. XenwN
+#: basctl/inc/strings.hrc:76
+msgctxt "RID_STR_USERDIALOGS"
+msgid "My Dialogs"
+msgstr "Мои диалоги"
+
+#. Mwj7u
+#: basctl/inc/strings.hrc:77
+msgctxt "RID_STR_USERMACROSDIALOGS"
+msgid "My Macros & Dialogs"
+msgstr "Мои макросы и диалоги"
+
+#. ej2KL
+#: basctl/inc/strings.hrc:78
+msgctxt "RID_STR_SHAREMACROS"
+msgid "Application Macros"
+msgstr "Макросы приложения"
+
+#. YcXKS
+#: basctl/inc/strings.hrc:79
+msgctxt "RID_STR_SHAREDIALOGS"
+msgid "Application Dialogs"
+msgstr "Диалоги приложения"
+
+#. GFbe5
+#: basctl/inc/strings.hrc:80
+msgctxt "RID_STR_SHAREMACROSDIALOGS"
+msgid "Application Macros & Dialogs"
+msgstr "Макросы и диалоги приложения"
+
+#. BAMA5
+#: basctl/inc/strings.hrc:81
+msgctxt "RID_STR_REMOVEWATCHTIP"
+msgid "Remove Watch"
+msgstr "Убрать контрольное значение"
+
+#. oUqF6
+#: basctl/inc/strings.hrc:82
+msgctxt "RID_STR_QUERYREPLACEMACRO"
+msgid "Do you want to overwrite the XX macro?"
+msgstr "Заменить существующий макрос XX?"
+
+#. Tho9k
+#: basctl/inc/strings.hrc:83
+msgctxt "RID_STR_TRANSLATION_NOTLOCALIZED"
+msgid "<Not localized>"
+msgstr "<Не локализовано>"
+
+#. xQyRD
+#: basctl/inc/strings.hrc:84
+msgctxt "RID_STR_TRANSLATION_DEFAULT"
+msgid "[Default Language]"
+msgstr "[Язык по умолчанию]"
+
+#. PqDTe
+#: basctl/inc/strings.hrc:85
+msgctxt "RID_STR_DOCUMENT_OBJECTS"
+msgid "Document Objects"
+msgstr "Объекты документа"
+
+#. N3DE8
+#: basctl/inc/strings.hrc:86
+msgctxt "RID_STR_USERFORMS"
+msgid "Forms"
+msgstr "Формы"
+
+#. SKVhK
+#: basctl/inc/strings.hrc:87
+msgctxt "RID_STR_MACRO_FROM"
+msgid "Macro From"
+msgstr "Макрос из"
+
+#. fRFkA
+#: basctl/inc/strings.hrc:88
+msgctxt "RID_STR_SAVE_MACRO_IN"
+msgid "Save Macro In"
+msgstr "Сохранить макрос в"
+
+#. 4dGqP
+#: basctl/inc/strings.hrc:89
+msgctxt "RID_STR_NORMAL_MODULES"
+msgid "Modules"
+msgstr "Модули"
+
+#. u87jq
+#: basctl/inc/strings.hrc:90
+msgctxt "RID_STR_CLASS_MODULES"
+msgid "Class Modules"
+msgstr "Модули класса"
+
+#. 8gC8E
+#: basctl/inc/strings.hrc:91
+msgctxt "RID_STR_DLGIMP_CLASH_RENAME"
+msgid "Rename"
+msgstr "Переименовать"
+
+#. FCqSS
+#: basctl/inc/strings.hrc:92
+msgctxt "RID_STR_DLGIMP_CLASH_REPLACE"
+msgid "Replace"
+msgstr "Заменить"
+
+#. 5EucM
+#: basctl/inc/strings.hrc:93
+msgctxt "RID_STR_DLGIMP_CLASH_TITLE"
+msgid "Dialog Import - Name already used"
+msgstr "Импорт диалога - Имя уже используется"
+
+#. pkAvQ
+#: basctl/inc/strings.hrc:94
+msgctxt "RID_STR_DLGIMP_CLASH_TEXT"
+msgid ""
+"The library already contains a dialog with the name:\n"
+"\n"
+"$(ARG1)\n"
+"\n"
+"Choose “Rename” to give the imported dialog a new automatic name, or “Replace” to overwrite the existing dialog completely.\n"
+" "
+msgstr ""
+"Библиотека уже содержит диалог с именем:\n"
+"\n"
+"$(ARG1)\n"
+"\n"
+"Выберите \"Переименовать\" чтобы присвоить импортируемому диалогу новое автоматическое имя, или \"Заменить\" для того чтобы перезаписать существующий диалог.\n"
+" "
+
+#. FRQSJ
+#: basctl/inc/strings.hrc:95
+msgctxt "RID_STR_DLGIMP_MISMATCH_ADD"
+msgid "Add"
+msgstr "Добавить"
+
+#. inETw
+#: basctl/inc/strings.hrc:96
+msgctxt "RID_STR_DLGIMP_MISMATCH_OMIT"
+msgid "Omit"
+msgstr "Пропустить"
+
+#. 227xE
+#: basctl/inc/strings.hrc:97
+msgctxt "RID_STR_DLGIMP_MISMATCH_TITLE"
+msgid "Dialog Import - Language Mismatch"
+msgstr "Импорт диалога - не соответствующий язык"
+
+#. zcJw8
+#: basctl/inc/strings.hrc:98
+msgctxt "RID_STR_DLGIMP_MISMATCH_TEXT"
+msgid ""
+"The dialog to be imported supports other languages than the target library.\n"
+"\n"
+"Add these languages to the library to keep additional language resources provided by the dialog or omit them to stay with the current library languages.\n"
+"\n"
+"Note: For languages not supported by the dialog the resources of the dialog's default language will be used.\n"
+" "
+msgstr ""
+"Импортируемый диалог поддерживает языки, отсутствующие в целевой библиотеке.\n"
+"\n"
+"Добавить эти языки в библиотеку для сохранения дополнительных языковых ресурсов диалога или не дополнять текущие языки библиотеки?\n"
+"\n"
+"Примечание: для неподдерживаемых диалогом языков будет использован язык, определённый в диалоге как язык по умолчанию.\n"
+" "
+
+#. FcvDu
+#: basctl/inc/strings.hrc:99
+msgctxt "RID_STR_PRINTDLG_PAGES"
+msgid "Pages:"
+msgstr "Страницы:"
+
+#. 4AR5D
+#: basctl/inc/strings.hrc:100
+msgctxt "RID_STR_PRINTDLG_PRINTALLPAGES"
+msgid "All ~Pages"
+msgstr "Все страницы"
+
+#. xfLXi
+#: basctl/inc/strings.hrc:101
+msgctxt "RID_STR_PRINTDLG_PRINTPAGES"
+msgid "Pa~ges:"
+msgstr "Страницы:"
+
+#. dALHq
+#: basctl/inc/strings.hrc:102
+msgctxt "RID_STR_CHOOSE"
+msgid "Choose"
+msgstr "Выбрать"
+
+#. edPrX
+#: basctl/inc/strings.hrc:103
+msgctxt "RID_STR_RUN"
+msgid "Run"
+msgstr "Выполнить"
+
+#. DJbpA
+#: basctl/inc/strings.hrc:104
+msgctxt "RID_STR_RECORD"
+msgid "~Save"
+msgstr "Записать"
+
+#. DFDEv
+#: basctl/inc/strings.hrc:105
+msgctxt "RID_STR_OBJECT_BROWSER"
+msgid "Object Browser"
+msgstr "Обозреватель объектов"
+
+#. fpn5Z
+#: basctl/inc/strings.hrc:106
+msgctxt "RID_STR_OB_DOCS_ERROR_TITLE"
+msgid "Documentation Error"
+msgstr "Ошибка документации"
+
+#. kEYQ2
+#: basctl/inc/strings.hrc:107
+msgctxt "RID_STR_OB_BROWSER_LAUNCH_FAILED"
+msgid "Could not open the documentation in an external web browser."
+msgstr "Не удалось открыть документацию во внешнем веб-браузере."
+
+#. NaMEU
+#: basctl/inc/strings.hrc:108
+msgctxt "RID_STR_OB_GROUP_PROPERTIES"
+msgid "Properties"
+msgstr "Свойства"
+
+#. Ra8qj
+#: basctl/inc/strings.hrc:109
+msgctxt "RID_STR_OB_GROUP_METHODS"
+msgid "Methods"
+msgstr "Методы"
+
+#. Je3Pf
+#: basctl/inc/strings.hrc:110
+msgctxt "RID_STR_OB_GROUP_FIELDS"
+msgid "Fields"
+msgstr "Поля"
+
+#. jCCbm
+#: basctl/inc/strings.hrc:111
+msgctxt "RID_STR_OB_GROUP_MEMBERS"
+msgid "Members"
+msgstr "Элементы"
+
+#. iR8tk
+#: basctl/inc/strings.hrc:112
+msgctxt "RID_STR_OB_GROUP_PROCEDURES"
+msgid "Procedures"
+msgstr "Процедуры"
+
+#. zVZAq
+#: basctl/inc/strings.hrc:113
+msgctxt "RID_STR_OB_SCOPE_ALL"
+msgid "All Libraries"
+msgstr "Все библиотеки"
+
+#. hgKH6
+#: basctl/inc/strings.hrc:114
+msgctxt "RID_STR_OB_SCOPE_CURRENT"
+msgid "Current Document"
+msgstr "Текущий документ"
+
+#. Jehg7
+#: basctl/inc/strings.hrc:115
+msgctxt "RID_STR_OB_GROUP_FUNCTIONS"
+msgid "Functions"
+msgstr "Функции"
+
+#. asghU
+#: basctl/inc/strings.hrc:116
+msgctxt "RID_STR_OB_GROUP_OTHER"
+msgid "Other"
+msgstr "Другое"
+
+#. Z38Ha
+#: basctl/inc/strings.hrc:117
+msgctxt "RID_STR_OB_NO_DOCUMENTATION"
+msgid "No documentation link is available for the selected item."
+msgstr "Для выбранного элемента нет ссылки на документацию."
+
+#. 6eZnt
+#. For Details Pane Formatting and Symbol Types
+#: basctl/inc/strings.hrc:119
+msgctxt "RID_STR_OB_AS"
+msgid " As "
+msgstr " Как "
+
+#. UWrzC
+#: basctl/inc/strings.hrc:120
+msgctxt "RID_STR_OB_OPTIONAL"
+msgid "Optional"
+msgstr "Необязательный"
+
+#. zAhKT
+#: basctl/inc/strings.hrc:121
+msgctxt "RID_STR_OB_BYREF"
+msgid "ByRef"
+msgstr "ByRef (по ссылке)"
+
+#. 2iVpg
+#: basctl/inc/strings.hrc:122
+msgctxt "RID_STR_OB_OUT_PARAM"
+msgid "[out]"
+msgstr "[выходной]"
+
+#. upx7A
+#: basctl/inc/strings.hrc:123
+msgctxt "RID_STR_OB_INOUT_PARAM"
+msgid "[inout]"
+msgstr "[входной/выходной]"
+
+#. VQKXh
+#: basctl/inc/strings.hrc:124
+msgctxt "RID_STR_OB_ACCESS"
+msgid "Access: "
+msgstr "Доступ: "
+
+#. LD7oB
+#: basctl/inc/strings.hrc:125
+msgctxt "RID_STR_OB_RETURNS"
+msgid "Returns: "
+msgstr "Возвращает: "
+
+#. RWVR7
+#: basctl/inc/strings.hrc:126
+msgctxt "RID_STR_OB_TYPE"
+msgid "Type: "
+msgstr "Тип: "
+
+#. CSjgL
+#: basctl/inc/strings.hrc:127
+msgctxt "RID_STR_OB_PARAMETERS"
+msgid ""
+"\n"
+"Parameters:\n"
+msgstr ""
+"\n"
+"Параметры:\n"
+
+#. qj5A2
+#: basctl/inc/strings.hrc:128
+msgctxt "RID_STR_OB_LOCATION_HEADER"
+msgid ""
+"\n"
+"Location\n"
+msgstr ""
+"\n"
+"Расположение\n"
+
+#. Gi5hT
+#: basctl/inc/strings.hrc:129
+msgctxt "RID_STR_OB_MEMBER_OF"
+msgid "Member of: "
+msgstr "Принадлежит: "
+
+#. BSAYz
+#: basctl/inc/strings.hrc:130
+msgctxt "RID_STR_OB_LIBRARY"
+msgid "Library: "
+msgstr "Библиотека: "
+
+#. e4E7b
+#: basctl/inc/strings.hrc:131
+msgctxt "RID_STR_OB_DOCUMENT"
+msgid "Document: "
+msgstr "Документ: "
+
+#. UE4Bg
+#: basctl/inc/strings.hrc:132
+msgctxt "RID_STR_OB_LINE"
+msgid "Line: "
+msgstr "Строка: "
+
+#. jKzGE
+#: basctl/inc/strings.hrc:133
+msgctxt "RID_STR_OB_FULLNAME_HEADER"
+msgid ""
+"\n"
+"Full Name\n"
+msgstr ""
+"\n"
+"Полное имя\n"
+
+#. p7frC
+#: basctl/inc/strings.hrc:134
+msgctxt "RID_STR_OB_CONTENTS_HEADER"
+msgid "Contents\n"
+msgstr "Содержимое\n"
+
+#. 6FCjd
+#: basctl/inc/strings.hrc:135
+msgctxt "RID_STR_OB_TOTAL_MEMBERS"
+msgid "Total members: "
+msgstr "Всего элементов: "
+
+#. XcrPC
+#: basctl/inc/strings.hrc:136
+msgctxt "RID_STR_OB_CONTAINS_ITEMS"
+msgid "Contains %1 items"
+msgstr "Содержит элементов: %1"
+
+#. bzmSw
+#. For Access Modifiers
+#: basctl/inc/strings.hrc:138
+msgctxt "RID_STR_OB_ACCESS_PUBLIC"
+msgid "Public"
+msgstr "Открытый"
+
+#. LHYrs
+#: basctl/inc/strings.hrc:139
+msgctxt "RID_STR_OB_ACCESS_PRIVATE"
+msgid "Private"
+msgstr "Закрытый"
+
+#. kxyiA
+#. For Status Bar
+#: basctl/inc/strings.hrc:141
+msgctxt "RID_STR_OB_MEMBERS_COUNT"
+msgid "%1 members"
+msgstr "%1 элементов"
+
+#. YU3ph
+#: basctl/inc/strings.hrc:142
+msgctxt "RID_STR_OB_ITEMS_COUNT"
+msgid "%1 items"
+msgstr "%1 элементов"
+
+#. JEfJC
+#: basctl/inc/strings.hrc:143
+msgctxt "RID_STR_OB_READY"
+msgid "Ready"
+msgstr "Готово"
+
+#. KFa6C
+#: basctl/inc/strings.hrc:144
+msgctxt "RID_STR_OB_READY_LOADED"
+msgid "✅ Ready (loaded in %1s)"
+msgstr "✅ Готово (загружено за %1 с)"
+
+#. SCm54
+#. For Symbol Type Names
+#: basctl/inc/strings.hrc:146
+msgctxt "RID_STR_OB_TYPE_UNO_APIS_ROOT"
+msgid "UNO APIs Root"
+msgstr "Корень API UNO"
+
+#. wU83g
+#: basctl/inc/strings.hrc:147
+msgctxt "RID_STR_OB_TYPE_APP_LIBS"
+msgid "Application Libraries"
+msgstr "Библиотеки приложений"
+
+#. 92R7e
+#: basctl/inc/strings.hrc:148
+msgctxt "RID_STR_OB_TYPE_DOC_LIBS"
+msgid "Document Libraries"
+msgstr "Библиотеки документов"
+
+#. LBHCA
+#: basctl/inc/strings.hrc:149
+msgctxt "RID_STR_OB_TYPE_LIBRARY"
+msgid "Library"
+msgstr "Библиотека"
+
+#. yCWju
+#: basctl/inc/strings.hrc:150
+msgctxt "RID_STR_OB_TYPE_MODULE"
+msgid "Module"
+msgstr "Модуль"
+
+#. 4LHq8
+#: basctl/inc/strings.hrc:151
+msgctxt "RID_STR_OB_TYPE_CLASS_MODULE"
+msgid "Class Module"
+msgstr "Модуль класса"
+
+#. VSNXc
+#: basctl/inc/strings.hrc:152
+msgctxt "RID_STR_OB_TYPE_NAMESPACE"
+msgid "Namespace"
+msgstr "Пространство имён"
+
+#. s5Pdz
+#: basctl/inc/strings.hrc:153
+msgctxt "RID_STR_OB_TYPE_INTERFACE"
+msgid "Interface"
+msgstr "Интерфейс"
+
+#. JbKw6
+#: basctl/inc/strings.hrc:154
+msgctxt "RID_STR_OB_TYPE_SERVICE"
+msgid "Service"
+msgstr "Сервис"
+
+#. f3BvH
+#: basctl/inc/strings.hrc:155
+msgctxt "RID_STR_OB_TYPE_STRUCT"
+msgid "Struct"
+msgstr "Структура"
+
+#. 4EuF6
+#: basctl/inc/strings.hrc:156
+msgctxt "RID_STR_OB_TYPE_ENUM"
+msgid "Enumeration"
+msgstr "Перечисление"
+
+#. CRfZM
+#: basctl/inc/strings.hrc:157
+msgctxt "RID_STR_OB_TYPE_CONSTANTS"
+msgid "Constants"
+msgstr "Константы"
+
+#. wtyEh
+#: basctl/inc/strings.hrc:158
+msgctxt "RID_STR_OB_TYPE_EXCEPTION"
+msgid "Exception"
+msgstr "Исключение"
+
+#. B89gJ
+#: basctl/inc/strings.hrc:159
+msgctxt "RID_STR_OB_TYPE_TYPEDEF"
+msgid "Typedef"
+msgstr "Определение типа"
+
+#. QinVc
+#: basctl/inc/strings.hrc:160
+msgctxt "RID_STR_OB_TYPE_METHOD"
+msgid "Method"
+msgstr "Метод"
+
+#. U8NNn
+#: basctl/inc/strings.hrc:161
+msgctxt "RID_STR_OB_TYPE_PROPERTY"
+msgid "Property"
+msgstr "Свойство"
+
+#. PUVBF
+#: basctl/inc/strings.hrc:162
+msgctxt "RID_STR_OB_TYPE_FIELD"
+msgid "Field"
+msgstr "Поле"
+
+#. ENKXj
+#: basctl/inc/strings.hrc:163
+msgctxt "RID_STR_OB_TYPE_SUB"
+msgid "Subroutine"
+msgstr "Подпрограмма"
+
+#. f4mbZ
+#: basctl/inc/strings.hrc:164
+msgctxt "RID_STR_OB_TYPE_FUNCTION"
+msgid "Function"
+msgstr "Функция"
+
+#. K87C4
+#: basctl/inc/strings.hrc:165
+msgctxt "RID_STR_OB_TYPE_ENUM_MEMBER"
+msgid "Enum Member"
+msgstr "Элемент перечисления"
+
+#. KDkpw
+#: basctl/inc/strings.hrc:166
+msgctxt "RID_STR_OB_TYPE_ITEM"
+msgid "Item"
+msgstr "Элемент"
+
+#. 7Gzqz
+#: basctl/inc/strings.hrc:167
+msgctxt "RID_BASICIDE_OBJCAT"
+msgid "Object Catalog"
+msgstr "Каталог объектов"
+
+#. NtqMk
+#. Property Browser Headline ----------------------------------------------------------------
+#: basctl/inc/strings.hrc:169
+msgctxt "RID_STR_BRWTITLE_PROPERTIES"
+msgid "Properties: "
+msgstr "Свойства: "
+
+#. FnkAZ
+#: basctl/inc/strings.hrc:170
+msgctxt "RID_STR_BRWTITLE_NO_PROPERTIES"
+msgid "No Control marked"
+msgstr "Не отмечены элементы управления"
+
+#. aeAPC
+#: basctl/inc/strings.hrc:171
+msgctxt "RID_STR_BRWTITLE_MULTISELECT"
+msgid "Multiselection"
+msgstr "Групповой выбор"
+
+#. GNZHF
+#: basctl/inc/strings.hrc:172
+msgctxt "RID_STR_DEF_LANG"
+msgid "[Default Language]"
+msgstr "[Язык по умолчанию]"
+
+#. uf3Kt
+#: basctl/inc/strings.hrc:173
+msgctxt "RID_STR_CREATE_LANG"
+msgid "<Press 'Add' to create language resources>"
+msgstr "<Нажмите «Добавить» для создания языковых ресурсов>"
+
+#. jnJoF
+#: basctl/inc/strings.hrc:174
+msgctxt "RID_STR_EXPORTPACKAGE"
+msgid "Export library as extension"
+msgstr "Экспортировать библиотеку как расширение"
+
+#. SnKF3
+#: basctl/inc/strings.hrc:175
+msgctxt "RID_STR_EXPORTBASIC"
+msgid "Export as BASIC library"
+msgstr "Экспортировать как библиотеку Basic"
+
+#. G6SqW
+#: basctl/inc/strings.hrc:176
+msgctxt "RID_STR_PACKAGE_BUNDLE"
+msgid "Extension"
+msgstr "Расширение"
+
+#. N7AFg
+#: basctl/inc/strings.hrc:177
+msgctxt "RID_STR_READONLY"
+msgid "Read-only"
+msgstr "Только для чтения"
+
+#. GJEts
+#: basctl/inc/strings.hrc:178
+msgctxt "RID_STR_READONLY_WARNING"
+msgid "This module is read-only and cannot be edited."
+msgstr "Этот модуль доступен только для чтения и не может быть отредактирован."
+
+#. omG33
+#: basctl/inc/strings.hrc:179
+msgctxt "RID_STR_READONLY_WARNING"
+msgid "This dialog is read-only and cannot be edited."
+msgstr "Этот диалог доступен только для чтения и не может быть отредактирован."
+
+#. 56TVo
+#: basctl/inc/strings.hrc:180
+msgctxt "RID_LINE_STATUS_CONTROL"
+msgid "Current line and character. Click to open 'Go to Line' dialog."
+msgstr "Текущие строка и символ. Щёлкните для открытия диалогового окна «Перейти к строке»."
+
+#. KCUDA
+#: basctl/inc/strings.hrc:181
+msgctxt "RID_VARIABLE_TOO_LARGE_TO_DISPLAY"
+msgid "Variable too large to display in debugger"
+msgstr "Слишком большая переменная для показа в отладчике"
+
+#. q4Gvv
+#. Color scheme names
+#: basctl/inc/strings.hrc:184
+msgctxt "RID_STR_COLORSCHEME_LIGHT"
+msgid "%PRODUCTNAME Light"
+msgstr "%PRODUCTNAME (светлый вариант)"
+
+#. eFZzs
+#: basctl/inc/strings.hrc:185
+msgctxt "RID_STR_COLORSCHEME_DARK"
+msgid "%PRODUCTNAME Dark"
+msgstr "%PRODUCTNAME (тёмный вариант)"
+
+#. KdGGY
+#: basctl/inc/strings.hrc:186
+msgctxt "RID_STR_COLORSCHEME_BREEZE_LIGHT"
+msgid "Breeze Light"
+msgstr "Breeze (светлый вариант)"
+
+#. 6BvWp
+#: basctl/inc/strings.hrc:187
+msgctxt "RID_STR_COLORSCHEME_BREEZE_DARK"
+msgid "Breeze Dark"
+msgstr "Breeze (тёмный вариант)"
+
+#. gDC7e
+#: basctl/inc/strings.hrc:188
+msgctxt "RID_STR_COLORSCHEME_SOLARIZED_DARK"
+msgid "Solarized Dark"
+msgstr "Solarized (тёмный вариант)"
+
+#. xE2PU
+#: basctl/inc/strings.hrc:189
+msgctxt "RID_STR_COLORSCHEME_SOLARIZED_LIGHT"
+msgid "Solarized Light"
+msgstr "Solarized (светлый вариант)"
+
+#. wH3TZ
+msgctxt "stock"
+msgid "_Add"
+msgstr "Добавить"
+
+#. S9dsC
+msgctxt "stock"
+msgid "_Apply"
+msgstr "Применить"
+
+#. TMo6G
+msgctxt "stock"
+msgid "_Cancel"
+msgstr "Отменить"
+
+#. MRCkv
+msgctxt "stock"
+msgid "_Close"
+msgstr "Закрыть"
+
+#. nvx5t
+msgctxt "stock"
+msgid "_Delete"
+msgstr "Удалить"
+
+#. YspCj
+msgctxt "stock"
+msgid "_Edit"
+msgstr "Правка"
+
+#. imQxr
+msgctxt "stock"
+msgid "_Help"
+msgstr "Справка"
+
+#. RbjyB
+msgctxt "stock"
+msgid "_New"
+msgstr "Создать"
+
+#. dx2yy
+msgctxt "stock"
+msgid "_No"
+msgstr "Нет"
+
+#. M9DsL
+msgctxt "stock"
+msgid "_OK"
+msgstr "ОК"
+
+#. VtJS9
+msgctxt "stock"
+msgid "_Remove"
+msgstr "Удалить"
+
+#. C69Fy
+msgctxt "stock"
+msgid "_Reset"
+msgstr "Восстановить"
+
+#. mgpxh
+msgctxt "stock"
+msgid "_Yes"
+msgstr "Да"
+
+#. PuxWj
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:26
+msgctxt "basicmacrodialog|BasicMacroDialog"
+msgid "BASIC Macros"
+msgstr "Макросы Basic"
+
+#. tFg7s
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:43
+msgctxt "basicmacrodialog|run"
+msgid "Run"
+msgstr "Выполнить"
+
+#. gokwe
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:52
+msgctxt "basicmacrodialog|extended_tip|ok"
+msgid "Runs or saves the current macro."
+msgstr "Запускает или сохраняет текущий макрос."
+
+#. 6SWBt
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:156
+msgctxt "basicmacrodialog|extended_tip|macros"
+msgid "Lists the macros that are contained in the module selected in the Macro from list."
+msgstr "Список макросов модуля, выбранного в списке Макрос из."
+
+#. 5TRqv
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:167
+msgctxt "basicmacrodialog|existingmacrosft"
+msgid "Existing Macros In:"
+msgstr "Существующие макросы:"
+
+#. 8Bfcg
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:230
+msgctxt "basicmacrodialog|extended_tip|libraries"
+msgid "Lists the libraries and the modules where you can open or save your macros. To save a macro with a particular document, open the document, and then open this dialog."
+msgstr "Список библиотек и модулей, из которых возможно открыть макросы или сохранить их. Чтобы сохранить макрос с документом, откройте документ, а затем откройте это диалоговое окно."
+
+#. AjFTi
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:269
+msgctxt "basicmacrodialog|extended_tip|macronameedit"
+msgid "Displays the name of the selected macro. To create or to change the name of a macro, enter a name here."
+msgstr "Отображает имя выбранного макроса. Для создания или изменения имени макроса введите его здесь."
+
+#. BpDb6
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:278
+msgctxt "basicmacrodialog|libraryft1"
+msgid "Macro Name"
+msgstr "Имя макроса"
+
+#. izDZr
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:300
+msgctxt "basicmacrodialog|assign"
+msgid "Assign..."
+msgstr "Назначить..."
+
+#. qEaMG
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:307
+msgctxt "basicmacrodialog|extended_tip|assign"
+msgid "Opens the Customize dialog, where you can assign the selected macro to a menu command, a toolbar, or an event."
+msgstr "Открывается диалоговое окно Настройка, в котором выбранный макрос возможно назначить команде меню, панели инструментов или событию."
+
+#. dxu7W
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:319
+msgctxt "basicmacrodialog|edit"
+msgid "Edit"
+msgstr "Правка"
+
+#. zrPXg
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:326
+msgctxt "basicmacrodialog|extended_tip|edit"
+msgid "Starts the Basic editor and opens the selected macro or dialog for editing."
+msgstr "Запускает редактор Basic и открывает выбранный макрос или диалоговое окно для редактирования."
+
+#. 9Uhec
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:338
+msgctxt "basicmacrodialog|delete"
+msgid "_Delete"
+msgstr "Удалить"
+
+#. Mxvv8
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:345
+msgctxt "basicmacrodialog|extended_tip|delete"
+msgid "Creates a new macro, creates a new module or deletes the selected macro or selected module."
+msgstr "Создаёт новый или удаляет выбранный макрос или модуль."
+
+#. XkqFC
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:357
+msgctxt "basicmacrodialog|new"
+msgid "_New"
+msgstr "Создать"
+
+#. GN5Ft
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:364
+msgctxt "basicmacrodialog|extended_tip|new"
+msgid "Creates a new library."
+msgstr "Создаёт новую библиотеку."
+
+#. Gh52t
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:376
+msgctxt "basicmacrodialog|organize"
+msgid "Organizer..."
+msgstr "Управление..."
+
+#. 3L2hk
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:383
+msgctxt "basicmacrodialog|extended_tip|organize"
+msgid "Opens the Macro Organizer dialog, where you can add, edit, or delete existing macro modules, dialogs, and libraries."
+msgstr "Открывает диалоговое окно Управление макросами, в котором возможно добавлять, изменять или удалять существующие модули, диалоговые окна и библиотеки макросов."
+
+#. wAJj2
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:395
+msgctxt "basicmacrodialog|newlibrary"
+msgid "New Library"
+msgstr "Создать библиотеку"
+
+#. E5rdD
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:402
+msgctxt "basicmacrodialog|extended_tip|newlibrary"
+msgid "Saves the recorded macro in a new library."
+msgstr "Сохраняет записанный макрос в новую библиотеку."
+
+#. 2xdsE
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:414
+msgctxt "basicmacrodialog|newmodule"
+msgid "New Module"
+msgstr "Создать модуль"
+
+#. BrAwG
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:421
+msgctxt "basicmacrodialog|extended_tip|newmodule"
+msgid "Saves the recorded macro in a new module."
+msgstr "Сохраняет записанный макрос в новый модуль."
+
+#. gMDg9
+#: basctl/uiconfig/basicide/ui/basicmacrodialog.ui:466
+msgctxt "basicmacrodialog|extended_tip|BasicMacroDialog"
+msgid "Opens a dialog to organize macros."
+msgstr "Открывает диалоговое окно для управления макросами."
+
+#. MDBgX
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:12
+msgctxt "breakpointmenus|manage"
+msgid "Manage Breakpoints..."
+msgstr "Точки останова..."
+
+#. 2ZNKn
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:15
+msgctxt "breakpointmenus|extended_tip|manage"
+msgid "Specifies the options for breakpoints."
+msgstr "Задаёт параметры для точек останова."
+
+#. faXzj
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:28
+msgctxt "breakpointmenus|active"
+msgid "_Active"
+msgstr "Активна"
+
+#. GD2Yz
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:32
+msgctxt "breakpointmenus|extended_tip|active"
+msgid "Activates or deactivates the current breakpoint."
+msgstr "Активирует или деактивирует текущую точку останова."
+
+#. FhiYE
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:47
+msgctxt "breakpointmenus|properties"
+msgid "_Properties..."
+msgstr "Свойства..."
+
+#. GEknG
+#: basctl/uiconfig/basicide/ui/breakpointmenus.ui:51
+msgctxt "breakpointmenus|extended_tip|properties"
+msgid "Specifies the options for breakpoints."
+msgstr "Задаёт параметры для точек останова."
+
+#. nFYGC
+#: basctl/uiconfig/basicide/ui/colorscheme.ui:16
+msgctxt "colorscheme|ColorSchemeDialog"
+msgid "Color Scheme"
+msgstr "Цветовая схема"
+
+#. Znw4K
+#: basctl/uiconfig/basicide/ui/colorscheme.ui:95
+msgctxt "colorscheme|opt_appcolors"
+msgid "Use Application Colors"
+msgstr "Использовать цвета приложения"
+
+#. F3QuC
+#: basctl/uiconfig/basicide/ui/colorscheme.ui:110
+msgctxt "colorscheme|opt_usescheme"
+msgid "Choose Color Scheme"
+msgstr "Выбрать цветовую схему"
+
+#. CovmZ
+#: basctl/uiconfig/basicide/ui/colorscheme.ui:131
+msgctxt "colorscheme|lb_title"
+msgid "Basic IDE Color Options"
+msgstr "Параметры цвета IDE Basic"
+
+#. oLXRN
+#: basctl/uiconfig/basicide/ui/colorscheme.ui:198
+msgctxt "colorscheme|lb_schemes"
+msgid "Color Schemes"
+msgstr "Цветовые схемы"
+
+#. G55tN
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:30
+msgctxt "defaultlanguage|DefaultLanguageDialog"
+msgid "Set Default User Interface Language"
+msgstr "Установить язык по умолчанию"
+
+#. xYz56
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:119
+msgctxt "defaultlanguage|defaultlabel"
+msgid "Default language:"
+msgstr "Язык по умолчанию:"
+
+#. C9ruF
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:225
+msgctxt "defaultlanguage|checkedlabel"
+msgid "Available languages:"
+msgstr "Доступные языки:"
+
+#. fBZNF
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:263
+msgctxt "defaultlanguage|defined"
+msgid "Select a language to define the default user interface language. All currently present strings will be assigned to the resources created for the selected language."
+msgstr "Выбор языка, который будет использован по умолчанию для пользовательского интерфейса. Все представленные сообщения будут назначены ресурсам, созданным для выбранного языка."
+
+#. pk7Wj
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:278
+msgctxt "defaultlanguage|added"
+msgid "Select languages to be added. Resources for these languages will be created in the library. Strings of the current default user interface language will be copied to these new resources by default."
+msgstr "Выбор языков для добавления. Ресурсы для этих языков будут созданы в библиотеке. Сообщения текущего языка интерфейса будут скопированы в ресурсы выбранных языков."
+
+#. QWxzi
+#: basctl/uiconfig/basicide/ui/defaultlanguage.ui:293
+msgctxt "defaultlanguage|alttitle"
+msgid "Add User Interface Languages"
+msgstr "Добавить язык пользовательского интерфейса"
+
+#. GCNcE
+#: basctl/uiconfig/basicide/ui/deletelangdialog.ui:7
+msgctxt "deletelangdialog|DeleteLangDialog"
+msgid "Delete Language Resources"
+msgstr "Удаление языковых ресурсов"
+
+#. Upj8a
+#: basctl/uiconfig/basicide/ui/deletelangdialog.ui:14
+msgctxt "deletelangdialog|DeleteLangDialog"
+msgid "Do you want to delete the resources of the selected language(s)?"
+msgstr "Удалить ресурсы выбранных языков?"
+
+#. CThUw
+#: basctl/uiconfig/basicide/ui/deletelangdialog.ui:15
+msgctxt "deletelangdialog|DeleteLangDialog"
+msgid "You are about to delete the resources for the selected language(s). All user interface strings for this language(s) will be deleted."
+msgstr "Начинается удаление ресурсов выбранных языков. Все сообщения пользовательского интерфейса для этих языков будут удалены."
+
+#. gErRZ
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:41
+msgctxt "dialogpage|label1"
+msgid "Dialog:"
+msgstr "Диалог:"
+
+#. ECCc3
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:95
+msgctxt "dialogpage|extended_tip|library"
+msgid "Deletes the selected element or elements after confirmation."
+msgstr "Удаляет выделенные элементы после подтверждения."
+
+#. XAJ3E
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:128
+msgctxt "dialogpage|extended_tip|edit"
+msgid "Opens the Basic editor so that you can modify the selected library."
+msgstr "Открывает редактор Basic для изменения выбранной библиотеки."
+
+#. n9VLU
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:140
+msgctxt "dialogpage|newmodule"
+msgid "_New..."
+msgstr "С_оздать..."
+
+#. hfkr2
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:147
+msgctxt "dialogpage|extended_tip|newmodule"
+msgid "Opens the editor and creates a new module."
+msgstr "Открывает редактор и создаёт новый модуль."
+
+#. kBzSW
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:160
+msgctxt "dialogpage|newdialog"
+msgid "_New..."
+msgstr "С_оздать..."
+
+#. JR2oJ
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:182
+msgctxt "dialogpage|extended_tip|delete"
+msgid "Deletes the selected element or elements without requiring confirmation."
+msgstr "Удаляет выбранные элементы без запроса подтверждения."
+
+#. k64f4
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:195
+msgctxt "dialogpage|password"
+msgid "_Password..."
+msgstr "_Пароль..."
+
+#. FeCu5
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:202
+msgctxt "dialogpage|extended_tip|password"
+msgid "Assigns or edits the password for the selected library."
+msgstr "Задаёт или изменяет пароль выбранной библиотеки."
+
+#. sHS7f
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:214
+msgctxt "dialogpage|import"
+msgid "_Import..."
+msgstr "_Импорт..."
+
+#. JAYC9
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:221
+msgctxt "dialogpage|extended_tip|import"
+msgid "Locate the Basic library that you want to add to the current list, and then click Open."
+msgstr "Найдите библиотеку Basic, которую хотите добавить в текущий список, затем нажмите кнопку Открыть."
+
+#. ubE5G
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:233
+msgctxt "dialogpage|export"
+msgid "_Export..."
+msgstr "_Экспорт..."
+
+#. weDhB
+#: basctl/uiconfig/basicide/ui/dialogpage.ui:259
+msgctxt "dialogpage|extended_tip|DialogPage"
+msgid "Lists the existing modules or dialogs."
+msgstr "Список существующих модулей или диалогов."
+
+#. EGyCn
+#: basctl/uiconfig/basicide/ui/dockingwatch.ui:113
+msgctxt "dockingwatch|RID_STR_WATCHVARIABLE"
+msgid "Variable"
+msgstr "Переменная"
+
+#. QUHSf
+#: basctl/uiconfig/basicide/ui/dockingwatch.ui:125
+msgctxt "dockingwatch|RID_STR_WATCHVALUE"
+msgid "Value"
+msgstr "Значение"
+
+#. ik3CG
+#: basctl/uiconfig/basicide/ui/dockingwatch.ui:139
+msgctxt "dockingwatch|RID_STR_WATCHTYPE"
+msgid "Type"
+msgstr "Тип"
+
+#. worE9
+#: basctl/uiconfig/basicide/ui/exportdialog.ui:8
+msgctxt "exportdialog|ExportDialog"
+msgid "Export Basic library"
+msgstr "Экспортировать библиотеку Basic"
+
+#. hvm9y
+#: basctl/uiconfig/basicide/ui/exportdialog.ui:90
+msgctxt "exportdialog|extension"
+msgid "Export as _extension"
+msgstr "Экспортировать как расширение"
+
+#. pK9mG
+#: basctl/uiconfig/basicide/ui/exportdialog.ui:105
+msgctxt "exportdialog|basic"
+msgid "Export as BASIC library"
+msgstr "Экспортировать как библиотеку Basic"
+
+#. foHKi
+#: basctl/uiconfig/basicide/ui/gotolinedialog.ui:8
+msgctxt "gotolinedialog|GotoLineDialog"
+msgid "Go to Line"
+msgstr "Перейти к строке"
+
+#. GbpSc
+#: basctl/uiconfig/basicide/ui/gotolinedialog.ui:73
+msgctxt "gotolinedialog|area"
+msgid "_Line number:"
+msgstr "_Номер строки:"
+
+#. mAxtP
+#: basctl/uiconfig/basicide/ui/gotolinedialog.ui:98
+msgctxt "gotolinedialog|line_count"
+msgid "of $1"
+msgstr "из $1"
+
+#. C6VgC
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:22
+msgctxt "importlibdialog|ImportLibDialog"
+msgid "Import Libraries"
+msgstr "Добавить библиотеки"
+
+#. C8ny7
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:114
+msgctxt "importlibdialog|ref"
+msgid "Insert as reference (read-only)"
+msgstr "Вставить как ссылку (только для чтения)"
+
+#. iHJcm
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:122
+msgctxt "importlibdialog|extended_tip|ref"
+msgid "Adds the selected library as a read-only file. The library is reloaded each time you start the office suite."
+msgstr "Добавляет выбранную библиотеку как файл только для чтения. Библиотека перезагружается при каждом запуске офисного пакета."
+
+#. B9N7w
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:133
+msgctxt "importlibdialog|replace"
+msgid "Replace existing libraries"
+msgstr "Заменить существующие библиотеки"
+
+#. AyUpF
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:141
+msgctxt "importlibdialog|extended_tip|replace"
+msgid "Replaces a library that has the same name with the current library."
+msgstr "Позволяет заменить библиотеку с тем же именем, что и текущая библиотека."
+
+#. GGb7Q
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:156
+msgctxt "importlibdialog|label1"
+msgid "Options"
+msgstr "Параметры"
+
+#. 7ZFMZ
+#: basctl/uiconfig/basicide/ui/importlibdialog.ui:263
+msgctxt "importlibdialog|extended_tip|ImportLibDialog"
+msgid "Enter a name or the path to the library that you want to append. You can also select a library from the list."
+msgstr "Введите имя или путь к добавляемой библиотеке."
+
+#. XdZ7e
+#: basctl/uiconfig/basicide/ui/libpage.ui:44
+msgctxt "libpage|label1"
+msgid "L_ocation:"
+msgstr "Приложение/документ:"
+
+#. JAxWt
+#: basctl/uiconfig/basicide/ui/libpage.ui:61
+msgctxt "libpage|extended_tip|location"
+msgid "Select the application or the document containing the macro libraries that you want to organize."
+msgstr "Приложение или документ, содержащий библиотеки макросов."
+
+#. C4mjh
+#: basctl/uiconfig/basicide/ui/libpage.ui:89
+msgctxt "libpage|lingudictsft"
+msgid "_Library:"
+msgstr "Библиотека:"
+
+#. fFyuF
+#: basctl/uiconfig/basicide/ui/libpage.ui:124
+msgctxt "libpage|treeviewcolumn1"
+msgid "Name"
+msgstr "Имя"
+
+#. aA3m7
+#: basctl/uiconfig/basicide/ui/libpage.ui:144
+msgctxt "libpage|treeviewcolumn2"
+msgid "Location"
+msgstr "Расположение"
+
+#. T2NUa
+#: basctl/uiconfig/basicide/ui/libpage.ui:155
+msgctxt "libpage|extended_tip|library"
+msgid "Deletes the selected element or elements after confirmation."
+msgstr "Удаляет выделенные элементы после подтверждения."
+
+#. EjFxw
+#: basctl/uiconfig/basicide/ui/libpage.ui:188
+msgctxt "libpage|extended_tip|edit"
+msgid "Opens the Basic editor so that you can modify the selected library."
+msgstr "Открывает редактор Basic для изменения выбранной библиотеки."
+
+#. AjENj
+#: basctl/uiconfig/basicide/ui/libpage.ui:200
+msgctxt "libpage|password"
+msgid "_Password..."
+msgstr "_Пароль..."
+
+#. m79WV
+#: basctl/uiconfig/basicide/ui/libpage.ui:207
+msgctxt "libpage|extended_tip|password"
+msgid "Assigns or edits the password for the selected library."
+msgstr "Задаёт или изменяет пароль выбранной библиотеки."
+
+#. bzX6x
+#: basctl/uiconfig/basicide/ui/libpage.ui:219
+msgctxt "libpage|new"
+msgid "_New..."
+msgstr "С_оздать..."
+
+#. Af6Jv
+#: basctl/uiconfig/basicide/ui/libpage.ui:226
+msgctxt "libpage|extended_tip|new"
+msgid "Creates a new library."
+msgstr "Создаёт новую библиотеку."
+
+#. EBVPe
+#: basctl/uiconfig/basicide/ui/libpage.ui:239
+msgctxt "libpage|import"
+msgid "_Import..."
+msgstr "_Импорт..."
+
+#. hSWdE
+#: basctl/uiconfig/basicide/ui/libpage.ui:246
+msgctxt "libpage|extended_tip|import"
+msgid "Locate the Basic library that you want to add to the current list, and then click Open."
+msgstr "Найдите библиотеку Basic, которую хотите добавить в текущий список, затем нажмите кнопку Открыть."
+
+#. GhHRH
+#: basctl/uiconfig/basicide/ui/libpage.ui:259
+msgctxt "libpage|export"
+msgid "_Export..."
+msgstr "_Экспорт..."
+
+#. hMRJK
+#: basctl/uiconfig/basicide/ui/libpage.ui:281
+msgctxt "libpage|extended_tip|delete"
+msgid "Deletes the selected element or elements without requiring confirmation."
+msgstr "Удаляет выбранные элементы без запроса подтверждения."
+
+#. dfZKj
+#: basctl/uiconfig/basicide/ui/libpage.ui:307
+msgctxt "libpage|extended_tip|LibPage"
+msgid "Select the application or the document containing the macro libraries that you want to organize."
+msgstr "Приложение или документ, содержащий библиотеки макросов."
+
+#. zrJTt
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:16
+msgctxt "managebreakpoints|ManageBreakpointsDialog"
+msgid "Manage Breakpoints"
+msgstr "Управление точками останова"
+
+#. TvBmF
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:40
+msgctxt "managebreakpoints|extended_tip|new"
+msgid "Creates a breakpoint on the line number specified."
+msgstr "Создаёт точку останова в указанной строке."
+
+#. CCDEi
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:60
+msgctxt "managebreakpoints|extended_tip|delete"
+msgid "Deletes the selected breakpoint."
+msgstr "Удаляет выбранную точку останова."
+
+#. PcuyN
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:143
+msgctxt "managebreakpoints|active"
+msgid "Active"
+msgstr "Активный"
+
+#. fqCCT
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:151
+msgctxt "managebreakpoints|extended_tip|active"
+msgid "Activates or deactivates the current breakpoint."
+msgstr "Активирует или деактивирует текущую точку останова."
+
+#. MUMSv
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:216
+msgctxt "managebreakpoints|extended_tip|entries"
+msgid "Enter the line number for a new breakpoint, then click New."
+msgstr "Введите номер строки для новой точки останова, затем щёлкните параметр Создать."
+
+#. RVBS5
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:245
+msgctxt "managebreakpoints|extended_tip|pass"
+msgid "Specify the number of loops to perform before the breakpoint takes effect."
+msgstr "Задаёт количество повторов до срабатывания точки останова."
+
+#. VDCwR
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:258
+msgctxt "managebreakpoints|label2"
+msgid "Pass count:"
+msgstr "Пропусков:"
+
+#. 5dExG
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:279
+msgctxt "managebreakpoints|label1"
+msgid "Breakpoints"
+msgstr "Точки останова"
+
+#. FGsQQ
+#: basctl/uiconfig/basicide/ui/managebreakpoints.ui:306
+msgctxt "managebreakpoints|extended_tip|ManageBreakpointsDialog"
+msgid "Specifies the options for breakpoints."
+msgstr "Задаёт параметры для точек останова."
+
+#. M2Sx2
+#: basctl/uiconfig/basicide/ui/managelanguages.ui:16
+msgctxt "managelanguages|ManageLanguagesDialog"
+msgid "Manage User Interface Languages [$1]"
+msgstr "Управление языками пользовательского интерфейса [$1]"
+
+#. h23XK
+#: basctl/uiconfig/basicide/ui/managelanguages.ui:81
+msgctxt "managelanguages|label1"
+msgid "Present languages:"
+msgstr "Возможные языки:"
+
+#. eDZBN
+#: basctl/uiconfig/basicide/ui/managelanguages.ui:95
+msgctxt "managelanguages|label2"
+msgid "The default language is used if no localization for a user interface locale is present. Furthermore all strings from the default language are copied to resources of newly added languages."
+msgstr "Язык по умолчанию, использующийся в интерфейсе, если требуемая локализация отсутствует. Также все сообщения языка по умолчанию будут скопированы в локализации, создающиеся в дальнейшем."
+
+#. WE7kt
+#: basctl/uiconfig/basicide/ui/managelanguages.ui:125
+msgctxt "managelanguages|add"
+msgid "Add..."
+msgstr "Добавить..."
+
+#. MqU2f
+#: basctl/uiconfig/basicide/ui/managelanguages.ui:153
+msgctxt "managelanguages|default"
+msgid "Default"
+msgstr "Стандарт"
+
+#. aMjkJ
+#: basctl/uiconfig/basicide/ui/modulepage.ui:41
+msgctxt "modulepage|label1"
+msgid "M_odule:"
+msgstr "Модуль:"
+
+#. fpUvr
+#: basctl/uiconfig/basicide/ui/modulepage.ui:95
+msgctxt "modulepage|extended_tip|library"
+msgid "Lists the existing macro libraries for the current application and any open documents."
+msgstr "Список существующих макросов текущего приложения и всех открытых документов."
+
+#. C4ns2
+#: basctl/uiconfig/basicide/ui/modulepage.ui:128
+msgctxt "modulepage|extended_tip|edit"
+msgid "Opens the Basic editor so that you can modify the selected library."
+msgstr "Открывает редактор Basic для изменения выбранной библиотеки."
+
+#. KjBGM
+#: basctl/uiconfig/basicide/ui/modulepage.ui:140
+msgctxt "modulepage|newmodule"
+msgid "_New..."
+msgstr "С_оздать..."
+
+#. SGQMi
+#: basctl/uiconfig/basicide/ui/modulepage.ui:147
+msgctxt "modulepage|extended_tip|newmodule"
+msgid "Opens the editor and creates a new module."
+msgstr "Открывает редактор и создаёт новый модуль."
+
+#. RakoP
+#: basctl/uiconfig/basicide/ui/modulepage.ui:160
+msgctxt "modulepage|newdialog"
+msgid "_New..."
+msgstr "С_оздать..."
+
+#. AvaAy
+#: basctl/uiconfig/basicide/ui/modulepage.ui:167
+msgctxt "modulepage|extended_tip|newdialog"
+msgid "Lets you manage the macro libraries."
+msgstr "Позволяет управлять библиотеками макросов."
+
+#. LeigB
+#: basctl/uiconfig/basicide/ui/modulepage.ui:187
+msgctxt "modulepage|extended_tip|delete"
+msgid "Creates a new macro, or deletes the selected macro."
+msgstr "Создаёт новый макрос или удаляет выделенный макрос."
+
+#. 5FC8g
+#: basctl/uiconfig/basicide/ui/modulepage.ui:200
+msgctxt "modulepage|password"
+msgid "_Password..."
+msgstr "_Пароль..."
+
+#. apZrB
+#: basctl/uiconfig/basicide/ui/modulepage.ui:207
+msgctxt "modulepage|extended_tip|password"
+msgid "Assigns or edits the password for the selected library."
+msgstr "Задаёт или изменяет пароль выбранной библиотеки."
+
+#. EgCDE
+#: basctl/uiconfig/basicide/ui/modulepage.ui:219
+msgctxt "modulepage|import"
+msgid "_Import..."
+msgstr "_Импорт..."
+
+#. PEoED
+#: basctl/uiconfig/basicide/ui/modulepage.ui:226
+msgctxt "modulepage|extended_tip|import"
+msgid "Locate the Basic library that you want to add to the current list, and then click Open."
+msgstr "Найдите библиотеку Basic, которую хотите добавить в текущий список, затем нажмите кнопку Открыть."
+
+#. GAYBh
+#: basctl/uiconfig/basicide/ui/modulepage.ui:238
+msgctxt "modulepage|export"
+msgid "_Export..."
+msgstr "_Экспорт..."
+
+#. 9Z2WP
+#: basctl/uiconfig/basicide/ui/modulepage.ui:264
+msgctxt "modulepage|extended_tip|ModulePage"
+msgid "Lists the existing modules or dialogs."
+msgstr "Список существующих модулей или диалогов."
+
+#. rCNTN
+#: basctl/uiconfig/basicide/ui/newlibdialog.ui:32
+msgctxt "newlibdialog|extended_tip|ok"
+msgid "Runs or saves the current macro."
+msgstr "Запускает или сохраняет текущий макрос."
+
+#. Skwd5
+#: basctl/uiconfig/basicide/ui/newlibdialog.ui:92
+msgctxt "newlibdialog|area"
+msgid "_Name:"
+msgstr "_Имя:"
+
+#. FWXXE
+#: basctl/uiconfig/basicide/ui/newlibdialog.ui:133
+msgctxt "newlibdialog|extended_tip|NewLibDialog"
+msgid "Enter a name for the new library or module."
+msgstr "Введите имя библиотеки или модуля."
+
+#. QWu67
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:61
+msgctxt "objectbrowser|FilterBox"
+msgid "Search objects and members..."
+msgstr "Поиск объектов и элементов..."
+
+#. hhVb5
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:75
+msgctxt "objectbrowser|ClearSearchButton"
+msgid "Clear Search"
+msgstr "Очистить поиск"
+
+#. 4CvyZ
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:78
+msgctxt "objectbrowser|extended_tip|ClearSearchButton"
+msgid "Clears the existing search."
+msgstr "Очищает текущий результат поиска."
+
+#. cFZCZ
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:108
+msgctxt "objectbrowser|ScopeSelectorLabel"
+msgid "Scope:"
+msgstr "Область:"
+
+#. TD2BL
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:152
+msgctxt "objectbrowser|BackButtonTip"
+msgid "Back in Navigation History"
+msgstr "Назад в истории навигации"
+
+#. pKeQm
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:157
+msgctxt "objectbrowser|extended_tip|BackButton"
+msgid "Go to the previous entry in navigation history."
+msgstr "Перейти к предыдущему элементу в истории навигации."
+
+#. 5TH27
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:173
+msgctxt "objectbrowser|ForwardButtonTip"
+msgid "Forward in Navigation History"
+msgstr "Вперёд в истории навигации"
+
+#. SnW5G
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:177
+msgctxt "objectbrowser|extended_tip|ForwardButton"
+msgid "Go to the next entry in navigation history."
+msgstr "Перейти к следующему элементу в истории навигации."
+
+#. fAtob
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:225
+msgctxt "objectbrowser|LeftPaneLabel"
+msgid "Objects"
+msgstr "Объекты"
+
+#. Nnkr8
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:256
+msgctxt "ObjectBrowserPanel"
+msgid "Objects"
+msgstr "Объекты"
+
+#. PCBw5
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:303
+msgctxt "objectbrowser|RightPaneHeaderLabel"
+msgid "Members"
+msgstr "Элементы"
+
+#. PCjCR
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:334
+msgctxt "ObjectBrowserMembers"
+msgid "Members"
+msgstr "Элементы"
+
+#. xQiGu
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:387
+msgctxt "objectbrowser|DetailPaneLabel"
+msgid "Details"
+msgstr "Сведения"
+
+#. WAaGi
+#: basctl/uiconfig/basicide/ui/objectbrowser.ui:449
+msgctxt "objectbrowser|StatusLabel"
+msgid "Ready"
+msgstr "Готово"
+
+#. uVgXz
+#: basctl/uiconfig/basicide/ui/organizedialog.ui:8
+msgctxt "organizedialog|OrganizeDialog"
+msgid "Basic Macro Organizer"
+msgstr "Управление макросами Basic"
+
+#. 7cVSj
+#: basctl/uiconfig/basicide/ui/organizedialog.ui:111
+msgctxt "organizedialog|modules"
+msgid "Modules"
+msgstr "Модули"
+
+#. fXFQr
+#: basctl/uiconfig/basicide/ui/organizedialog.ui:158
+msgctxt "organizedialog|dialogs"
+msgid "Dialogs"
+msgstr "Диалоги"
+
+#. f7Wxa
+#: basctl/uiconfig/basicide/ui/organizedialog.ui:206
+msgctxt "organizedialog|libraries"
+msgid "Libraries"
+msgstr "Библиотеки"
+
+#. gsjtC
+#: basctl/uiconfig/basicide/ui/sortmenu.ui:12
+msgctxt "sortmenu|macrosort"
+msgid "_Sorting"
+msgstr "Сортировка"
+
+#. GCbAJ
+#: basctl/uiconfig/basicide/ui/sortmenu.ui:22
+msgctxt "sortmenu|alphabetically"
+msgid "_Alphabetically"
+msgstr "По алфавиту"
+
+#. PBmML
+#: basctl/uiconfig/basicide/ui/sortmenu.ui:31
+msgctxt "sortmenu|properorder"
+msgid "_Proper order"
+msgstr "По порядку"
+
+#~ msgctxt "RID_STR_COLORSCHEME_DEFAULT"
+#~ msgid "Default"
+#~ msgstr "По умолчанию"

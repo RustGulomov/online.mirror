@@ -18,7 +18,7 @@ msgctxt ""
 "STR_NAME_MODULE_OPTIONAL_GRFFLT_FLASH\n"
 "LngText.text"
 msgid "Macromedia Flash (SWF)"
-msgstr ""
+msgstr "Macromedia Flash (SWF)"
 
 #. qAk8E
 #: module_graphicfilter.ulf
@@ -27,7 +27,7 @@ msgctxt ""
 "STR_DESC_MODULE_OPTIONAL_GRFFLT_FLASH\n"
 "LngText.text"
 msgid "Macromedia Flash (SWF) Export Filter"
-msgstr ""
+msgstr "Фильтр экспорта Macromedia Flash (SWF)"
 
 #. vcMGk
 #: folderitem_ooo.ulf
@@ -40,24 +40,26 @@ msgid ""
 "Technology, provided by Collabora Productivity. See "
 "https://collaboraoffice.com"
 msgstr ""
+"Collabora Office — офисный пакет на основе технологий LibreOffice, "
+"предоставляемый Collabora Productivity. См. https://collaboraoffice.com"
 
 #. 4rBwc
 #: include/svx/strings.hrc:1040
 msgctxt "RID_SVXSTR_PASTE_AS_DIALOG_TITLE"
 msgid "Paste As"
-msgstr ""
+msgstr "Вставить как"
 
 #. dF6zk
 #: svx/inc/spacing.hrc:16
 msgctxt "RID_ABOVE"
 msgid "Above:"
-msgstr ""
+msgstr "Сверху:"
 
 #. uaiun
 #: svx/inc/spacing.hrc:17
 msgctxt "RID_BELOW"
 msgid "Below:"
-msgstr ""
+msgstr "Снизу:"
 
 #. fvxsX
 #: svx/inc/spacing.hrc:18
@@ -75,7 +77,7 @@ msgstr "После:"
 #: svx/inc/spacing.hrc:20
 msgctxt "RID_FIRST"
 msgid "First:"
-msgstr ""
+msgstr "Первая:"
 
 #. aNZNw
 #: svx/uiconfig/ui/dropdownfielddialog.ui:31
@@ -87,7 +89,7 @@ msgstr "ОК"
 #: svx/uiconfig/ui/dropdownfielddialog.ui:44
 msgctxt "dropdownDialog|CANCEL"
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #. gPAYw
 #: svx/uiconfig/ui/findreplacedialog.ui:67
@@ -105,19 +107,19 @@ msgstr "Заменить"
 #: svx/uiconfig/ui/findreplacedialog.ui:172
 msgctxt "findreplacedialog|searchlist-atkobject"
 msgid "Search list"
-msgstr ""
+msgstr "Список поиска"
 
 #. BmvBD
 #: svx/uiconfig/ui/findreplacedialog.ui:491
 msgctxt "findreplacedialog|replacelist-atkobject"
 msgid "Replace list"
-msgstr ""
+msgstr "Список замены"
 
 #. gbVGs
 #: svx/uiconfig/ui/headfootformatpage.ui:407
 msgctxt "headfootformatpage|drawingareaPageHF-atkobject"
 msgid "Header and Footer Preview"
-msgstr ""
+msgstr "Предпросмотр верхнего и нижнего колонтитула"
 
 #. LSYRB
 #: svx/uiconfig/ui/sidebarline.ui:91
@@ -135,7 +137,7 @@ msgstr "Толщина линии"
 #: uui/inc/strings.hrc:84
 msgctxt "STR_READONLY_FONT_TITLE"
 msgid "Font Disallows Editing"
-msgstr ""
+msgstr "Шрифт запрещает редактирование"
 
 #. YRahp
 #: uui/inc/strings.hrc:85
@@ -146,6 +148,10 @@ msgid ""
 "Pressing [ No ] will drop these fonts from the document:\n"
 "$(ARG1)"
 msgstr ""
+"Один или несколько встроенных в документ шрифтов не имеют разрешения на редактирование.\n"
+"Открыть документ в режиме только для чтения?\n"
+"При нажатии [Нет] эти шрифты будут удалены из документа:\n"
+"$(ARG1)"
 
 #. 4NkMk
 #: readme.xrm
@@ -157,6 +163,8 @@ msgid ""
 "For more information please visit ${PRODUCTNAME} home page at <a "
 "href=\"https://collaboraoffice.com\">https://CollaboraOffice.com/</a>."
 msgstr ""
+"Для получения дополнительной информации посетите домашнюю страницу ${PRODUCTNAME} по адресу <a "
+"href=\"https://collaboraoffice.com\">https://CollaboraOffice.com/</a>."
 
 #. SbQew
 #: chart2/inc/strings.hrc:51
@@ -168,7 +176,7 @@ msgstr "Цветовая палитра"
 #: chart2/inc/strings.hrc:52
 msgctxt "STR_PAGE_GRADIENT_PRESETS"
 msgid "Gradients"
-msgstr ""
+msgstr "Градиенты"
 
 #. DWGVf
 #: chart2/uiconfig/ui/chartcolorpalettepopup.ui:46
@@ -186,67 +194,67 @@ msgstr "Монохромная"
 #: chart2/uiconfig/ui/chartgradientpalettepopup.ui:46
 msgctxt "chartgradientpalettepopup|lightwin"
 msgid "Light Variations"
-msgstr ""
+msgstr "Светлые вариации"
 
 #. Y3PP5
 #: chart2/uiconfig/ui/chartgradientpalettepopup.ui:97
 msgctxt "chartgradientpalettepopup|darkwin"
 msgid "Dark Variations"
-msgstr ""
+msgstr "Тёмные вариации"
 
 #. WWm9R
 #: chart2/uiconfig/ui/chartthemepopup.ui:51
 msgctxt "chartthemepopup|managechartstyle"
 msgid "_Manage chart styles"
-msgstr ""
+msgstr "_Управление стилями диаграмм"
 
 #. BFxBa
 #: chart2/uiconfig/ui/dlg_Theme.ui:16
 msgctxt "dlg_Theme|ChartThemeDialog"
 msgid "Manage Chart Styles"
-msgstr ""
+msgstr "Управление стилями диаграмм"
 
 #. kqBFK
 #: chart2/uiconfig/ui/dlg_Theme.ui:46
 msgctxt "dlg_Theme|iconviewlabel|tooltip_text"
 msgid "Selectable chart styles list."
-msgstr ""
+msgstr "Список доступных стилей диаграмм."
 
 #. WsSmE
 #: chart2/uiconfig/ui/dlg_Theme.ui:51
 msgctxt "dlg_Theme|iconviewlabel"
 msgid "_Chart styles:"
-msgstr ""
+msgstr "_Стили диаграмм:"
 
 #. DYH5e
 #: chart2/uiconfig/ui/dlg_Theme.ui:122
 msgctxt "dlg_Theme|chartload"
 msgid "_Load style to chart"
-msgstr ""
+msgstr "_Применить стиль к диаграмме"
 
 #. YWkrA
 #: chart2/uiconfig/ui/dlg_Theme.ui:134
 msgctxt "dlg_Theme|chartsave"
 msgid "_Save to styles"
-msgstr ""
+msgstr "_Сохранить в стили"
 
 #. h8L8Y
 #: chart2/uiconfig/ui/dlg_Theme.ui:146
 msgctxt "dlg_Theme|chartdelete"
 msgid "_Delete style"
-msgstr ""
+msgstr "_Удалить стиль"
 
 #. g5qPU
 #: chart2/uiconfig/ui/dlg_Theme.ui:158
 msgctxt "dlg_Theme|chartsavenew"
 msgid "Save to _new style"
-msgstr ""
+msgstr "Сохранить в _новый стиль"
 
 #. GPgLR
 #: chart2/uiconfig/ui/dlg_Theme.ui:183
 msgctxt "dlg_Theme|chartmanage"
 msgid "_Manage chart styles"
-msgstr ""
+msgstr "_Управление стилями диаграмм"
 
 #. Yif9X
 #: chart2/uiconfig/ui/sidebarcolors.ui:30
@@ -268,6 +276,8 @@ msgctxt "sidebargradients|bordertype|tooltip_text"
 msgid ""
 "Allow to select a gradient palette to apply to current chart data series."
 msgstr ""
+"Позволяет выбрать палитру градиентов для применения к текущему ряду данных "
+"диаграммы."
 
 #. 3xZSQ
 #: chart2/uiconfig/ui/sidebargradients.ui:42
@@ -279,7 +289,7 @@ msgstr "Стиль обрамления"
 #: chart2/uiconfig/ui/sidebartheme.ui:25
 msgctxt "sidebartheme|themelist|tooltip_text"
 msgid "Allow to select a theme to apply to the current chart."
-msgstr ""
+msgstr "Позволяет выбрать тему для применения к текущей диаграмме."
 
 #. aGvuY
 #: chart2/uiconfig/ui/sidebartheme.ui:37
@@ -291,13 +301,13 @@ msgstr "Темы"
 #: chart2/uiconfig/ui/sidebartheme.ui:48
 msgctxt "sidebartheme|savetonew"
 msgid "_Save to new theme"
-msgstr ""
+msgstr "_Сохранить в новую тему"
 
 #. 4C556
 #: chart2/uiconfig/ui/sidebartype.ui:102
 msgctxt "sidebartype|3dschemeft"
 msgid "3D _Scheme:"
-msgstr ""
+msgstr "3D _Схема:"
 
 #. gTE6L
 #: chart2/uiconfig/ui/sidebartype.ui:323
@@ -321,13 +331,13 @@ msgstr "Монохромная"
 #: chart2/uiconfig/ui/tp_ChartGradients.ui:69
 msgctxt "tp_ChartGradients|lightwin"
 msgid "Light Variations"
-msgstr ""
+msgstr "Светлые вариации"
 
 #. DmWVa
 #: chart2/uiconfig/ui/tp_ChartGradients.ui:128
 msgctxt "tp_ChartGradients|darkwin"
 msgid "Dark Variations"
-msgstr ""
+msgstr "Тёмные вариации"
 
 #. FG2rh
 #: chart2/uiconfig/ui/tp_ChartType.ui:114
@@ -339,49 +349,49 @@ msgstr "Выберите подтип базового типа диаграмм
 #: chart2/uiconfig/ui/tp_ChartType.ui:167
 msgctxt "tp_ChartType|3dschemeft"
 msgid "3D _Scheme:"
-msgstr ""
+msgstr "3D _Схема:"
 
 #. ChTwx
 #: cui/inc/strings.hrc:481
 msgctxt "REG_CALCDBFOCUS"
 msgid "Table Style focus"
-msgstr ""
+msgstr "Фокус стиля таблицы"
 
 #. JPfVT
 #: cui/uiconfig/ui/areatabpage.ui:39
 msgctxt "areatabpage|tablelb-atkobject"
 msgid "Apply to"
-msgstr ""
+msgstr "Применить к"
 
 #. GYGFd
 #: cui/uiconfig/ui/borderpage.ui:94
 msgctxt "borderpage|framesel"
 msgid "Border Preview"
-msgstr ""
+msgstr "Предпросмотр границ"
 
 #. 3DTib
 #: cui/uiconfig/ui/charnamepage.ui:930
 msgctxt "charnamepage|preview-atkobject"
 msgid "Font preview"
-msgstr ""
+msgstr "Предпросмотр шрифта"
 
 #. EPGtZ
 #: cui/uiconfig/ui/hyperlinkinternetpage.ui:64
 msgctxt "hyperlinkinternetpage|target_label"
 msgid "Link:"
-msgstr ""
+msgstr "Ссылка:"
 
 #. Ric9F
 #: cui/uiconfig/ui/imagetabpage.ui:503
 msgctxt "imagetabpage|tileofflb"
 msgid "Tiling Offset Type"
-msgstr ""
+msgstr "Тип смещения мозаики"
 
 #. j9NqA
 #: cui/uiconfig/ui/imagetabpage.ui:522
 msgctxt "imagetabpage|tileoffmtr"
 msgid "Tiling Offset Value"
-msgstr ""
+msgstr "Значение смещения мозаики"
 
 #. yN5KM
 #: cui/uiconfig/ui/lineendstabpage.ui:281
@@ -405,67 +415,67 @@ msgstr "Денежный"
 #: cui/uiconfig/ui/numberingformatpage.ui:682
 msgctxt "numberingformatpage|preview-atkobject"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #. vcAoU
 #: cui/uiconfig/ui/pageformatpage.ui:223
 msgctxt "pageformatpage|drawingareaPageDirection-atkobject"
 msgid "Page Direction"
-msgstr ""
+msgstr "Направление страницы"
 
 #. gfELk
 #: cui/uiconfig/ui/pageformatpage.ui:265
 msgctxt "pageformatpage|checkResizeAllPages"
 msgid "Resize all pages"
-msgstr ""
+msgstr "Изменить размер всех страниц"
 
 #. DRBM6
 #: cui/uiconfig/ui/paraindentspacing.ui:399
 msgctxt "paraindentspacing|comboLB_LINEDIST"
 msgid "Line Spacing Type"
-msgstr ""
+msgstr "Тип межстрочного интервала"
 
 #. YtiHD
 #: cui/uiconfig/ui/paraindentspacing.ui:446
 msgctxt "paraindentspacing|spinED_LINEDISTPERCENT"
 msgid "Line Spacing Value"
-msgstr ""
+msgstr "Значение межстрочного интервала"
 
 #. QE3Ad
 #: cui/uiconfig/ui/paraindentspacing.ui:466
 msgctxt "paraindentspacing|spinED_LINEDISTMETRIC"
 msgid "Line Spacing Value"
-msgstr ""
+msgstr "Значение межстрочного интервала"
 
 #. VGEqG
 #: cui/uiconfig/ui/paraindentspacing.ui:487
 msgctxt "paraindentspacing|spinED_BLANK"
 msgid "Line Spacing Value"
-msgstr ""
+msgstr "Значение межстрочного интервала"
 
 #. WHAZC
 #: cui/uiconfig/ui/paratabspage.ui:177
 msgctxt "paratabspage|drawingareaWIN_TABLEFT-atkobject"
 msgid "Left tab preview"
-msgstr ""
+msgstr "Предпросмотр табуляции по левому краю"
 
 #. akwMF
 #: cui/uiconfig/ui/paratabspage.ui:192
 msgctxt "paratabspage|drawingareaWIN_TABRIGHT-atkobject"
 msgid "Right tab preview"
-msgstr ""
+msgstr "Предпросмотр табуляции по правому краю"
 
 #. GF4AG
 #: cui/uiconfig/ui/paratabspage.ui:207
 msgctxt "paratabspage|drawingareaWIN_TABCENTER-atkobject"
 msgid "Center tab preview"
-msgstr ""
+msgstr "Предпросмотр табуляции по центру"
 
 #. pSa2J
 #: cui/uiconfig/ui/paratabspage.ui:222
 msgctxt "paratabspage|drawingareaWIN_TABDECIMAL-atkobject"
 msgid "Decimal tab preview"
-msgstr ""
+msgstr "Предпросмотр десятичной табуляции"
 
 #. jt6Gv
 #: cui/uiconfig/ui/password.ui:258
@@ -521,13 +531,13 @@ msgstr "Выберите стиль структуры, который буде�
 #: cui/uiconfig/ui/textflowpage.ui:812
 msgctxt "textflowpage|spinOrphan-atkobject"
 msgid "No split at beginning of paragraph, lines"
-msgstr ""
+msgstr "Не разрывать в начале абзаца, строк"
 
 #. MimEj
 #: cui/uiconfig/ui/textflowpage.ui:832
 msgctxt "textflowpage|spinWidow-atkobject"
 msgid "No split at end of paragraph, lines"
-msgstr ""
+msgstr "Не разрывать в конце абзаца, строк"
 
 #. a9iXr
 #: cui/uiconfig/ui/thesaurus.ui:189
@@ -539,19 +549,19 @@ msgstr "Язык"
 #: cui/uiconfig/ui/toolbarmodedialog.ui:124
 msgctxt "ToolbarmodeDialog|radiobutton1"
 msgid "Compact"
-msgstr ""
+msgstr "Компактный"
 
 #. gFzRC
 #: cui/uiconfig/ui/widgettestdialog.ui:161
 msgctxt "widgettestdialog|combo_box_disable-atkobject"
 msgid "Test Type"
-msgstr ""
+msgstr "Тип теста"
 
 #. ZbYiG
 #: include/svtools/strings.hrc:71
 msgctxt "STR_FORMAT_ID_MARKDOWN"
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. HASc5
 #: include/sfx2/strings.hrc:227
@@ -563,7 +573,7 @@ msgstr "Быстрый поиск"
 #: sfx2/uiconfig/ui/licensedialog.ui:41
 msgctxt "licensedialog|eula"
 msgid "_EULA"
-msgstr ""
+msgstr "_EULA"
 
 #. jjkw7
 #: sfx2/uiconfig/ui/licensedialog.ui:85
@@ -573,6 +583,9 @@ msgid ""
 "End User License and Subscription Agreement; choose EULA to see exact "
 "details in English."
 msgstr ""
+"Двоичный пакет %PRODUCTNAME предоставляется на условиях Лицензионного "
+"соглашения с конечным пользователем и Соглашения о подписке; выберите EULA, "
+"чтобы ознакомиться с подробностями на английском языке."
 
 #. TCBEp
 #: sfx2/uiconfig/ui/password.ui:200
@@ -632,7 +645,7 @@ msgstr "Подсветить"
 #: sfx2/uiconfig/ui/templatepanel.ui:272
 msgctxt "templatepanel|filter-atkobject"
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #. 5xrhC
 #: sw/inc/strings.hrc:232
@@ -668,7 +681,7 @@ msgstr "2 колонки разной ширины (левая < правой)"
 #: sw/inc/strings.hrc:498
 msgctxt "STR_REINSTATE_REDLINE"
 msgid "Reinstate change: $1"
-msgstr ""
+msgstr "Восстановить изменение: $1"
 
 #. afEVQ
 #: sw/inc/strings.hrc:1536
@@ -693,13 +706,13 @@ msgstr "Введите число колонок на странице, во в�
 #: sw/uiconfig/swriter/ui/columnpage.ui:913
 msgctxt "columnpage|pageexample-atkobject"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #. FYPLQ
 #: sw/uiconfig/swriter/ui/columnpage.ui:930
 msgctxt "columnpage|frameexample-atkobject"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #. yLJG6
 #: sw/uiconfig/swriter/ui/dropcapspage.ui:336
@@ -723,7 +736,7 @@ msgstr "Нумерация"
 #: sw/uiconfig/swriter/ui/outlinenumberingpage.ui:119
 msgctxt "outlinenumberingpage|preview-atkobject"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #. Ci9GE
 #: sw/uiconfig/swriter/ui/spellmenu.ui:34
@@ -735,13 +748,13 @@ msgstr "Добавить в словарь (standard.dic)"
 #: sw/uiconfig/swriter/ui/textgridpage.ui:155
 msgctxt "textgridpage|drawingareaWN_EXAMPLE-atkobject"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #. Kvz9V
 #: sw/uiconfig/swriter/ui/tocentriespage.ui:252
 msgctxt "tocentriespage|structure_label"
 msgid "_Structure"
-msgstr ""
+msgstr "_Структура"
 
 #. CW8Eb
 #: sw/uiconfig/swriter/ui/tocentriespage.ui:277
@@ -753,7 +766,7 @@ msgstr "Стиль символов:"
 #: sw/uiconfig/swriter/ui/tocentriespage.ui:569
 msgctxt "tocentriespage|authfield-atkobject"
 msgid "Authority field"
-msgstr ""
+msgstr "Поле источника"
 
 #. risLD
 #: sw/uiconfig/swriter/ui/tokenwidget.ui:25
@@ -777,7 +790,7 @@ msgstr "Вправо"
 #: sw/uiconfig/swriter/ui/tokenwidget.ui:98
 msgctxt "tokenwidget|right"
 msgid "Scroll right"
-msgstr ""
+msgstr "Отступ прокрутки справа"
 
 #. FxkzA
 #: sw/uiconfig/swriter/ui/wordcount-mobile.ui:643
@@ -891,7 +904,7 @@ msgstr "Содержимое:"
 #: sd/uiconfig/simpress/ui/layoutpanel.ui:41
 msgctxt "layoutpanel|extended_tip|layoutpanel_icons"
 msgid "List of available layout templates."
-msgstr ""
+msgstr "Список доступных шаблонов макетов."
 
 #. Y3kBV
 #: filter/uiconfig/ui/impswfdialog.ui:14
@@ -1051,7 +1064,7 @@ msgctxt ""
 "UIName\n"
 "value.text"
 msgid "Macromedia Flash (SWF)"
-msgstr ""
+msgstr "Macromedia Flash (SWF)"
 
 #. MsYCr
 #: impress_flash_Export.xcu
@@ -1061,7 +1074,7 @@ msgctxt ""
 "UIName\n"
 "value.text"
 msgid "Macromedia Flash (SWF)"
-msgstr ""
+msgstr "Macromedia Flash (SWF)"
 
 #. FoizC
 #: CalcCommands.xcu
@@ -1071,7 +1084,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Current Sheet View"
-msgstr ""
+msgstr "Текущий вид листа"
 
 #. MKARo
 #: CalcCommands.xcu
@@ -1081,7 +1094,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Table Style Options"
-msgstr ""
+msgstr "Параметры стиля таблицы"
 
 #. 4HzYH
 #: CalcCommands.xcu
@@ -1091,7 +1104,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "~Table"
-msgstr ""
+msgstr "~Таблица"
 
 #. Uhi2h
 #: CalcCommands.xcu
@@ -1101,7 +1114,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "~Insert Table..."
-msgstr ""
+msgstr "~Вставить таблицу..."
 
 #. cFE7i
 #: CalcCommands.xcu
@@ -1111,7 +1124,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Table..."
-msgstr ""
+msgstr "Таблица..."
 
 #. ms5Fm
 #: CalcCommands.xcu
@@ -1131,7 +1144,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "~Remove Table..."
-msgstr ""
+msgstr "~Удалить таблицу..."
 
 #. DiD7K
 #: CalcCommands.xcu
@@ -1151,7 +1164,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Insert Function"
-msgstr ""
+msgstr "Вставить функцию"
 
 #. rxGTc
 #: CalcCommands.xcu
@@ -1161,7 +1174,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Print Grid Lines"
-msgstr ""
+msgstr "Печать линий сетки"
 
 #. a35bF
 #: CalcCommands.xcu
@@ -1171,7 +1184,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "New Sheet View"
-msgstr ""
+msgstr "Новое представление листа"
 
 #. AKfar
 #: CalcCommands.xcu
@@ -1181,7 +1194,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Remove Sheet View"
-msgstr ""
+msgstr "Удалить представление листа"
 
 #. M52nh
 #: CalcCommands.xcu
@@ -1191,7 +1204,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Switch To Next Sheet View"
-msgstr ""
+msgstr "Переключиться на следующее представление листа"
 
 #. qfgad
 #: CalcCommands.xcu
@@ -1201,7 +1214,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Switch To Previous Sheet View"
-msgstr ""
+msgstr "Переключиться на предыдущее представление листа"
 
 #. FJEd2
 #: CalcCommands.xcu
@@ -1211,7 +1224,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Select Sheet View"
-msgstr ""
+msgstr "Выбрать представление листа"
 
 #. vCsC3
 #: CalcCommands.xcu
@@ -1221,7 +1234,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Exit Sheet View"
-msgstr ""
+msgstr "Выйти из представления листа"
 
 #. uuvrm
 #: ChartCommands.xcu
@@ -1231,7 +1244,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Manage Themes..."
-msgstr ""
+msgstr "Управление темами..."
 
 #. 5LESd
 #: ChartCommands.xcu
@@ -1251,7 +1264,7 @@ msgctxt ""
 "ContextLabel\n"
 "value.text"
 msgid "Clear ~Direct Formatting"
-msgstr "Очистить форматирование"
+msgstr "Очистить ~прямое форматирование"
 
 #. NfNdn
 #: ChartCommands.xcu
@@ -1261,7 +1274,7 @@ msgctxt ""
 "TooltipLabel\n"
 "value.text"
 msgid "Clear Direct Formatting"
-msgstr "Очистить форматирование"
+msgstr "Очистить прямое форматирование"
 
 #. vsnyF
 #: DrawImpressCommands.xcu
@@ -1271,7 +1284,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "New Canvas Slide"
-msgstr ""
+msgstr "Новый слайд-холст"
 
 #. w3Yib
 #: DrawImpressCommands.xcu
@@ -1281,7 +1294,7 @@ msgctxt ""
 "ContextLabel\n"
 "value.text"
 msgid "~Select Table"
-msgstr "Выделить таблицу"
+msgstr "~Выделить таблицу"
 
 #. zz8gB
 #: DrawImpressCommands.xcu
@@ -1291,7 +1304,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Re-order pages"
-msgstr ""
+msgstr "Из~менить порядок страниц"
 
 #. ca6bM
 #: GenericCommands.xcu
@@ -1301,7 +1314,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Slide Transitions"
-msgstr ""
+msgstr "Переходы слайдов"
 
 #. 5pSJ6
 #: GenericCommands.xcu
@@ -1331,7 +1344,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "~Hyperlink"
-msgstr "Гиперссылка"
+msgstr "~Гиперссылка"
 
 #. aFFu9
 #: GenericCommands.xcu
@@ -1341,7 +1354,7 @@ msgctxt ""
 "PopupLabel\n"
 "value.text"
 msgid "Insert Hyperlink..."
-msgstr ""
+msgstr "Вставить гиперссылку..."
 
 #. czVMP
 #: GenericCommands.xcu
@@ -1351,7 +1364,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Nav~igator select comment."
-msgstr ""
+msgstr "Выбрать комментарий в нав~игаторе."
 
 #. 77Q3c
 #: GenericCommands.xcu
@@ -1361,7 +1374,7 @@ msgctxt ""
 "TooltipLabel\n"
 "value.text"
 msgid "Select Comment In The Navigator Window/Sidebar"
-msgstr ""
+msgstr "Выбрать комментарий в окне навигатора/боковой панели"
 
 #. 83Euq
 #: GenericCommands.xcu
@@ -1401,7 +1414,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Add Theme..."
-msgstr ""
+msgstr "Добавить тему..."
 
 #. zETLd
 #: ImpressWindowState.xcu
@@ -1411,7 +1424,7 @@ msgctxt ""
 "UIName\n"
 "value.text"
 msgid "Slide Sorter/Pane (Canvas)"
-msgstr ""
+msgstr "Сортировщик слайдов/Панель (Canvas)"
 
 #. BQB9h
 #: ImpressWindowState.xcu
@@ -1421,7 +1434,7 @@ msgctxt ""
 "UIName\n"
 "value.text"
 msgid "Master Slide Sorter/Pane (Canvas)"
-msgstr ""
+msgstr "Сортировщик мастер-слайдов/Панель (Canvas)"
 
 #. kB8Ri
 #: Sidebar.xcu
@@ -1431,7 +1444,7 @@ msgctxt ""
 "Title\n"
 "value.text"
 msgid "Table Style Options"
-msgstr ""
+msgstr "Параметры стиля таблицы"
 
 #. SYFXq
 #: Sidebar.xcu
@@ -1471,7 +1484,7 @@ msgctxt ""
 "Title\n"
 "value.text"
 msgid "Gradients"
-msgstr ""
+msgstr "Градиенты"
 
 #. ezFez
 #: WriterCommands.xcu
@@ -1481,7 +1494,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Reinstate and Move to Next"
-msgstr ""
+msgstr "Восстановить и перейти к следующему"
 
 #. NmvTm
 #: WriterCommands.xcu
@@ -1491,7 +1504,7 @@ msgctxt ""
 "TooltipLabel\n"
 "value.text"
 msgid "Reinstate Track Change and select the next one"
-msgstr ""
+msgstr "Восстановить отслеживаемое изменение и выбрать следующее"
 
 #. KVYrC
 #: WriterCommands.xcu
@@ -1501,7 +1514,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Reinstate All"
-msgstr ""
+msgstr "Восстановить все"
 
 #. QkP7E
 #: WriterCommands.xcu
@@ -1511,7 +1524,7 @@ msgctxt ""
 "TooltipLabel\n"
 "value.text"
 msgid "Reinstate All Tracked Changes"
-msgstr ""
+msgstr "Восстановить все отслеживаемые изменения"
 
 #. SRvKK
 #: WriterCommands.xcu
@@ -1521,7 +1534,7 @@ msgctxt ""
 "PopupLabel\n"
 "value.text"
 msgid "Reinstate All Changes"
-msgstr ""
+msgstr "Восстановить все изменения"
 
 #. 6w9UB
 #: WriterCommands.xcu
@@ -1531,7 +1544,7 @@ msgctxt ""
 "Label\n"
 "value.text"
 msgid "Reinstate"
-msgstr ""
+msgstr "Восстановить"
 
 #. RgBxU
 #: WriterCommands.xcu
@@ -1541,7 +1554,7 @@ msgctxt ""
 "TooltipLabel\n"
 "value.text"
 msgid "Reinstate Track Change"
-msgstr ""
+msgstr "Восстановить отслеживаемое изменение"
 
 #. rTFtt
 #: WriterCommands.xcu
@@ -1551,7 +1564,7 @@ msgctxt ""
 "PopupLabel\n"
 "value.text"
 msgid "Reinstate Change"
-msgstr ""
+msgstr "Восстановить изменение"
 
 #. duoP7
 #: WriterCommands.xcu
@@ -1597,7 +1610,7 @@ msgstr "~Изменения во всех представлениях"
 #: xmlsecurity/uiconfig/ui/certdetails.ui:101
 msgctxt "certdetails|valuedetails-atkobject"
 msgid "Value Details"
-msgstr ""
+msgstr "Сведения о значении"
 
 #. mpBGu
 #: xmlsecurity/uiconfig/ui/selectcertificatedialog.ui:274
@@ -1609,7 +1622,7 @@ msgstr "Поиск"
 #: sc/inc/globstr.hrc:70
 msgctxt "STR_UNDO_TABLETOTALS"
 msgid "Table Total Row"
-msgstr ""
+msgstr "Строка итогов таблицы"
 
 #. KAH5t
 #: sc/inc/globstr.hrc:73
@@ -1627,13 +1640,13 @@ msgstr "Удалить таблицу"
 #: sc/inc/globstr.hrc:140
 msgctxt "STR_TABLE_ERR_ADD"
 msgid "Cannot add a new table to the sheet."
-msgstr ""
+msgstr "Не удаётся добавить новую таблицу на лист."
 
 #. kG2SE
 #: sc/inc/globstr.hrc:141
 msgctxt "STR_TABLE_ERR_DEL"
 msgid "Cannot delete table from the sheet."
-msgstr ""
+msgstr "Не удаётся удалить таблицу с листа."
 
 #. t6eDk
 #: sc/inc/globstr.hrc:195
@@ -1645,7 +1658,7 @@ msgstr "Таблица"
 #: sc/inc/globstr.hrc:196
 msgctxt "STR_INVALIDTABLE"
 msgid "The selected area is already part of another Table."
-msgstr ""
+msgstr "Выбранная область уже является частью другой таблицы."
 
 #. 76s4h
 #: sc/inc/globstr.hrc:217
@@ -1657,19 +1670,19 @@ msgstr "Итог"
 #: sc/inc/globstr.hrc:220
 msgctxt "STR_TABLE_NOTFOUND"
 msgid "No Calc Table found at this position."
-msgstr ""
+msgstr "В этой позиции не найдена таблица Calc."
 
 #. cG7BY
 #: sc/inc/globstr.hrc:601
 msgctxt "STR_SHEET_VIEW_DEFAULT_VIEW_NAME"
 msgid "Default View"
-msgstr ""
+msgstr "Представление по умолчанию"
 
 #. aYwkp
 #: sc/inc/globstr.hrc:602
 msgctxt "STR_SHEET_VIEW_TEMPORARY_NAME_TEMPLATE"
 msgid "Temporary View %1"
-msgstr ""
+msgstr "Временное представление %1"
 
 #. ADmez
 #: sc/inc/scfuncs.hrc:4257
@@ -1783,7 +1796,7 @@ msgid ""
 "array."
 msgstr ""
 "Количество столбцов для отбрасывания. При отрицательном значении "
-"отбрасываются строки с конца массива."
+"отбрасываются столбцы с конца массива."
 
 #. cXvVY
 #: sc/inc/scfuncs.hrc:4289
@@ -2436,11 +2449,12 @@ msgctxt "conditionaleasydialog|title"
 msgid "Highlight cells..."
 msgstr "Подсвечивать ячейки…"
 
+#
 #. QpmnN
 #: sc/uiconfig/scalc/ui/definetablerangedialog.ui:10
 msgctxt "definetablerangedialog|DefineTableRangeDialog"
 msgid "Create Table"
-msgstr ""
+msgstr "Создать таблицу"
 
 #. AGWSW
 #: sc/uiconfig/scalc/ui/definetablerangedialog.ui:37
@@ -2509,13 +2523,13 @@ msgstr ""
 #: sc/uiconfig/scalc/ui/erroralerttabpage.ui:15
 msgctxt "erroralerttabpage|tsbshow"
 msgid "Handle invalid values"
-msgstr ""
+msgstr "Обработка недопустимых значений"
 
 #. KfkR3
 #: sc/uiconfig/scalc/ui/erroralerttabpage.ui:156
 msgctxt "erroralerttabpage|actionCB"
 msgid "Reject silently"
-msgstr ""
+msgstr "Отклонить без уведомления"
 
 #. tdFx2
 #: sc/uiconfig/scalc/ui/gotosheetdialog.ui:100
@@ -2539,7 +2553,7 @@ msgstr "Шкала уровня пароля"
 #: sc/uiconfig/scalc/ui/selectsheetviewdialog.ui:18
 msgctxt "selectsheetviewdialog|SelectSheetView"
 msgid "Select Sheet View"
-msgstr ""
+msgstr "Выбрать представление листа"
 
 #. GTQJA
 #: sc/uiconfig/scalc/ui/selectsheetviewdialog.ui:44
@@ -2557,13 +2571,13 @@ msgstr "Закрывает диалоговое окно без сохранен
 #: sc/uiconfig/scalc/ui/selectsheetviewdialog.ui:134
 msgctxt "selectsheetviewdialog|extended_tip|entry-list"
 msgid "Available sheet views."
-msgstr ""
+msgstr "Доступные представления листов."
 
 #. csyNB
 #: sc/uiconfig/scalc/ui/sheetviewbox.ui:17
 msgctxt "sheetviewbox|sheetview_combobox|accessible_name"
 msgid "Sheet View"
-msgstr ""
+msgstr "Представление листа"
 
 #. FXK8B
 #: sc/uiconfig/scalc/ui/sidebarcellappearance.ui:87
@@ -2575,43 +2589,43 @@ msgstr "Стиль обрамления"
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:22
 msgctxt "sidebardatabase|chk_header_row"
 msgid "Header Row"
-msgstr ""
+msgstr "Строка заголовков"
 
 #. Pg4uw
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:36
 msgctxt "sidebardatabase|chk_total_row"
 msgid "Total Row"
-msgstr ""
+msgstr "Строка итогов"
 
 #. CcWAd
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:50
 msgctxt "sidebardatabase|chk_filter_buttons"
 msgid "Filter Buttons"
-msgstr ""
+msgstr "Кнопки фильтра"
 
 #. MjALC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:86
 msgctxt "sidebardatabase|chk_banded_rows"
 msgid "Banded Rows"
-msgstr ""
+msgstr "Полосатые строки"
 
 #. GVkZ2
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:100
 msgctxt "sidebardatabase|chk_banded_cols"
 msgid "Banded Columns"
-msgstr ""
+msgstr "Полосатые столбцы"
 
 #. S4bop
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:114
 msgctxt "sidebardatabase|chk_first_column"
 msgid "First Column"
-msgstr ""
+msgstr "Первый столбец"
 
 #. QR56s
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:128
 msgctxt "sidebardatabase|chk_last_column"
 msgid "Last Column"
-msgstr ""
+msgstr "Последний столбец"
 
 #. BJHqA
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:170
@@ -2623,787 +2637,787 @@ msgstr "Стили таблиц"
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:187
 msgctxt "sidebardatabase|none"
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 #. XXBL8
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:188
 msgctxt "sidebardatabase|tablestylelight1"
 msgid "Table Style Light 1"
-msgstr ""
+msgstr "Светлый стиль таблицы 1"
 
 #. NaDRX
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:189
 msgctxt "sidebardatabase|tablestylelight2"
 msgid "Table Style Light 2"
-msgstr ""
+msgstr "Светлый стиль таблицы 2"
 
 #. EWq9E
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:190
 msgctxt "sidebardatabase|tablestylelight3"
 msgid "Table Style Light 3"
-msgstr ""
+msgstr "Светлый стиль таблицы 3"
 
 #. GdYaL
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:191
 msgctxt "sidebardatabase|tablestylelight4"
 msgid "Table Style Light 4"
-msgstr ""
+msgstr "Светлый стиль таблицы 4"
 
 #. 8ZPyk
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:192
 msgctxt "sidebardatabase|tablestylelight5"
 msgid "Table Style Light 5"
-msgstr ""
+msgstr "Светлый стиль таблицы 5"
 
 #. xcztA
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:193
 msgctxt "sidebardatabase|tablestylelight6"
 msgid "Table Style Light 6"
-msgstr ""
+msgstr "Светлый стиль таблицы 6"
 
 #. pYufr
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:194
 msgctxt "sidebardatabase|tablestylelight7"
 msgid "Table Style Light 7"
-msgstr ""
+msgstr "Светлый стиль таблицы 7"
 
 #. beC85
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:195
 msgctxt "sidebardatabase|tablestylelight8"
 msgid "Table Style Light 8"
-msgstr ""
+msgstr "Светлый стиль таблицы 8"
 
 #. TSbAe
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:196
 msgctxt "sidebardatabase|tablestylelight9"
 msgid "Table Style Light 9"
-msgstr ""
+msgstr "Светлый стиль таблицы 9"
 
 #. GPxe2
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:197
 msgctxt "sidebardatabase|tablestylelight10"
 msgid "Table Style Light 10"
-msgstr ""
+msgstr "Светлый стиль таблицы 10"
 
 #. sedZT
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:198
 msgctxt "sidebardatabase|tablestylelight11"
 msgid "Table Style Light 11"
-msgstr ""
+msgstr "Светлый стиль таблицы 11"
 
 #. VyEM2
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:199
 msgctxt "sidebardatabase|tablestylelight12"
 msgid "Table Style Light 12"
-msgstr ""
+msgstr "Светлый стиль таблицы 12"
 
 #. FF2AT
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:200
 msgctxt "sidebardatabase|tablestylelight13"
 msgid "Table Style Light 13"
-msgstr ""
+msgstr "Светлый стиль таблицы 13"
 
 #. pTuyt
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:201
 msgctxt "sidebardatabase|tablestylelight14"
 msgid "Table Style Light 14"
-msgstr ""
+msgstr "Светлый стиль таблицы 14"
 
 #. zAgnL
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:202
 msgctxt "sidebardatabase|tablestylelight15"
 msgid "Table Style Light 15"
-msgstr ""
+msgstr "Светлый стиль таблицы 15"
 
 #. L4B9t
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:203
 msgctxt "sidebardatabase|tablestylelight16"
 msgid "Table Style Light 16"
-msgstr ""
+msgstr "Светлый стиль таблицы 16"
 
 #. ek54L
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:204
 msgctxt "sidebardatabase|tablestylelight17"
 msgid "Table Style Light 17"
-msgstr ""
+msgstr "Светлый стиль таблицы 17"
 
 #. P6nBG
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:205
 msgctxt "sidebardatabase|tablestylelight18"
 msgid "Table Style Light 18"
-msgstr ""
+msgstr "Светлый стиль таблицы 18"
 
 #. dnT2p
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:206
 msgctxt "sidebardatabase|tablestylelight19"
 msgid "Table Style Light 19"
-msgstr ""
+msgstr "Светлый стиль таблицы 19"
 
 #. Bprxv
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:207
 msgctxt "sidebardatabase|tablestylelight20"
 msgid "Table Style Light 20"
-msgstr ""
+msgstr "Светлый стиль таблицы 20"
 
 #. Z8foN
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:208
 msgctxt "sidebardatabase|tablestylelight21"
 msgid "Table Style Light 21"
-msgstr ""
+msgstr "Светлый стиль таблицы 21"
 
 #. 2qyXC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:209
 msgctxt "sidebardatabase|tablestylemedium1"
 msgid "Table Style Medium 1"
-msgstr ""
+msgstr "Средний стиль таблицы 1"
 
 #. MWzKk
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:210
 msgctxt "sidebardatabase|tablestylemedium2"
 msgid "Table Style Medium 2"
-msgstr ""
+msgstr "Средний стиль таблицы 2"
 
 #. fFFCC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:211
 msgctxt "sidebardatabase|tablestylemedium3"
 msgid "Table Style Medium 3"
-msgstr ""
+msgstr "Средний стиль таблицы 3"
 
 #. FthwA
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:212
 msgctxt "sidebardatabase|tablestylemedium4"
 msgid "Table Style Medium 4"
-msgstr ""
+msgstr "Средний стиль таблицы 4"
 
 #. rCtpb
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:213
 msgctxt "sidebardatabase|tablestylemedium5"
 msgid "Table Style Medium 5"
-msgstr ""
+msgstr "Средний стиль таблицы 5"
 
 #. UJ6BA
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:214
 msgctxt "sidebardatabase|tablestylemedium6"
 msgid "Table Style Medium 6"
-msgstr ""
+msgstr "Средний стиль таблицы 6"
 
 #. EbA2b
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:215
 msgctxt "sidebardatabase|tablestylemedium7"
 msgid "Table Style Medium 7"
-msgstr ""
+msgstr "Средний стиль таблицы 7"
 
 #. XQS9X
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:216
 msgctxt "sidebardatabase|tablestylemedium8"
 msgid "Table Style Medium 8"
-msgstr ""
+msgstr "Средний стиль таблицы 8"
 
 #. Dho46
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:217
 msgctxt "sidebardatabase|tablestylemedium9"
 msgid "Table Style Medium 9"
-msgstr ""
+msgstr "Средний стиль таблицы 9"
 
 #. P7SBG
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:218
 msgctxt "sidebardatabase|tablestylemedium10"
 msgid "Table Style Medium 10"
-msgstr ""
+msgstr "Средний стиль таблицы 10"
 
 #. Rhfet
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:219
 msgctxt "sidebardatabase|tablestylemedium11"
 msgid "Table Style Medium 11"
-msgstr ""
+msgstr "Средний стиль таблицы 11"
 
 #. JEdqF
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:220
 msgctxt "sidebardatabase|tablestylemedium12"
 msgid "Table Style Medium 12"
-msgstr ""
+msgstr "Средний стиль таблицы 12"
 
 #. LWYBs
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:221
 msgctxt "sidebardatabase|tablestylemedium13"
 msgid "Table Style Medium 13"
-msgstr ""
+msgstr "Средний стиль таблицы 13"
 
 #. HiGPB
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:222
 msgctxt "sidebardatabase|tablestylemedium14"
 msgid "Table Style Medium 14"
-msgstr ""
+msgstr "Средний стиль таблицы 14"
 
 #. FKMSw
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:223
 msgctxt "sidebardatabase|tablestylemedium15"
 msgid "Table Style Medium 15"
-msgstr ""
+msgstr "Средний стиль таблицы 15"
 
 #. CuPuC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:224
 msgctxt "sidebardatabase|tablestylemedium16"
 msgid "Table Style Medium 16"
-msgstr ""
+msgstr "Средний стиль таблицы 16"
 
 #. ACA7x
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:225
 msgctxt "sidebardatabase|tablestylemedium17"
 msgid "Table Style Medium 17"
-msgstr ""
+msgstr "Средний стиль таблицы 17"
 
 #. bcDbJ
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:226
 msgctxt "sidebardatabase|tablestylemedium18"
 msgid "Table Style Medium 18"
-msgstr ""
+msgstr "Средний стиль таблицы 18"
 
 #. d42En
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:227
 msgctxt "sidebardatabase|tablestylemedium19"
 msgid "Table Style Medium 19"
-msgstr ""
+msgstr "Средний стиль таблицы 19"
 
 #. pfyP6
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:228
 msgctxt "sidebardatabase|tablestylemedium20"
 msgid "Table Style Medium 20"
-msgstr ""
+msgstr "Средний стиль таблицы 20"
 
 #. n5kSb
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:229
 msgctxt "sidebardatabase|tablestylemedium21"
 msgid "Table Style Medium 21"
-msgstr ""
+msgstr "Средний стиль таблицы 21"
 
 #. mYnu7
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:230
 msgctxt "sidebardatabase|tablestylemedium22"
 msgid "Table Style Medium 22"
-msgstr ""
+msgstr "Средний стиль таблицы 22"
 
 #. jGs7c
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:231
 msgctxt "sidebardatabase|tablestylemedium23"
 msgid "Table Style Medium 23"
-msgstr ""
+msgstr "Средний стиль таблицы 23"
 
 #. vMAB3
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:232
 msgctxt "sidebardatabase|tablestylemedium24"
 msgid "Table Style Medium 24"
-msgstr ""
+msgstr "Средний стиль таблицы 24"
 
 #. xk5eg
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:233
 msgctxt "sidebardatabase|tablestylemedium25"
 msgid "Table Style Medium 25"
-msgstr ""
+msgstr "Средний стиль таблицы 25"
 
 #. sA3q2
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:234
 msgctxt "sidebardatabase|tablestylemedium26"
 msgid "Table Style Medium 26"
-msgstr ""
+msgstr "Средний стиль таблицы 26"
 
 #. usGBf
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:235
 msgctxt "sidebardatabase|tablestylemedium27"
 msgid "Table Style Medium 27"
-msgstr ""
+msgstr "Средний стиль таблицы 27"
 
 #. 32DXC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:236
 msgctxt "sidebardatabase|tablestylemedium28"
 msgid "Table Style Medium 28"
-msgstr ""
+msgstr "Средний стиль таблицы 28"
 
 #. TiDzP
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:237
 msgctxt "sidebardatabase|tablestyledark1"
 msgid "Table Style Dark 1"
-msgstr ""
+msgstr "Тёмный стиль таблицы 1"
 
 #. jTCaC
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:238
 msgctxt "sidebardatabase|tablestyledark2"
 msgid "Table Style Dark 2"
-msgstr ""
+msgstr "Тёмный стиль таблицы 2"
 
 #. 2FCAs
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:239
 msgctxt "sidebardatabase|tablestyledark3"
 msgid "Table Style Dark 3"
-msgstr ""
+msgstr "Тёмный стиль таблицы 3"
 
 #. B3BJY
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:240
 msgctxt "sidebardatabase|tablestyledark4"
 msgid "Table Style Dark 4"
-msgstr ""
+msgstr "Тёмный стиль таблицы 4"
 
 #. TfBSE
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:241
 msgctxt "sidebardatabase|tablestyledark5"
 msgid "Table Style Dark 5"
-msgstr ""
+msgstr "Тёмный стиль таблицы 5"
 
 #. jvA93
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:242
 msgctxt "sidebardatabase|tablestyledark6"
 msgid "Table Style Dark 6"
-msgstr ""
+msgstr "Тёмный стиль таблицы 6"
 
 #. 2DAii
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:243
 msgctxt "sidebardatabase|tablestyledark7"
 msgid "Table Style Dark 7"
-msgstr ""
+msgstr "Тёмный стиль таблицы 7"
 
 #. B6GrN
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:244
 msgctxt "sidebardatabase|tablestyledark8"
 msgid "Table Style Dark 8"
-msgstr ""
+msgstr "Тёмный стиль таблицы 8"
 
 #. TcGzg
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:245
 msgctxt "sidebardatabase|tablestyledark9"
 msgid "Table Style Dark 9"
-msgstr ""
+msgstr "Тёмный стиль таблицы 9"
 
 #. DEL7d
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:246
 msgctxt "sidebardatabase|tablestyledark10"
 msgid "Table Style Dark 10"
-msgstr ""
+msgstr "Тёмный стиль таблицы 10"
 
 #. M2TB4
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:247
 msgctxt "sidebardatabase|tablestyledark11"
 msgid "Table Style Dark 11"
-msgstr ""
+msgstr "Тёмный стиль таблицы 11"
 
 #. CJUkb
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:251
 msgctxt "sidebardatabase|tablestylenames"
 msgid "Table Style Names"
-msgstr ""
+msgstr "Названия стилей таблиц"
 
 #. 3FfJ4
 #: sc/uiconfig/scalc/ui/sidebardatabase.ui:252
 msgctxt "sidebardatabase|defaulttablestylenames"
 msgid "Default Table Style Names"
-msgstr ""
+msgstr "Названия стилей таблиц по умолчанию"
 
 #. y7K54
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:19
 msgctxt "tablestylebox|chk_header_row"
 msgid "Header Row"
-msgstr ""
+msgstr "Строка заголовков"
 
 #. 8g5nk
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:33
 msgctxt "tablestylebox|chk_total_row"
 msgid "Total Row"
-msgstr ""
+msgstr "Строка итогов"
 
 #. RCDTD
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:47
 msgctxt "tablestylebox|chk_filter_buttons"
 msgid "Filter Buttons"
-msgstr ""
+msgstr "Кнопки фильтра"
 
 #. zBNtc
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:61
 msgctxt "tablestylebox|chk_first_column"
 msgid "First Column"
-msgstr ""
+msgstr "Первый столбец"
 
 #. FYKpc
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:75
 msgctxt "tablestylebox|chk_last_column"
 msgid "Last Column"
-msgstr ""
+msgstr "Последний столбец"
 
 #. A9Eb2
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:89
 msgctxt "tablestylebox|chk_banded_rows"
 msgid "Banded Rows"
-msgstr ""
+msgstr "Полосатые строки"
 
 #. 6mHnD
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:103
 msgctxt "tablestylebox|chk_banded_cols"
 msgid "Banded Columns"
-msgstr ""
+msgstr "Полосатые столбцы"
 
 #. gbBp7
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:121
 msgctxt "tablestylebox|none"
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 #. hPKiF
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:122
 msgctxt "tablestylebox|tablestylelight1"
 msgid "Table Style Light 1"
-msgstr ""
+msgstr "Светлый стиль таблицы 1"
 
 #. GA5oq
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:123
 msgctxt "tablestylebox|tablestylelight2"
 msgid "Table Style Light 2"
-msgstr ""
+msgstr "Светлый стиль таблицы 2"
 
 #. QNyUR
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:124
 msgctxt "tablestylebox|tablestylelight3"
 msgid "Table Style Light 3"
-msgstr ""
+msgstr "Светлый стиль таблицы 3"
 
 #. 6Dg39
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:125
 msgctxt "tablestylebox|tablestylelight4"
 msgid "Table Style Light 4"
-msgstr ""
+msgstr "Светлый стиль таблицы 4"
 
 #. ERFFS
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:126
 msgctxt "tablestylebox|tablestylelight5"
 msgid "Table Style Light 5"
-msgstr ""
+msgstr "Светлый стиль таблицы 5"
 
 #. nC9A3
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:127
 msgctxt "tablestylebox|tablestylelight6"
 msgid "Table Style Light 6"
-msgstr ""
+msgstr "Светлый стиль таблицы 6"
 
 #. vQm8c
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:128
 msgctxt "tablestylebox|tablestylelight7"
 msgid "Table Style Light 7"
-msgstr ""
+msgstr "Светлый стиль таблицы 7"
 
 #. VELfG
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:129
 msgctxt "tablestylebox|tablestylelight8"
 msgid "Table Style Light 8"
-msgstr ""
+msgstr "Светлый стиль таблицы 8"
 
 #. dJTtx
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:130
 msgctxt "tablestylebox|tablestylelight9"
 msgid "Table Style Light 9"
-msgstr ""
+msgstr "Светлый стиль таблицы 9"
 
 #. JEsTR
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:131
 msgctxt "tablestylebox|tablestylelight10"
 msgid "Table Style Light 10"
-msgstr ""
+msgstr "Светлый стиль таблицы 10"
 
 #. gvecy
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:132
 msgctxt "tablestylebox|tablestylelight11"
 msgid "Table Style Light 11"
-msgstr ""
+msgstr "Светлый стиль таблицы 11"
 
 #. nhDGR
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:133
 msgctxt "tablestylebox|tablestylelight12"
 msgid "Table Style Light 12"
-msgstr ""
+msgstr "Светлый стиль таблицы 12"
 
 #. 3Q7Py
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:134
 msgctxt "tablestylebox|tablestylelight13"
 msgid "Table Style Light 13"
-msgstr ""
+msgstr "Светлый стиль таблицы 13"
 
 #. TjvkW
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:135
 msgctxt "tablestylebox|tablestylelight14"
 msgid "Table Style Light 14"
-msgstr ""
+msgstr "Светлый стиль таблицы 14"
 
 #. Hzbs5
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:136
 msgctxt "tablestylebox|tablestylelight15"
 msgid "Table Style Light 15"
-msgstr ""
+msgstr "Светлый стиль таблицы 15"
 
 #. EDG6W
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:137
 msgctxt "tablestylebox|tablestylelight16"
 msgid "Table Style Light 16"
-msgstr ""
+msgstr "Светлый стиль таблицы 16"
 
 #. uU4F5
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:138
 msgctxt "tablestylebox|tablestylelight17"
 msgid "Table Style Light 17"
-msgstr ""
+msgstr "Светлый стиль таблицы 17"
 
 #. BFm89
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:139
 msgctxt "tablestylebox|tablestylelight18"
 msgid "Table Style Light 18"
-msgstr ""
+msgstr "Светлый стиль таблицы 18"
 
 #. vWYDa
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:140
 msgctxt "tablestylebox|tablestylelight19"
 msgid "Table Style Light 19"
-msgstr ""
+msgstr "Светлый стиль таблицы 19"
 
 #. 7YymU
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:141
 msgctxt "tablestylebox|tablestylelight20"
 msgid "Table Style Light 20"
-msgstr ""
+msgstr "Светлый стиль таблицы 20"
 
 #. iHcr3
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:142
 msgctxt "tablestylebox|tablestylelight21"
 msgid "Table Style Light 21"
-msgstr ""
+msgstr "Светлый стиль таблицы 21"
 
 #. GZraD
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:143
 msgctxt "tablestylebox|tablestylemedium1"
 msgid "Table Style Medium 1"
-msgstr ""
+msgstr "Средний стиль таблицы 1"
 
 #. Dn8Ee
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:144
 msgctxt "tablestylebox|tablestylemedium2"
 msgid "Table Style Medium 2"
-msgstr ""
+msgstr "Средний стиль таблицы 2"
 
 #. t6CRD
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:145
 msgctxt "tablestylebox|tablestylemedium3"
 msgid "Table Style Medium 3"
-msgstr ""
+msgstr "Средний стиль таблицы 3"
 
 #. KcaiH
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:146
 msgctxt "tablestylebox|tablestylemedium4"
 msgid "Table Style Medium 4"
-msgstr ""
+msgstr "Средний стиль таблицы 4"
 
 #. hMwuq
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:147
 msgctxt "tablestylebox|tablestylemedium5"
 msgid "Table Style Medium 5"
-msgstr ""
+msgstr "Средний стиль таблицы 5"
 
 #. o938H
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:148
 msgctxt "tablestylebox|tablestylemedium6"
 msgid "Table Style Medium 6"
-msgstr ""
+msgstr "Средний стиль таблицы 6"
 
 #. 4sHDq
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:149
 msgctxt "tablestylebox|tablestylemedium7"
 msgid "Table Style Medium 7"
-msgstr ""
+msgstr "Средний стиль таблицы 7"
 
 #. kFZ6u
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:150
 msgctxt "tablestylebox|tablestylemedium8"
 msgid "Table Style Medium 8"
-msgstr ""
+msgstr "Средний стиль таблицы 8"
 
 #. 5ykFM
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:151
 msgctxt "tablestylebox|tablestylemedium9"
 msgid "Table Style Medium 9"
-msgstr ""
+msgstr "Средний стиль таблицы 9"
 
 #. cBYvR
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:152
 msgctxt "tablestylebox|tablestylemedium10"
 msgid "Table Style Medium 10"
-msgstr ""
+msgstr "Средний стиль таблицы 10"
 
 #. aVd2m
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:153
 msgctxt "tablestylebox|tablestylemedium11"
 msgid "Table Style Medium 11"
-msgstr ""
+msgstr "Средний стиль таблицы 11"
 
 #. h2fLN
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:154
 msgctxt "tablestylebox|tablestylemedium12"
 msgid "Table Style Medium 12"
-msgstr ""
+msgstr "Средний стиль таблицы 12"
 
 #. faSZi
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:155
 msgctxt "tablestylebox|tablestylemedium13"
 msgid "Table Style Medium 13"
-msgstr ""
+msgstr "Средний стиль таблицы 13"
 
 #. SvAiJ
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:156
 msgctxt "tablestylebox|tablestylemedium14"
 msgid "Table Style Medium 14"
-msgstr ""
+msgstr "Средний стиль таблицы 14"
 
 #. UFPEn
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:157
 msgctxt "tablestylebox|tablestylemedium15"
 msgid "Table Style Medium 15"
-msgstr ""
+msgstr "Средний стиль таблицы 15"
 
 #. XqMGM
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:158
 msgctxt "tablestylebox|tablestylemedium16"
 msgid "Table Style Medium 16"
-msgstr ""
+msgstr "Средний стиль таблицы 16"
 
 #. ZQGdq
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:159
 msgctxt "tablestylebox|tablestylemedium17"
 msgid "Table Style Medium 17"
-msgstr ""
+msgstr "Средний стиль таблицы 17"
 
 #. QYB5B
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:160
 msgctxt "tablestylebox|tablestylemedium18"
 msgid "Table Style Medium 18"
-msgstr ""
+msgstr "Средний стиль таблицы 18"
 
 #. NG8sw
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:161
 msgctxt "tablestylebox|tablestylemedium19"
 msgid "Table Style Medium 19"
-msgstr ""
+msgstr "Средний стиль таблицы 19"
 
 #. 2TsiD
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:162
 msgctxt "tablestylebox|tablestylemedium20"
 msgid "Table Style Medium 20"
-msgstr ""
+msgstr "Средний стиль таблицы 20"
 
 #. 49nES
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:163
 msgctxt "tablestylebox|tablestylemedium21"
 msgid "Table Style Medium 21"
-msgstr ""
+msgstr "Средний стиль таблицы 21"
 
 #. 5ckGG
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:164
 msgctxt "tablestylebox|tablestylemedium22"
 msgid "Table Style Medium 22"
-msgstr ""
+msgstr "Средний стиль таблицы 22"
 
 #. 74ydV
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:165
 msgctxt "tablestylebox|tablestylemedium23"
 msgid "Table Style Medium 23"
-msgstr ""
+msgstr "Средний стиль таблицы 23"
 
 #. CHGvC
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:166
 msgctxt "tablestylebox|tablestylemedium24"
 msgid "Table Style Medium 24"
-msgstr ""
+msgstr "Средний стиль таблицы 24"
 
 #. Ax32Z
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:167
 msgctxt "tablestylebox|tablestylemedium25"
 msgid "Table Style Medium 25"
-msgstr ""
+msgstr "Средний стиль таблицы 25"
 
 #. FN5L9
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:168
 msgctxt "tablestylebox|tablestylemedium26"
 msgid "Table Style Medium 26"
-msgstr ""
+msgstr "Средний стиль таблицы 26"
 
 #. DoAZW
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:169
 msgctxt "tablestylebox|tablestylemedium27"
 msgid "Table Style Medium 27"
-msgstr ""
+msgstr "Средний стиль таблицы 27"
 
 #. oEF93
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:170
 msgctxt "tablestylebox|tablestylemedium28"
 msgid "Table Style Medium 28"
-msgstr ""
+msgstr "Средний стиль таблицы 28"
 
 #. NjD4c
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:171
 msgctxt "tablestylebox|tablestyledark1"
 msgid "Table Style Dark 1"
-msgstr ""
+msgstr "Тёмный стиль таблицы 1"
 
 #. DSEdv
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:172
 msgctxt "tablestylebox|tablestyledark2"
 msgid "Table Style Dark 2"
-msgstr ""
+msgstr "Тёмный стиль таблицы 2"
 
 #. vGEDF
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:173
 msgctxt "tablestylebox|tablestyledark3"
 msgid "Table Style Dark 3"
-msgstr ""
+msgstr "Тёмный стиль таблицы 3"
 
 #. e4FMB
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:174
 msgctxt "tablestylebox|tablestyledark4"
 msgid "Table Style Dark 4"
-msgstr ""
+msgstr "Тёмный стиль таблицы 4"
 
 #. NeFVV
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:175
 msgctxt "tablestylebox|tablestyledark5"
 msgid "Table Style Dark 5"
-msgstr ""
+msgstr "Тёмный стиль таблицы 5"
 
 #. DwGCo
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:176
 msgctxt "tablestylebox|tablestyledark6"
 msgid "Table Style Dark 6"
-msgstr ""
+msgstr "Тёмный стиль таблицы 6"
 
 #. vCGm8
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:177
 msgctxt "tablestylebox|tablestyledark7"
 msgid "Table Style Dark 7"
-msgstr ""
+msgstr "Тёмный стиль таблицы 7"
 
 #. e5Aud
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:178
 msgctxt "tablestylebox|tablestyledark8"
 msgid "Table Style Dark 8"
-msgstr ""
+msgstr "Тёмный стиль таблицы 8"
 
 #. NdA4K
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:179
 msgctxt "tablestylebox|tablestyledark9"
 msgid "Table Style Dark 9"
-msgstr ""
+msgstr "Тёмный стиль таблицы 9"
 
 #. KoCes
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:180
 msgctxt "tablestylebox|tablestyledark10"
 msgid "Table Style Dark 10"
-msgstr ""
+msgstr "Тёмный стиль таблицы 10"
 
 #. BsbuB
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:181
 msgctxt "tablestylebox|tablestyledark11"
 msgid "Table Style Dark 11"
-msgstr ""
+msgstr "Тёмный стиль таблицы 11"
 
 #. pNhVi
 #: sc/uiconfig/scalc/ui/tablestylesbox.ui:185

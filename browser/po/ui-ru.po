@@ -682,7 +682,6 @@ msgid "Fit to page"
 msgstr "Уместить на страницу"
 
 #: admin/src/integrator/AdminIntegratorSettings.ts:647
-#, fuzzy
 msgid "Tile pages"
 msgstr "Страницы с плитками"
 
@@ -2211,7 +2210,6 @@ msgstr ""
 "(например, столбец B + строка 2 = B2)."
 
 #: src/control/Control.AIChatSidebar.ts:3344
-#, fuzzy
 msgid ""
 "When referencing specific cells, format each cell as a clickable link: [B2]"
 "(cell://B2)."
@@ -2409,7 +2407,6 @@ msgstr "Текстовый документ"
 #: src/control/Control.BackstageView.ts:821
 #: src/control/Control.BackstageView.ts:824
 #: src/control/Control.PartsPreview.js:104
-#, fuzzy
 msgid "Pages"
 msgstr "Страница"
 
@@ -2418,7 +2415,6 @@ msgid "Spreadsheet"
 msgstr "Электронная таблица"
 
 #: src/control/Control.BackstageView.ts:822 src/control/Control.Tabs.js:216
-#, fuzzy
 msgid "Sheets"
 msgstr "Лист"
 
@@ -2441,7 +2437,6 @@ msgid "Type"
 msgstr "Тип"
 
 #: src/control/Control.BackstageView.ts:839
-#, fuzzy
 msgid "Mode"
 msgstr "Модель"
 
@@ -2458,7 +2453,6 @@ msgid "Blank Spreadsheet"
 msgstr "Пустая электронная таблица"
 
 #: src/control/Control.BackstageView.ts:996
-#, fuzzy
 msgid "Blank Presentation"
 msgstr "Завершить презентацию"
 
@@ -3980,7 +3974,6 @@ msgstr "Сноска/Концевая сноска"
 #: src/control/Notebookbar.WriterReferencesTab.ts:313
 #: src/control/Control.NotebookbarDraw.js:1678
 #: src/control/Control.NotebookbarImpress.js:1706
-#, fuzzy
 msgid "Field"
 msgstr "Поле"
 
@@ -4049,7 +4042,6 @@ msgstr "Формат"
 
 #: src/control/Notebookbar.WriterTableTab.ts:565
 #: src/control/Control.NotebookbarCalc.js:2362
-#, fuzzy
 msgid "Sort"
 msgstr "Сортировка"
 
@@ -4119,7 +4111,6 @@ msgid "Page Layout"
 msgstr "Разметка страницы"
 
 #: src/control/Control.NotebookbarCalc.js:54
-#, fuzzy
 msgid "Formulas"
 msgstr "Формулы"
 
@@ -4286,7 +4277,6 @@ msgid "Number Format"
 msgstr "Числовой формат"
 
 #: src/control/Control.NotebookbarCalc.js:901
-#, fuzzy
 msgid "Cells"
 msgstr "Ячейки"
 
@@ -4504,7 +4494,6 @@ msgid "Insert Function"
 msgstr "Вставить функцию"
 
 #: src/control/Control.NotebookbarCalc.js:2117
-#, fuzzy
 msgid "Function Library"
 msgstr "Библиотека функций"
 
@@ -4537,7 +4526,6 @@ msgid "More Functions"
 msgstr "Другие функции"
 
 #: src/control/Control.NotebookbarCalc.js:2279
-#, fuzzy
 msgid "Range"
 msgstr "Диапазон"
 
@@ -4558,7 +4546,6 @@ msgstr "Автопроверка орфографии"
 #: src/control/Control.NotebookbarCalc.js:2687
 #: src/control/Control.NotebookbarImpress.js:2083
 #: src/control/jsdialog/Widget.HTMLContent.ts:52
-#, fuzzy
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -4723,7 +4710,6 @@ msgid "Master Slide Templates"
 msgstr "Шаблоны мастер-слайдов"
 
 #: src/control/Control.NotebookbarImpress.js:1878
-#, fuzzy
 msgid "This Presentation"
 msgstr "Эта презентация"
 
@@ -4964,7 +4950,6 @@ msgid "Alerts:"
 msgstr "Предупреждения:"
 
 #: src/control/Control.ServerAuditDialog.ts:411
-#, fuzzy
 msgid "Check warnings of your server"
 msgstr "Проверьте предупреждения вашего сервера"
 
@@ -5388,7 +5373,6 @@ msgid "Updating citations"
 msgstr "Обновление цитирований"
 
 #: src/control/Control.Zotero.js:1537
-#, fuzzy
 msgid "Unlinked citations"
 msgstr "Отвязанные цитаты"
 
@@ -5973,7 +5957,6 @@ msgid "Line color"
 msgstr "Цвет линии"
 
 #: src/control/jsdialog/Definitions.Menu.ts:2078
-#, fuzzy
 msgid "Line style"
 msgstr "Стиль линии"
 
@@ -6042,7 +6025,6 @@ msgid "Watermark"
 msgstr "Водяной знак"
 
 #: src/control/jsdialog/Definitions.Menu.ts:2415
-#, fuzzy
 msgid "Insert comment"
 msgstr "Вставить комментарий"
 
@@ -6057,7 +6039,6 @@ msgid "Insert Comment"
 msgstr "Вставить комментарий"
 
 #: src/control/jsdialog/Definitions.Menu.ts:2430
-#, fuzzy
 msgid "Insert Note"
 msgstr "Вставить дату"
 
@@ -6091,7 +6072,6 @@ msgid " list"
 msgstr " список"
 
 #: src/control/jsdialog/Widget.Combobox.js:275
-#, fuzzy
 msgid "Open list"
 msgstr "Открыть список"
 
@@ -6206,7 +6186,6 @@ msgid "Entering text mode"
 msgstr "Текстовый режим"
 
 #: src/control/jsdialog/Widget.HTMLContent.ts:49
-#, fuzzy
 msgid "Insert Mode"
 msgstr "Режим вставки"
 
@@ -6236,17 +6215,14 @@ msgid "Shape Size"
 msgstr "Размер фигуры"
 
 #: src/control/jsdialog/Widget.HTMLContent.ts:79
-#, fuzzy
 msgid "Sheet Navigation"
 msgstr "Навигация по листам"
 
 #: src/control/jsdialog/Widget.HTMLContent.ts:81
-#, fuzzy
 msgid "Slide Navigation"
 msgstr "Навигация по слайдам"
 
 #: src/control/jsdialog/Widget.HTMLContent.ts:82
-#, fuzzy
 msgid "Page Navigation"
 msgstr "Навигация по страницам"
 
@@ -6656,7 +6632,6 @@ msgid "Failed to load document."
 msgstr "Не удалось загрузить документ."
 
 #: src/errormessages.js:45
-#, fuzzy
 msgid "Save failed due to no disk space left. Document will now be read-only."
 msgstr ""
 "Не удалось сохранить документ из-за нехватки места на диске. Документ "
@@ -6914,7 +6889,6 @@ msgid "Please send us your feedback"
 msgstr "Пожалуйста, отправьте нам свой отзыв"
 
 #: src/map/handler/Map.FileInserter.js:192
-#, fuzzy
 msgid "The file of type: {0} cannot be inserted since the file has no name"
 msgstr ""
 "Файл типа: {0} не может быть загружен на сервер, поскольку у файла нет имени"
@@ -6928,7 +6902,6 @@ msgstr ""
 "Файл типа: {0} не может быть загружен на сервер, поскольку у файла нет имени"
 
 #: src/map/handler/Map.FileInserter.js:196
-#, fuzzy
 msgid "The file of type: {0} cannot be inserted since the file is empty"
 msgstr "Файл типа: {0} не может быть загружен на сервер, поскольку файл пуст"
 
@@ -7086,12 +7059,10 @@ msgid "Next Slide"
 msgstr "Следующий слайд"
 
 #: src/slideshow/engine/SlideShowHandler.ts:109
-#, fuzzy
 msgid "Previous Slide"
 msgstr "Предыдущий слайд"
 
 #: src/slideshow/engine/SlideShowHandler.ts:110
-#, fuzzy
 msgid "Last Slide"
 msgstr "Последний слайд"
 
@@ -7142,7 +7113,6 @@ msgid "Present to all"
 msgstr "Показать всем"
 
 #: src/slideshow/PresenterConsole.js:41
-#, fuzzy
 msgid "Exit"
 msgstr "Выход"
 
@@ -7213,7 +7183,6 @@ msgid "Enable Animations"
 msgstr "Включить анимации"
 
 #: src/slideshow/SlideShowPresenter.ts:1612
-#, fuzzy
 msgid "Stop Following"
 msgstr "Остановить следование"
 
@@ -7294,7 +7263,6 @@ msgid "Inspiration"
 msgstr "Вдохновение"
 
 #: templates/templates.js:186
-#, fuzzy
 msgid "Lights"
 msgstr "Огни"
 
@@ -7398,12 +7366,10 @@ msgid "Get Involved"
 msgstr "Принять участие"
 
 #: welcome/welcome.html%2Bhtml.body.div.div.div.div.h2:49-7
-#, fuzzy
 msgid "https://www.collaboraoffice.org/"
 msgstr "https://www.collaboraonline.org/"
 
 #: welcome/welcome.html%2Bhtml.body.div.div.div.div.p:50-7
-#, fuzzy
 msgid ""
 "Are you interested in contributing but don’t know where to start? Head over "
 "to the <a target=\"_blank\" rel=\"noopener\" href=\"https://www."
@@ -7516,11 +7482,9 @@ msgstr ""
 #~ msgid "Autosaved"
 #~ msgstr "Автоматически сохранён"
 
-#, fuzzy
 #~ msgid "Dark mode"
 #~ msgstr "Темная тема"
 
-#, fuzzy
 #~ msgid "Show ruler"
 #~ msgstr "Показать линейку"
 
@@ -7568,7 +7532,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Другой пользователь обновил комментарии. Вы хотите продолжить обновление?"
 
-#, fuzzy
 #~ msgid "1 issue found"
 #~ msgstr "Проблемы не обнаружены"
 
@@ -7898,7 +7861,6 @@ msgstr ""
 #~ msgid "Start Presentation"
 #~ msgstr "Начать презентацию"
 
-#, fuzzy
 #~ msgid "Reset Zoom"
 #~ msgstr "Сбросить масштаб"
 
@@ -7991,6 +7953,5 @@ msgstr ""
 #~ msgid "Pattern"
 #~ msgstr "Орнамент"
 
-#, fuzzy
 #~ msgid "Toggle Page Orientation"
 #~ msgstr "Ориентация текста"

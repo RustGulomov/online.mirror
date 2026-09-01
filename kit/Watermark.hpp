@@ -251,8 +251,8 @@ private:
         const double x0 = width / 2.0;
         const double y0 = height / 2.0;
 
-        const int r = 2;
-        const double weight = (r+1) * (r+1);
+        const int r = 1;
+        const double weight = (4 * r + 1) * (4 * r + 1);
         for (int y = 0; y < height; ++y)
         {
             for (int x = 0; x < width; ++x)

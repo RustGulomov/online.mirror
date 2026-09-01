@@ -40,11 +40,12 @@ jobs:
           else
             echo "Translations already present, skipping clone"
           fi
+          cp -a ../translations-local/ru/. "$TRANSLATIONS_DIR/source/ru/"
 
       - name: Configure engine (release)
         working-directory: engine
         run: |
-          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols
+          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols --with-lang="en-US ru"
 
       - name: Build engine (incremental)
         working-directory: engine
@@ -61,7 +62,8 @@ jobs:
           --sysconfdir=/etc \
           --with-lokit-path="${GITHUB_WORKSPACE}/engine/include" \
           --with-lo-path=/opt/collaboraoffice \
-          --localstatedir=/var
+          --localstatedir=/var \
+          --with-app-name="Vaulterix Online Editor"
 
       - name: Build
         run: make -j ${BUILD_J} build-nocheck

@@ -17,7 +17,8 @@
 [data-doctype='drawing'] {--doc-type: 158, 87, 84;}
 
 /* ---- browser/css/btns.css ---------------------------------------- */
-#viewModeDropdown .unotoolbutton {
+#viewModeDropdown .unotoolbutton,
+#readonlyMode {
 	background-color: var(--color-background-tabs-group);
 }
 
@@ -206,6 +207,40 @@ form.snackbar.jsdialog-container.ui-dialog.ui-widget-content.lokdialog_container
 #help-serveraudit-break,
 #help-about-break,
 #help-accessibility-break,
-#help-keyboardshortcuts-break {
+#help-keyboardshortcuts-break,
+#file-properties-break {
     display: none !important;
+}
+
+#View-container #showstatusbar {
+	width: 160px;
+}
+
+#formulabar-buttons-toolbox.formulabar.toolbox {
+    grid-template-columns: 30px 40px 30px;
+}
+
+#sheetview_combobox-input {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+	margin-inline-end: 6px;
+}
+#listbox-arrow-sheetview_combobox {
+	margin-inline-start: -16px;
+}
+
+[id^="iconview_theme_colors_"] > div {
+    height: 60px;
+}
+
+#document-header > a.document-logo {
+    pointer-events: none;
+	cursor: default;
+}
+
+#document-header > a.document-logo:hover,
+#document-header > a.document-logo:focus,
+#document-header > a.document-logo:active {
+    background-color: transparent;
 }
