@@ -159,6 +159,7 @@ std::string_view fromFileName(const std::string_view fileName)
         { "png", "image/png" },
         { "gif", "image/gif" },
         { "tiff", "image/tiff" },
+        { "tif", "image/tiff" },
         { "jpg", "image/jpeg" },
         { "jpeg", "image/jpeg" },
         { "pdf", "application/pdf" },
