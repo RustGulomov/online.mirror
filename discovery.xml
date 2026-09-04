@@ -189,6 +189,7 @@
             <action name="view" ext="png"/>
             <action name="view" ext="gif"/>
             <action name="view" ext="tiff"/>
+            <action name="view" ext="tif"/>
             <action name="view" ext="jpg"/>
             <action name="view" ext="jpeg"/>
             <action name="view_comment" ext="pdf"/>

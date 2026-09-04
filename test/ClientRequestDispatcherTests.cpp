@@ -186,6 +186,7 @@ private:
         LOK_ASSERT_EQUAL_STR("image/bmp", ContentType::fromFileName("photo.bmp"));
         LOK_ASSERT_EQUAL_STR("image/gif", ContentType::fromFileName("photo.gif"));
         LOK_ASSERT_EQUAL_STR("image/tiff", ContentType::fromFileName("photo.tiff"));
+        LOK_ASSERT_EQUAL_STR("image/tiff", ContentType::fromFileName("photo.tif"));
     }
 
     void testGetContentType_Other()
