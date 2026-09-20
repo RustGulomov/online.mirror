@@ -19,6 +19,7 @@
 #include <common/FileUtil.hpp>
 #include <common/JsonUtil.hpp>
 #include <common/Log.hpp>
+#include <common/SigUtil.hpp>
 #include <common/TraceEvent.hpp>
 #include <common/Unit.hpp>
 #include <common/Uri.hpp>
@@ -49,6 +50,7 @@
 #include <chrono>
 #include <memory>
 #include <string>
+#include <thread>
 
 namespace
 {
@@ -245,6 +247,7 @@ WopiStorage::WOPIFileInfo::WOPIFileInfo(const FileInfo& fileInfo, Poco::JSON::Ob
     JsonUtil::findJSONValue(object, "UserCanOnlyComment", _userCanOnlyComment);
     JsonUtil::findJSONValue(object, "UserCanOnlyManageRedlines", _userCanOnlyManageRedlines);
     JsonUtil::findJSONValue(object, "PresentationLeader", _presentationLeader);
+    JsonUtil::findJSONValue(object, "NeedsDlpVerification", _needsDlpVerification);
 
     // check if user is admin on the integrator side
     bool isAdminUser = false;
@@ -597,6 +600,137 @@ std::string WopiStorage::downloadStorageFileToLocal(const Authorization& auth,
                 << ex.what());
         throw; // Bubble-up the exception.
     }
+}
+
+WopiStorage::Dlp::Result WopiStorage::runDlpVerification(const Authorization& auth, const std::string& baseUri)
+{
+    LOG_ERR("DLP URI" << baseUri << "---------------------------------------------------------");
+    const std::string objectId = Uri::getFilenameFromURL(getUri().toString());
+    if (objectId.empty())
+    {
+        return Dlp::Result::Error(std::format("Cannot extract the DLP objectId from URI [{}] ",
+            Anonymizer::anonymizeUrl(getUri().toString())));
+    }
+
+    LOG_DBG("DLP: starting wrapped-download verification for objectId [" << objectId << "] on ["
+        << Anonymizer::anonymizeUrl(baseUri) << ']');
+
+    // POST {base}/api/v2/wrapped/download/start  body: { "objectId": "<id>" }
+    // Response JSON: { "downloadMode": ..., "objectId": ..., "accessId": ..., "taskId": ... }
+    Poco::JSON::Object startBody;
+    startBody.set("objectId", objectId);
+    startBody.set("downloadMode", Dlp::DownloadModeFile);
+    std::ostringstream ossBody;
+    startBody.stringify(ossBody);
+
+    Poco::URI startUri(baseUri + Dlp::StartEndpoint);
+    http::Request startRequest = StorageConnectionManager::createHttpRequest(startUri, auth);
+    startRequest.setVerb(http::Request::VERB_POST);
+    startRequest.setBody(ossBody.str(), "application/json");
+
+    const std::shared_ptr<const http::Response> startResponse =
+        StorageConnectionManager::getHttpSession(startUri)->syncRequest(startRequest);
+    if (startResponse->statusLine().statusCode() != http::StatusCode::OK)
+    {
+        return Dlp::Result::Error(std::format("DLP start request failed with HTTP status [{}]",
+            static_cast<unsigned>(startResponse->statusLine().statusCode())));
+    }
+
+    Poco::JSON::Object::Ptr startResponseJson;
+    if (!JsonUtil::parseJSON(startResponse->getBody(), startResponseJson))
+    {
+        return Dlp::Result::Error("DLP start request returned an unparsable JSON response");
+    }
+    std::string accessId;
+    std::string taskId;
+    const auto representation = startResponseJson->getObject("representation");
+    if (!representation)
+    {
+        return Dlp::Result::Error("DLP start request did not return a representation");
+    }
+    JsonUtil::findJSONValue(representation, "accessId", accessId);
+    JsonUtil::findJSONValue(representation, "taskId", taskId);
+    if (accessId.empty())
+    {
+        return Dlp::Result::Error("DLP start request did not return an accessId");
+    }
+    if (taskId.empty())
+    {
+        return Dlp::Result::Error("DLP start request did not return a taskId");
+    }
+
+    // Poll {base}/api/v2/statuses/{taskId}
+    // Response:
+    // {
+    //     "state": "RUNNING"
+    // }
+    //
+    // or:
+    //
+    // {
+    //     "state": "COMPLETED",
+    //     "details": {
+    //         "result": {
+    //             ...
+    //             "result": {
+    //                 "resultType": "APPROVED"
+    //             }
+    //         }
+    //     }
+    // }
+    const std::string statusUrlAnonym = Anonymizer::anonymizeUrl(baseUri + Dlp::StatusEndpoint);
+
+    Poco::URI statusUri(baseUri + Dlp::StatusEndpoint + taskId);
+    for (std::size_t attempt = 1; attempt <= Dlp::PollAttempts; ++attempt)
+    {
+        if (SigUtil::getShutdownRequestFlag())
+        {
+            return Dlp::Result::Error("Shutdown requested while waiting for DLP verification");
+        }
+
+        http::Request statusRequest = StorageConnectionManager::createHttpRequest(statusUri, auth);
+        const std::shared_ptr<const http::Response> statusResponse =
+            StorageConnectionManager::getHttpSession(statusUri)->syncRequest(statusRequest);
+
+        std::string state;
+        if (statusResponse->statusLine().statusCode() == http::StatusCode::OK)
+        {
+            Poco::JSON::Object::Ptr statusJson;
+            if (JsonUtil::parseJSON(statusResponse->getBody(), statusJson))
+            {
+                JsonUtil::findJSONValue(statusJson, "state", state);
+
+                if (state == "COMPLETED")
+                {
+                    std::string resultType;
+
+                    if (auto details = statusJson->getObject("details"))
+                    {
+                        if (auto resultDetails = details->getObject("result"))
+                        {
+                            if (auto result = resultDetails->getObject("result"))
+                            {
+                                JsonUtil::findJSONValue(result, "resultType", resultType);
+                            }
+                        }
+                    }
+
+                    if (resultType == "APPROVED")
+                    {
+                        _fileUrl = baseUri + Dlp::DownloadEndpoint + accessId;
+                        return Dlp::Result::Approved();
+                    }
+
+                    return Dlp::Result::Rejected();
+                }
+            }
+        }
+
+        LOG_DBG("DLP: poll [" << attempt << '/' << Dlp::PollAttempts << "] status [" << state << "] objectId [" << objectId << "] on [" << statusUrlAnonym << ']');
+        std::this_thread::sleep_for(attempt < Dlp::PollAttempts ? Dlp::PollIntervalMs : std::chrono::milliseconds(0));
+    }
+
+    return Dlp::Result::Error(std::format("DLP verification timed out waiting for approval of objectId [{}]", objectId));
 }
 
 std::string WopiStorage::downloadDocument(const Poco::URI& uriObject, const std::string& uriAnonym,
