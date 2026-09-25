@@ -16,10 +16,12 @@
 
 #pragma once
 
+// #include "wopi/ContentCheckPoll.hpp"
 #include <common/Util.hpp>
 #include <net/WebSocketHandler.hpp>
 #include <wsd/RequestDetails.hpp>
 #include <wsd/Storage.hpp>
+#include <wsd/wopi/ContentCheck.hpp>
 
 #include <Poco/URI.h>
 
@@ -28,6 +30,10 @@
 
 class CheckFileInfo;
 class PresetsInstallTask;
+namespace DLP
+{
+    class ContentCheckPoll;
+};
 
 /// RequestVettingStation is used to vet the request in the background.
 /// Vetting for a WOPI request is performed through CheckFileInfo.
@@ -111,8 +117,29 @@ private:
     void launchInstallPresets();
 
     void checkFileInfo(const Poco::URI& uri, int redirectionLimit);
+
     std::shared_ptr<CheckFileInfo> _checkFileInfo;
     std::shared_ptr<PresetsInstallTask> _asyncInstallTask;
+
+    /// Act on the content-check verdict we have, which is either the one the
+    /// host reported in CheckFileInfo, or the one we polled for.
+    /// This is what actually lets the request through, or stops it.
+    void handleContentCheckResult();
+    /// Start polling the content-check endpoint of a pending content check.
+    void beginContentCheckPoll();
+    /// Called when the content check has a final verdict.
+    void onContentCheckFinished(DLP::ContentCheckPoll& poll);
+    /// Tell the client that we are waiting for the content check,
+    /// at most once (nothing else has been shown to it yet).
+    void sendContentCheckStatus();
+    /// Create the DocBroker (and the client session) now that vetting passed.
+    void proceedToDocBroker();
+
+    DLP::ContentCheck _contentCheck;
+    std::shared_ptr<DLP::ContentCheckPoll> _contentCheckPoll;
+    /// Whether we told the client that the check is running.
+    bool _contentCheckStatusSent = false;
+
 #endif // !MOBILEAPP
 
     RequestDetails _requestDetails;

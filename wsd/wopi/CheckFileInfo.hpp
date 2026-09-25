@@ -19,6 +19,7 @@
 #include <common/TraceEvent.hpp>
 #include <net/HttpRequest.hpp>
 #include <net/Socket.hpp>
+#include <wopi/ContentCheck.hpp>
 #include <wopi/WopiStorage.hpp>
 #include <wsd/RequestDetails.hpp>
 
@@ -26,7 +27,6 @@
 #include <Poco/URI.h>
 
 #include <functional>
-#include <memory>
 #include <string>
 
 class CheckFileInfo : public std::enable_shared_from_this<CheckFileInfo>
@@ -62,6 +62,11 @@ public:
 
     /// Returns the parsed response JSON, if any.
     Poco::JSON::Object::Ptr wopiInfo() const { return _wopiInfo; }
+
+    /// Returns the content-check verdict of the host, if any.
+    /// Note that a host can report a verdict with an HTTP error status, in which case
+    /// there is a verdict but no wopiInfo.
+    const DLP::ContentCheck& contentCheck() const noexcept { return _contentCheck; }
 
     /// Returns the parsed wopiInfo JSON into FileInfo.
     std::unique_ptr<WopiStorage::WOPIFileInfo> wopiFileInfo(const Poco::URI& uriPublic) const;
@@ -100,6 +105,7 @@ private:
     const std::string _docKey; ///< Unique DocKey.
     std::function<void(CheckFileInfo&)> _onFinishCallback;
     Poco::JSON::Object::Ptr _wopiInfo;
+    DLP::ContentCheck _contentCheck;
     std::atomic<State> _state;
 };
 

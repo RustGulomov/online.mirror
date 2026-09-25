@@ -1151,31 +1151,6 @@ bool DocumentBroker::download(
         if (session)
         {
             userSettingsUri = wopiFileInfo->getUserSettingsUri();
-
-            if (wopiFileInfo->getNeedsDlpVerification())
-            {
-                session->sendTextFrame(R"(progress: { "id":"dlp" })");
-
-                const auto dlpResult = wopiStorage->runDlpVerification(
-                    session->getAuthorization(), wopiFileInfo->getPostMessageOrigin());
-
-                session->sendTextFrame(R"(progress: { "id":"finish" })");
-
-                if (dlpResult)
-                {
-                    LOG_INF("DLP approved for docKey [" << _docKey << "] session [" << sessionId << ']');
-                }
-                else
-                {
-                    const std::string_view kind = dlpResult.hasError() ? "dlperror" : "dlpdenied";
-                    const std::string dlpError = std::string(dlpResult.error());
-                    LOG_WRN("DLP " << kind << " for docKey [" << _docKey << "] session [" << sessionId
-                                   << "]: " << dlpError);
-                    session->sendTextFrame(COOLProtocol::buildErrorFrame("load", kind, dlpError));
-                    return false;
-                }
-            }
-
             templateSource =
                 updateSessionWithWopiInfo(session, wopiStorage, std::move(wopiFileInfo));
         }

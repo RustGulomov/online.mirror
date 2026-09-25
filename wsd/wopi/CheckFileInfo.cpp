@@ -31,7 +31,8 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
     LOG_DBG("Getting info for wopi uri [" << uriAnonym << ']');
     _httpSession = StorageConnectionManager::getHttpSession(_url);
     Authorization auth = Authorization::create(_url);
-    const http::Request httpRequest = StorageConnectionManager::createHttpRequest(_url, auth);
+    http::Request httpRequest = StorageConnectionManager::createHttpRequest(_url, auth);
+    httpRequest.set("X-Vaulterix-Capabilities", "content-check");
 
     const auto startTime = std::chrono::steady_clock::now();
 
@@ -103,13 +104,30 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
             }
         }
 
+        _contentCheck = DLP::ContentCheck(httpResponse->get("X-Vaulterix-Content-Check"), _wopiInfo, httpResponse->statusLine().statusCode());
+
         if (failed)
         {
-            _state = unauthorized ? State::Unauthorized : State::Fail;
-            if (unauthorized)
-                LOG_ERR("Access denied to CheckFileInfo [" << uriAnonym << ']');
+            if (_contentCheck.isBlocked())
+            {
+                _state = State::Pass;
+                LOG_INF("WOPI::CheckFileInfo reported content-check BLOCKED via header for URI ["
+                << uriAnonym << "], status [" << static_cast<unsigned>(statusCode) << ']');
+            }
+            else if (_contentCheck.isAllowed())
+            {
+                _state = State::Pass;
+                LOG_WRN("WOPI::CheckFileInfo reported content-check UNAVAILABLE via header for URI ["
+                << uriAnonym << "], status [" << static_cast<unsigned>(statusCode) << ']');
+            }
             else
-                LOG_ERR("Failed or timed-out CheckFileInfo [" << uriAnonym << ']');
+            {
+                _state = unauthorized ? State::Unauthorized : State::Fail;
+                if (unauthorized)
+                    LOG_ERR("Access denied to CheckFileInfo [" << uriAnonym << ']');
+                else
+                    LOG_ERR("Failed or timed-out CheckFileInfo [" << uriAnonym << ']');
+            }
         }
         else
         {
