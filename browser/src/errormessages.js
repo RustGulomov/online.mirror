@@ -39,8 +39,6 @@ errorMessages.docunloadinggiveup = _('We are in the process of cleaning up this 
 errorMessages.clusterconfiguration = _('Your {productname} cluster appear to be mis-configured or scaling rapidly - please contact your system administrator. Continuing with editing may result in multiple users not seeing each other, conflicts in the document storage and/or copy/paste problems. Expected serverId {0} for routeToken {1} but connected to serverId {2}');
 errorMessages.websocketproxyfailure = _('Failed to establish socket connection or socket connection closed unexpectedly. The reverse proxy might be misconfigured, please contact the administrator. For more info on proxy configuration please checkout https://sdk.collaboraonline.com/docs/installation/Proxy_settings.html');
 errorMessages.websocketgenericfailure = _('Failed to establish socket connection or socket connection closed unexpectedly.');
-errorMessages.dlpdenied = _('Access to the document is denied by the DLP policy.');
-errorMessages.dlperror = _('DLP verification failed. Please try again later.');
 if (window.ThisIsAMobileApp) {
 	errorMessages.storage = {
 		loadfailed: _('Failed to load document.'),

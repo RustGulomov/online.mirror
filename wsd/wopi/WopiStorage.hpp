@@ -91,11 +91,6 @@ public:
         bool getUserCanOnlyComment() const { return _userCanOnlyComment; }
         bool getUserCanOnlyManageRedlines() const { return _userCanOnlyManageRedlines; }
 
-        /// The verdict of the WOPI-native content check, if the host reports one.
-        /// State::Unknown means the host didn't report any content check, so the
-        /// document isn't gated by one.
-        const ContentCheck& getContentCheck() const noexcept { return _contentCheck; }
-
         std::optional<bool> getIsAdminUser() const { return _isAdminUser; }
         const std::string& getIsAdminUserError() const { return _isAdminUserError; }
 
@@ -199,8 +194,6 @@ public:
         bool _userCanOnlyManageRedlines = false;
         /// Used for directly starting follow me presentation
         std::string _presentationLeader;
-        /// The content check, as reported by the WOPI host.
-        ContentCheck _contentCheck;
     };
 
     WopiStorage(const Poco::URI& uri, const std::string& localStorePath,
@@ -239,9 +232,6 @@ public:
     std::string downloadStorageFileToLocal(const Authorization& auth, LockContext& lockCtx,
                                            const std::string& templateUri,
                                            AdditionalFilePaths& additionalFileLocalPaths) override;
-
-    /// Runs the DLP verification for this document.
-    Dlp::Result runDlpVerification(const Authorization& auth, const std::string& baseUri);
 
     std::size_t
     uploadLocalFileToStorageAsync(const Authorization& auth, LockContext& lockCtx,

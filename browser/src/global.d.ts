@@ -312,8 +312,6 @@ interface ErrorMessages {
 	clusterconfiguration: string;
 	websocketproxyfailure: string;
 	websocketgenericfailure: string;
-	dlpdenied: string;
-	dlperror: string;
 
 	storage: {
 		loadfailed: string;

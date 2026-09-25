@@ -19,7 +19,6 @@
 #include <common/FileUtil.hpp>
 #include <common/JsonUtil.hpp>
 #include <common/Log.hpp>
-#include <common/SigUtil.hpp>
 #include <common/TraceEvent.hpp>
 #include <common/Unit.hpp>
 #include <common/Uri.hpp>
@@ -50,7 +49,6 @@
 #include <chrono>
 #include <memory>
 #include <string>
-#include <thread>
 
 namespace
 {
