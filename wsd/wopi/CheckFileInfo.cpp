@@ -104,6 +104,7 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
             }
         }
 
+        bool responseParsed = parseResponseAndValidate(wopiResponse);
         _contentCheck = DLP::ContentCheck(httpResponse->get("X-Vaulterix-Content-Check"), _wopiInfo, httpResponse->statusLine().statusCode());
 
         if (failed)
@@ -131,7 +132,7 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
         }
         else
         {
-            if (parseResponseAndValidate(wopiResponse))
+            if (responseParsed)
             {
                 LOG_DBG("WOPI::CheckFileInfo ("
                         << callDurationMs

@@ -14,6 +14,7 @@
 
 #include <common/Anonymizer.hpp>
 #include <common/ConfigUtil.hpp>
+#include <common/JsonUtil.hpp>
 #include <common/Log.hpp>
 #include <common/Protocol.hpp>
 #include <common/SigUtil.hpp>
@@ -31,8 +32,6 @@
 
 namespace
 {
-static constexpr std::chrono::milliseconds MaxRetryAfterMs{30000};
-
 /// The longest a single poll request may take.
 static constexpr std::chrono::seconds MaxRequestTimeout{30};
 
@@ -80,7 +79,7 @@ bool ContentCheckPoll::start()
     LOG_ASSERT(_poll && "Must have a SocketPoll");
     LOG_ASSERT(_check.isPending() && "Can only poll a pending content check");
 
-    if (_cancelled || !(_check.isPending()))
+    if (_cancelled || !_check.isPending())
     {
         return false;
     }
@@ -100,14 +99,25 @@ bool ContentCheckPoll::poll()
     const auto now = std::chrono::steady_clock::now();
     if (now >= _deadline)
     {
+        LOG_WRN("ContentCheck: deadline of " << _timeout.count() << "s exceeded after "
+                << _attempts << " poll(s) for checkId [" << _check.checkId()
+                << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString())
+                << "]; giving up");
 
-        finish(ContentCheck::State::Unavailable, _check.message().empty() ? "the content check didn't complete in time" : _check.message());
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        finish();
         return false;
     }
 
     if (_attempts >= _maxAttempts)
     {
-        finish(ContentCheck::State::Unavailable, _check.message().empty() ? "the content check exceeded the maximum number of attempts" : _check.message());
+        LOG_WRN("ContentCheck: reached the limit of " << _maxAttempts
+                << " poll attempts for checkId [" << _check.checkId()
+                << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString())
+                << "]; giving up");
+
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        finish();
         return false;
     }
 
@@ -135,7 +145,9 @@ bool ContentCheckPoll::poll()
             // Keep ourselves alive for the duration of the callback.
             const std::shared_ptr<ContentCheckPoll> selfLifecycle = selfWeak.lock();
             if (!selfLifecycle || _cancelled)
+            {
                 return;
+            }
 
             if (SigUtil::getShutdownRequestFlag())
             {
@@ -168,20 +180,17 @@ bool ContentCheckPoll::poll()
     {
         LOG_ERR("ContentCheck: failed to issue a poll request for checkId ["
                 << _check.checkId() << "] on [" << uriAnonym << ']');
-
-        finish(ContentCheck::State::Unavailable, "failed to issue a content-check request");
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        finish();
         return false;
     }
 
     return true;
 }
 
-void ContentCheckPoll::handleResponse(const http::Response& response,
-                                      const std::chrono::milliseconds elapsed)
+void ContentCheckPoll::handleResponse(const http::Response& response, std::chrono::milliseconds elapsed)
 {
     const http::StatusCode statusCode = response.statusLine().statusCode();
-    const std::string& body = response.getBody();
-
     const std::string uriAnonym = Anonymizer::anonymizeUrl(makeEndpointUri().toString());
 
     LOG_DBG("ContentCheck: poll [" << _attempts << '/' << _maxAttempts << "] checkId ["
@@ -189,102 +198,19 @@ void ContentCheckPoll::handleResponse(const http::Response& response,
                                    << static_cast<unsigned>(statusCode) << " in "
                                    << elapsed.count() << "ms on [" << uriAnonym << ']');
 
-    std::string message;
-    bool pendingInBody = false;
+    Poco::JSON::Object::Ptr responseBody = nullptr;
+    JsonUtil::parseJSON(response.getBody(), responseBody);
 
-    _check = ContentCheck(code, body);
+    _check = ContentCheck(response.get("X-Vaulterix-Content-Check"), responseBody, statusCode);
 
-    if (statusCode == http::StatusCode::Forbidden)
+    if (_check.isPending())
     {
-        finish(ContentCheck::State::Blocked, std::move(message));
-        return;
+        scheduleNext(elapsed < _pollIntervalMs ? _pollIntervalMs - elapsed : std::chrono::milliseconds::zero());
     }
-
-    Poco::JSON::Object::Ptr json;
-    if (!body.empty() && JsonUtil::parseJSON(body, json))
+    else
     {
-        const ContentCheck verdict = ContentCheck::parse(json);
-        switch (verdict.state())
-        {
-            case ContentCheck::State::Allowed:
-                if (statusCode == http::StatusCode::OK)
-                {
-                    _check = verdict;
-                    finish(ContentCheck::State::Allowed, verdict.message());
-                    return;
-                }
-
-                LOG_WRN("ContentCheck: checkId ["
-                        << _check.checkId() << "] was approved with HTTP status "
-                        << static_cast<unsigned>(statusCode) << "; ignoring the approval");
-                break;
-
-            case ContentCheck::State::Blocked:
-                _check = verdict;
-                finish(ContentCheck::State::Blocked, verdict.message());
-                return;
-
-            case ContentCheck::State::Unavailable:
-                _check = verdict;
-                finish(ContentCheck::State::Unavailable, verdict.message());
-                return;
-
-            case ContentCheck::State::Pending:
-                pendingInBody = true;
-                message = verdict.message();
-                break;
-
-            case ContentCheck::State::Unknown:
-            default:
-                break;
-        }
+        finish();
     }
-
-    if (statusCode == http::StatusCode::Forbidden)
-    {
-        finish(ContentCheck::State::Blocked, std::move(message));
-        return;
-    }
-
-    if (statusCode == http::StatusCode::NotFound || statusCode == http::StatusCode::Gone)
-    {
-        // The check is unknown (or was dropped); the verdict can no longer be
-        // determined, and we don't want to fall back to loading the document.
-        finish(ContentCheck::State::Unavailable,
-               "the content check is no longer known to the host");
-        return;
-    }
-
-    if (!pendingInBody && !(statusCode == http::StatusCode::OK) && statusCode != http::StatusCode::Accepted)
-    {
-        // A transient failure on the host side (5xx, 429, timeouts, ...).
-        // Log it and try again; the deadline and the attempt limit bound us.
-        LOG_WRN("ContentCheck: poll ["
-                << _attempts << "] for checkId [" << _check.checkId() << "] failed with "
-                << static_cast<unsigned>(statusCode) << " on [" << uriAnonym << "]; will retry. "
-                << "Body: [" << COOLProtocol::getAbbreviatedMessage(body) << ']');
-    }
-
-    // Remember what the host says, so that we can tell the user what we were
-    // waiting for, should we give up.
-    if (!message.empty())
-        _check = ContentCheck(ContentCheck::State::Pending, _check.checkId(), std::move(message), _check.version());
-
-    scheduleNext(nextPollDelay(retryAfter, elapsed));
-}
-
-std::chrono::milliseconds
-ContentCheckPoll::nextPollDelay(const std::chrono::milliseconds retryAfter,
-                               const std::chrono::milliseconds elapsed) const
-{
-    // Prefer the pacing the host asked for.  Otherwise don't poll more often
-    // than the configured interval, but count the time the host already spent
-    // holding the request towards it (so a host that keeps the request open
-    // for a long time doesn't make us wait for the full interval on top).
-    if (retryAfter > std::chrono::milliseconds::zero())
-        return std::min(retryAfter, MaxRetryAfterMs);
-
-    return elapsed < _pollIntervalMs ? _pollIntervalMs - elapsed : std::chrono::milliseconds::zero();
 }
 
 void ContentCheckPoll::scheduleNext(const std::chrono::milliseconds delay)
@@ -317,40 +243,34 @@ void ContentCheckPoll::scheduleNext(const std::chrono::milliseconds delay)
 
             poll->addCallback([selfWeak, generation]()
                 {
-                    if (const std::shared_ptr<ContentCheckPoll> self = selfWeak.lock())
+                    if (const std::shared_ptr<ContentCheckPoll> self = selfWeak.lock();
+                        self && !self->_cancelled && self->_generation == generation)
                     {
-                        if (!self->_cancelled && self->_generation == generation)
-                        {
-                            self->poll();
-                        }
+                        self->poll();
                     }
                 });
         })
         .detach();
 }
 
-void ContentCheckPoll::finish(const ContentCheck::State state, std::string message)
+void ContentCheckPoll::finish()
 {
-    LOG_ASSERT(ContentCheck::completed(state) && "Must finish with a final verdict");
-
     if (_cancelled)
     {
         return;
     }
 
-    _check = ContentCheck(state, _check.checkId(), std::move(message), _check.version());
-
     ++_generation; // Any scheduled continuation is stale now.
 
     LOG_INF("ContentCheck: checkId [" << _check.checkId() << "] of ["
                                       << Anonymizer::anonymizeUrl(_wopiSrc.toString()) << "] is "
-                                      << ContentCheck::name(state) << " after " << _attempts
+                                      << _check.stateStr() << " after " << _attempts
                                       << " poll(s)"
                                       << (_check.message().empty() ? std::string()
                                                                    : ": " + _check.message()));
 
-    FinishedCallback onFinished = std::move(_onFinished);
-    _onFinished = nullptr;
+    FinishedCallback onFinished;
+    std::swap(onFinished, _onFinished);
     if (onFinished)
     {
         onFinished(*this);

@@ -58,7 +58,7 @@ class ContentCheck final
             return State::Unknown;
         }
 public:
-    static ContentCheck createUnavaliable(const std::string& checkId, const std::string& version)
+    static ContentCheck createUnavaliable(const std::string& checkId = "", const std::string& version = "")
     {
         return ContentCheck(State::Unavailable, checkId, version);
     }
@@ -120,7 +120,7 @@ public:
         }
     }
 
-    std::string stateStr() noexcept
+    std::string stateStr() const noexcept
     {
         switch (_state)
         {

@@ -460,8 +460,13 @@ void RequestVettingStation::handleContentCheckResult()
     {
         beginContentCheckPoll();
     }
-    else if (_contentCheck.isBlocked() || _contentCheck.isUnavailable())
+    else
     {
+        if (_contentCheck.isUnknown())
+        {
+            // todo log
+            _contentCheck = DLP::ContentCheck::createUnavaliable();
+        }
         auto wsCode = _contentCheck.isBlocked() ? WebSocketHandler::StatusCodes::POLICY_VIOLATION
                                                              : WebSocketHandler::StatusCodes::UNEXPECTED_CONDITION;
         sendErrorAndShutdown(COOLProtocol::buildErrorFrame("load", _contentCheck.errorKind(), _contentCheck.message()), wsCode);
@@ -520,7 +525,7 @@ void RequestVettingStation::onContentCheckFinished(DLP::ContentCheckPoll& poll)
 
     LOG_INF("ContentCheck: checkId [" << contentCheck.checkId() << "] of ["
                                       << Anonymizer::anonymizeUrl(_checkFileInfo->url().toString())
-                                      << "] is " << DLP::ContentCheckPoll::name(contentCheck.state())
+                                      << "] is " << contentCheck.stateStr()
                                       << " after " << poll.attempts() << " poll(s)");
 
     // handleContentCheckVerdict() takes the verdict of the poll, which is gone

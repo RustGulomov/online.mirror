@@ -88,14 +88,10 @@ private:
 
     void handleResponse(const http::Response& response, std::chrono::milliseconds elapsed);
 
-    void finish(ContentCheck::State state, std::string message);
+    void finish();
 
     /// The URI of the content-check endpoint for our CheckId.
     Poco::URI makeEndpointUri() const;
-
-    /// The delay before the next poll, given the last round trip.
-    std::chrono::milliseconds nextPollDelay(std::chrono::milliseconds retryAfter,
-                                            std::chrono::milliseconds elapsed) const;
 
 private:
     std::shared_ptr<TerminatingPoll> _poll;
