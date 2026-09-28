@@ -24,6 +24,7 @@ class Socket {
 	};
 	private IndirectSocketReconnectCount: number = 0;
 	private _initialConnectRetries: number = 0;
+	private _contentCheckHandled: boolean = false;
 	// Once the compact /cool/ws URL has failed to connect and we have dropped
 	// back to the legacy /cool/<doc>/ws URL, stay on the legacy URL for the
 	// rest of the session.
@@ -493,6 +494,10 @@ class Socket {
 				event.reason,
 		);
 		if (!this._map._docLoadedOnce && this.ReconnectCount === 0) {
+			if (this._contentCheckHandled) {
+				return;
+			}
+
 			let errorType: string = '';
 			let errorMsg: string;
 			let errorDetail: string | undefined;
@@ -2243,6 +2248,10 @@ class Socket {
 	// returns true if the caller need to exit immediately.
 	private _onErrorMsg(textMsg: string, command: ServerCommand): boolean {
 		const errorMessages = window.errorMessages;
+		if (this._contentCheckHandled && textMsg.startsWith('error:')) {
+			return true;
+		}
+
 		let msg = '';
 		let passwordType: string = '';
 		if (
@@ -2354,10 +2363,18 @@ class Socket {
 
 			return true; // caller should exit immediately.
 		} else if (textMsg.startsWith('error:') && command.errorCmd === 'load') {
+			const errorKind = command.errorKind ? command.errorKind : '';
+
+			if (
+				errorKind === 'contentcheckblocked' ||
+				errorKind === 'contentcheckunavailable'
+			) {
+				this._contentCheckHandled = true;
+			}
+
 			this._map.hideBusy();
 			this.close();
 
-			const errorKind = command.errorKind ? command.errorKind : '';
 			let passwordNeeded = false;
 			if (errorKind.startsWith('passwordrequired')) {
 				passwordNeeded = true;
@@ -2409,6 +2426,26 @@ class Socket {
 				if (this.ReconnectCount > 1) {
 					this._map.showBusy(errorMessages.docunloadingretry, false);
 				}
+			} else if (
+				errorKind === 'contentcheckblocked' ||
+				errorKind === 'contentcheckunavailable'
+			) {
+				this._map._fatal = true;
+				this._map.fire('error', {
+					msg:
+						errorKind === 'contentcheckblocked'
+							? errorMessages.contentcheckblocked
+							: errorMessages.contentcheckunavailable,
+					errorDetail: command.errorDetail,
+				});
+				this._map.fire('postMessage', {
+					msgId: 'Action_Load_Resp',
+					args: {
+						success: false,
+						result: errorKind,
+						errorMsg: command.errorDetail,
+					},
+				});
 			} else {
 				// Any other load error (io, network, etc.)
 				this._map._fatal = true;
@@ -2680,6 +2717,8 @@ class Socket {
 				this.ReconnectCount = 0;
 				clearTimeout(this.timer);
 			}
+		} else if (info.id == 'contentcheck') {
+			this._map.showBusy(_('Checking the file content...'), false);
 		} else if (info.id == 'start' || info.id == 'setvalue') {
 			this._map.fire('statusindicator', info);
 		} else if (info.id == 'finish') {

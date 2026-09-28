@@ -312,6 +312,8 @@ interface ErrorMessages {
 	clusterconfiguration: string;
 	websocketproxyfailure: string;
 	websocketgenericfailure: string;
+	contentcheckblocked: string;
+	contentcheckunavailable: string;
 
 	storage: {
 		loadfailed: string;

@@ -39,6 +39,8 @@ errorMessages.docunloadinggiveup = _('We are in the process of cleaning up this 
 errorMessages.clusterconfiguration = _('Your {productname} cluster appear to be mis-configured or scaling rapidly - please contact your system administrator. Continuing with editing may result in multiple users not seeing each other, conflicts in the document storage and/or copy/paste problems. Expected serverId {0} for routeToken {1} but connected to serverId {2}');
 errorMessages.websocketproxyfailure = _('Failed to establish socket connection or socket connection closed unexpectedly. The reverse proxy might be misconfigured, please contact the administrator. For more info on proxy configuration please checkout https://sdk.collaboraonline.com/docs/installation/Proxy_settings.html');
 errorMessages.websocketgenericfailure = _('Failed to establish socket connection or socket connection closed unexpectedly.');
+errorMessages.contentcheckblocked = _('This file cannot be opened: it contains information prohibited by the security policy.');
+errorMessages.contentcheckunavailable = _('The file could not be checked against the security policy. Please try to open it later.');
 if (window.ThisIsAMobileApp) {
 	errorMessages.storage = {
 		loadfailed: _('Failed to load document.'),
