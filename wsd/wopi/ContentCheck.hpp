@@ -85,6 +85,8 @@ public:
         }
     }
 
+    ContentCheck() noexcept = default;
+
     bool completed() const noexcept { return _state != State::Pending; }
     bool isAllowed() const noexcept { return _state == State::Allowed; }
     bool isPending() const noexcept { return _state == State::Pending; }
@@ -159,7 +161,7 @@ private:
     std::string _checkId;
     /// Version of the content check, as reported by the host.
     std::string _version;
-    State _state;
+    State _state = State::Unknown;
 };
 } // namespace
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

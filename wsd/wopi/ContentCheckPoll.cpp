@@ -19,7 +19,7 @@
 #include <common/Protocol.hpp>
 #include <common/SigUtil.hpp>
 #include <common/Util.hpp>
-#include <net/Uri.hpp>
+#include <common/Uri.hpp>
 #include <wopi/StorageConnectionManager.hpp>
 
 #include <algorithm>
@@ -123,18 +123,17 @@ bool ContentCheckPoll::poll()
 
     ++_attempts;
 
-    const Poco::URI uri = makeEndpointUri();
-    const std::string uriAnonym = Anonymizer::anonymizeUrl(uri.toString());
+    const std::string uriAnonym = Anonymizer::anonymizeUrl(_wopiSrc.toString());
     LOG_DBG("ContentCheck: poll [" << _attempts << '/' << _maxAttempts << "] checkId ["
                                    << _check.checkId() << "] on [" << uriAnonym << ']');
 
     // Bound every request, so that a hung host doesn't hold us indefinitely.
     const std::chrono::seconds remaining =
         std::chrono::duration_cast<std::chrono::seconds>(_deadline - now) + std::chrono::seconds(1);
-    _httpSession = StorageConnectionManager::getHttpSession(uri, std::min(remaining, MaxRequestTimeout));
+    _httpSession = StorageConnectionManager::getHttpSession(_wopiSrc, std::min(remaining, MaxRequestTimeout));
 
-    const Authorization auth = Authorization::create(uri);
-    const http::Request httpRequest = StorageConnectionManager::createHttpRequest(uri, auth);
+    const Authorization auth = Authorization::create(_wopiSrc);
+    const http::Request httpRequest = StorageConnectionManager::createHttpRequest(_wopiSrc, auth);
 
     const auto startTime = std::chrono::steady_clock::now();
 
@@ -191,7 +190,7 @@ bool ContentCheckPoll::poll()
 void ContentCheckPoll::handleResponse(const http::Response& response, std::chrono::milliseconds elapsed)
 {
     const http::StatusCode statusCode = response.statusLine().statusCode();
-    const std::string uriAnonym = Anonymizer::anonymizeUrl(makeEndpointUri().toString());
+    const std::string uriAnonym = Anonymizer::anonymizeUrl(_wopiSrc.toString());
 
     LOG_DBG("ContentCheck: poll [" << _attempts << '/' << _maxAttempts << "] checkId ["
                                    << _check.checkId() << "] returned "

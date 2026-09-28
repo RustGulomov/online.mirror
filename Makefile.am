@@ -353,6 +353,7 @@ wsd_headers = \
               wsd/UserMessages.hpp \
               wsd/WSDGlobals.hpp \
               wsd/wopi/CheckFileInfo.hpp \
+              wsd/wopi/ContentCheckPoll.hpp \
               wsd/wopi/StorageConnectionManager.hpp \
               wsd/wopi/WopiProxy.hpp \
               wsd/wopi/WopiStorage.hpp

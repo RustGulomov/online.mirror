@@ -658,17 +658,10 @@ void RequestVettingStation::createClientSession(const std::shared_ptr<DocumentBr
 
     // Transfer the client socket to the DocumentBroker when we get back to the poll:
     std::shared_ptr<WebSocketHandler> ws = _ws;
-
-    // // Capture the DLP network socket for transfer to DocBroker
-    // std::shared_ptr<StreamSocket> dlpSocket = _dlpNetworkSocket;
-    // _dlpNetworkSocket.reset();
-
     docBroker->setupTransfer(*_poll, socket,
         [wopiFileInfo = std::move(wopiFileInfo), ws = std::move(ws), id = _id,
          requestDetails = _requestDetails, docBroker, docKey, url, uriPublic,
          originalDocUrl = _originalDocUrl,
-        //  dlpSocket = std::move(dlpSocket),
-        //  docBrokerPoll,
          selfLifecycle = shared_from_this()](const std::shared_ptr<Socket>& moveSocket)
         {
             try
@@ -705,15 +698,6 @@ void RequestVettingStation::createClientSession(const std::shared_ptr<DocumentBr
                 // Add and load the session.
                 // Will download synchronously, but in own docBroker thread.
                 docBroker->addSession(clientSession, std::move(*wopiFileInfo));
-
-                // // Transfer the DLP network socket to the DocBroker's poll if it exists
-                // if (dlpSocket)
-                // {
-                //     LOG_TRC_S("Transferring DLP network socket to DocBroker poll for ["
-                //               << docKey << "]");
-                //     docBrokerPoll->insertNewSocket(dlpSocket);
-                // }
-
                 COOLWSD::checkDiskSpaceAndWarnClients(true);
                 // Users of development versions get just an info
                 // when reaching max documents or connections

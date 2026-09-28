@@ -90,9 +90,6 @@ private:
 
     void finish();
 
-    /// The URI of the content-check endpoint for our CheckId.
-    Poco::URI makeEndpointUri() const;
-
 private:
     std::shared_ptr<TerminatingPoll> _poll;
     Poco::URI _wopiSrc;
