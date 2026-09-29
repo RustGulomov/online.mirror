@@ -22,11 +22,9 @@
 #include <common/Uri.hpp>
 #include <wopi/StorageConnectionManager.hpp>
 
-#include <algorithm>
 #include <chrono>
 #include <string>
 #include <thread>
-#include <utility>
 
 #include <Poco/URI.h>
 
@@ -34,6 +32,7 @@ namespace
 {
 /// The longest a single poll request may take.
 static constexpr std::chrono::seconds MaxRequestTimeout{30};
+static constexpr unsigned MaxAttempts{120};
 
 static constexpr std::string_view EndpointPrefix = "/content-check/";
 
@@ -66,12 +65,11 @@ ContentCheckPoll::ContentCheckPoll(const std::shared_ptr<TerminatingPoll>& poll,
     , _onFinished(std::move(onFinished))
     , _pollIntervalMs(std::chrono::seconds(1))
     , _timeout(std::chrono::minutes(2))
-    , _maxAttempts(120)
 {
     LOG_INF("ContentCheck: polling checkId ["
             << _check.checkId() << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString())
             << "] every " << _pollIntervalMs.count() << "ms for up to " << _timeout.count()
-            << "s (" << _maxAttempts << " attempts max)");
+            << "s (" << MaxAttempts << " attempts max)");
 }
 
 bool ContentCheckPoll::start()
@@ -79,11 +77,12 @@ bool ContentCheckPoll::start()
     LOG_ASSERT(_poll && "Must have a SocketPoll");
     LOG_ASSERT(_check.isPending() && "Can only poll a pending content check");
 
-    if (_cancelled || !_check.isPending())
+    if (_cancelled || !_check.isPending() || _started)
     {
         return false;
     }
 
+    _started = true;
     _deadline = std::chrono::steady_clock::now() + _timeout;
 
     return poll();
@@ -104,19 +103,19 @@ bool ContentCheckPoll::poll()
                 << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString())
                 << "]; giving up");
 
-        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.version());
         finish();
         return false;
     }
 
-    if (_attempts >= _maxAttempts)
+    if (_attempts >= MaxAttempts)
     {
-        LOG_WRN("ContentCheck: reached the limit of " << _maxAttempts
+        LOG_WRN("ContentCheck: reached the limit of " << MaxAttempts
                 << " poll attempts for checkId [" << _check.checkId()
                 << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString())
                 << "]; giving up");
 
-        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.version());
         finish();
         return false;
     }
@@ -124,7 +123,7 @@ bool ContentCheckPoll::poll()
     ++_attempts;
 
     const std::string uriAnonym = Anonymizer::anonymizeUrl(_wopiSrc.toString());
-    LOG_DBG("ContentCheck: poll [" << _attempts << '/' << _maxAttempts << "] checkId ["
+    LOG_DBG("ContentCheck: poll [" << _attempts << '/' << MaxAttempts << "] checkId ["
                                    << _check.checkId() << "] on [" << uriAnonym << ']');
 
     // Bound every request, so that a hung host doesn't hold us indefinitely.
@@ -141,7 +140,6 @@ bool ContentCheckPoll::poll()
         [selfWeak = weak_from_this(), this, startTime](
             const std::shared_ptr<http::Session>& session)
         {
-            // Keep ourselves alive for the duration of the callback.
             const std::shared_ptr<ContentCheckPoll> selfLifecycle = selfWeak.lock();
             if (!selfLifecycle || _cancelled)
             {
@@ -165,7 +163,9 @@ bool ContentCheckPoll::poll()
         {
             const std::shared_ptr<ContentCheckPoll> selfLifecycle = selfWeak.lock();
             if (!selfLifecycle || _cancelled)
+            {
                 return;
+            }
 
             LOG_WRN("ContentCheck: failed to connect to ["
                     << Anonymizer::anonymizeUrl(session ? session->host() : std::string())
@@ -179,7 +179,7 @@ bool ContentCheckPoll::poll()
     {
         LOG_ERR("ContentCheck: failed to issue a poll request for checkId ["
                 << _check.checkId() << "] on [" << uriAnonym << ']');
-        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.message());
+        _check = ContentCheck::createUnavaliable(_check.checkId(), _check.version());
         finish();
         return false;
     }
@@ -192,7 +192,7 @@ void ContentCheckPoll::handleResponse(const http::Response& response, std::chron
     const http::StatusCode statusCode = response.statusLine().statusCode();
     const std::string uriAnonym = Anonymizer::anonymizeUrl(_wopiSrc.toString());
 
-    LOG_DBG("ContentCheck: poll [" << _attempts << '/' << _maxAttempts << "] checkId ["
+    LOG_DBG("ContentCheck: poll [" << _attempts << '/' << MaxAttempts << "] checkId ["
                                    << _check.checkId() << "] returned "
                                    << static_cast<unsigned>(statusCode) << " in "
                                    << elapsed.count() << "ms on [" << uriAnonym << ']');
@@ -215,35 +215,39 @@ void ContentCheckPoll::handleResponse(const http::Response& response, std::chron
 void ContentCheckPoll::scheduleNext(const std::chrono::milliseconds delay)
 {
     if (_cancelled || _check.completed())
+    {
         return;
+    }
 
     if (delay <= std::chrono::milliseconds::zero())
     {
-        // The host already took long enough; go again right away.
-        poll();
+        _poll->addCallback([selfWeak = weak_from_this()]()
+            {
+                if (const std::shared_ptr<ContentCheckPoll> self = selfWeak.lock(); self && !self->_cancelled)
+                {
+                    self->poll();
+                }
+            });
         return;
     }
 
     // SocketPoll has no timer API (addCallback always fires immediately), so a
     // short-lived helper thread does the waiting and posts the continuation to
-    // the poll thread.  Only one continuation is ever outstanding, and the
-    // generation counter invalidates the ones we no longer want.
-    const unsigned generation = ++_generation;
+    // the poll thread.
     LOG_TRC("ContentCheck: polling checkId [" << _check.checkId() << "] again in " << delay.count() << "ms");
 
-    std::thread([selfWeak = weak_from_this(), poll = _poll, generation, delay]()
+    std::thread([selfWeak = weak_from_this(), poll = _poll, delay]()
         {
             std::this_thread::sleep_for(delay);
 
-            if (!selfWeak.lock())
+            if (selfWeak.expired())
             {
                 return;
             }
 
-            poll->addCallback([selfWeak, generation]()
+            poll->addCallback([selfWeak]()
                 {
-                    if (const std::shared_ptr<ContentCheckPoll> self = selfWeak.lock();
-                        self && !self->_cancelled && self->_generation == generation)
+                    if (const std::shared_ptr<ContentCheckPoll> self = selfWeak.lock(); self && !self->_cancelled)
                     {
                         self->poll();
                     }
@@ -258,8 +262,6 @@ void ContentCheckPoll::finish()
     {
         return;
     }
-
-    ++_generation; // Any scheduled continuation is stale now.
 
     LOG_INF("ContentCheck: checkId [" << _check.checkId() << "] of ["
                                       << Anonymizer::anonymizeUrl(_wopiSrc.toString()) << "] is "

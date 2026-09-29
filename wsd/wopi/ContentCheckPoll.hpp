@@ -1,15 +1,5 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; fill-column: 100 -*- */
 /*
- * Copyright the Collabora Online contributors.
- *
- * SPDX-License-Identifier: MPL-2.0
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
-/*
  * Polling of the WOPI content-check endpoint.
  * Classes: ContentCheckPoll
  */
@@ -51,11 +41,7 @@ namespace DLP
 ///   GET {WOPISrc}/content-check/{CheckId}?access_token=...
 ///
 /// The host answers with the same "VaulterixContentCheck" object it used in
-/// CheckFileInfo, plus a "Retry-After" header to pace the polling, if it wants.
-/// A 403 is a denial, while 404/410 mean the check is gone (and we can't know
-/// the verdict, so we deny too).  Anything else transient (5xx, timeouts,
-/// connection failures) is retried until the deadline, after which the verdict
-/// becomes State::Unavailable.
+/// CheckFileInfo.
 class ContentCheckPoll final : public std::enable_shared_from_this<ContentCheckPoll>
 {
 public:
@@ -69,7 +55,6 @@ public:
     void cancel() noexcept
     {
         _cancelled = true;
-        ++_generation;
     }
 
     const ContentCheck& check() const noexcept { return _check; }
@@ -99,15 +84,13 @@ private:
     const std::chrono::milliseconds _pollIntervalMs;
     /// The maximum duration of the whole check.
     const std::chrono::seconds _timeout;
-    const unsigned _maxAttempts;
     /// The deadline of the whole check, set when starting.
     std::chrono::steady_clock::time_point _deadline;
     /// The number of requests already issued.
     std::atomic<unsigned> _attempts = 0;
-    /// Bumped to invalidate continuations we scheduled but no longer want.
-    unsigned _generation = 0;
     /// Set when we shouldn't poll anymore.
     std::atomic<bool> _cancelled = false;
+    bool _started = false;
 };
 }
 

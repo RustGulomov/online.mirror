@@ -135,7 +135,6 @@ private:
     /// Create the DocBroker (and the client session) now that vetting passed.
     void proceedToDocBroker();
 
-    DLP::ContentCheck _contentCheck;
     std::shared_ptr<DLP::ContentCheckPoll> _contentCheckPoll;
     /// Whether we told the client that the check is running.
     bool _contentCheckStatusSent = false;
