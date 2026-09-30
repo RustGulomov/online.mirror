@@ -182,6 +182,7 @@ wsd_sources = \
 	../wsd/Unzip.cpp \
 	../wsd/dumpWsdState.cpp \
 	../wsd/wopi/CheckFileInfo.cpp \
+	../wsd/wopi/ContentCheckPoll.cpp \
 	../wsd/wopi/StorageConnectionManager.cpp \
 	../wsd/wopi/WopiProxy.cpp \
 	../wsd/wopi/WopiStorage.cpp

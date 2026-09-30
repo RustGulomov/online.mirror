@@ -35,7 +35,10 @@
 
 #if !MOBILEAPP
 #include <common/JailUtil.hpp>
+#include <common/Protocol.hpp>
+#include <net/NetUtil.hpp>
 #include <wsd/wopi/CheckFileInfo.hpp>
+#include <wsd/wopi/ContentCheckPoll.hpp>
 #endif // !MOBILEAPP
 
 namespace
@@ -327,10 +330,7 @@ void RequestVettingStation::handleRequest(const std::string& id,
                      _checkFileInfo->state() == CheckFileInfo::State::Pass &&
                      _checkFileInfo->wopiInfo())
             {
-                SharedSettings sharedSettings(_checkFileInfo->wopiInfo());
-                transferToDocBroker(_checkFileInfo->url().toString(),
-                                    sharedSettings.getConfigId(),
-                                    _checkFileInfo->getSslVerifyMessage());
+                handleContentCheckResult();
             }
             else if (_checkFileInfo == nullptr ||
                      _checkFileInfo->state() == CheckFileInfo::State::None ||
@@ -401,13 +401,17 @@ void RequestVettingStation::checkFileInfo(const Poco::URI& uri, int redirectLimi
     {
         _checkFileInfoEnd = std::chrono::steady_clock::now();
         assert(&checkFileInfo == _checkFileInfo.get() && "Unknown CheckFileInfo instance");
-        if (_checkFileInfo && _checkFileInfo->state() == CheckFileInfo::State::Pass &&
-            _checkFileInfo->wopiInfo())
+        if (_checkFileInfo && _checkFileInfo->state() == CheckFileInfo::State::Pass)
         {
-            SharedSettings sharedSettings(_checkFileInfo->wopiInfo());
-            transferToDocBroker(checkFileInfo.url().toString(),
-                                sharedSettings.getConfigId(),
-                                checkFileInfo.getSslVerifyMessage());
+            _contentCheckPoll = std::make_shared<DLP::ContentCheckPoll>(_poll, _checkFileInfo->url(), _checkFileInfo->contentCheck(),
+                [selfWeak = weak_from_this()](DLP::ContentCheckPoll& poll)
+            {
+                if (const std::shared_ptr<RequestVettingStation> self = selfWeak.lock())
+                {
+                    self->onContentCheckFinished(poll);
+                }
+            });
+            handleContentCheckResult();
         }
         else
         {
@@ -428,6 +432,88 @@ void RequestVettingStation::checkFileInfo(const Poco::URI& uri, int redirectLimi
     _checkFileInfo = std::make_shared<CheckFileInfo>(_poll, uri, std::move(cfiContinuation));
     _checkFileInfoStart = std::chrono::steady_clock::now();
     _checkFileInfo->checkFileInfo(redirectLimit);
+}
+
+void RequestVettingStation::handleContentCheckResult()
+{
+    const auto contentCheck = _contentCheckPoll->check();
+
+    LOG_INF("ContentCheck: checkId ["
+            << contentCheck.checkId() << "] of ["
+            << Anonymizer::anonymizeUrl(_checkFileInfo->url().toString()) << "] is "
+            << contentCheck.stateStr()
+            << contentCheck.message());
+
+    if (contentCheck.isAllowed())
+    {
+        proceedToDocBroker();
+    }
+    else if (contentCheck.isPending())
+    {
+        if (contentCheck.canPoll())
+        {
+            sendContentCheckStatus();
+            _contentCheckPoll->start();
+        }
+        else
+        {
+            LOG_ERR("ContentCheck: the host reported a pending content check of ["
+                << Anonymizer::anonymizeUrl(_checkFileInfo->url().toString())
+                << "] without a CheckId; cannot wait for the verdict");
+
+            sendErrorAndShutdown(
+                COOLProtocol::buildErrorFrame(
+                    "load", "contentcheckunavailable",
+                    "the host reported a pending content check without a CheckId"),
+                WebSocketHandler::StatusCodes::UNEXPECTED_CONDITION);
+        }
+    }
+    else
+    {
+        auto wsCode = contentCheck.isBlocked() ? WebSocketHandler::StatusCodes::POLICY_VIOLATION
+                                                            : WebSocketHandler::StatusCodes::UNEXPECTED_CONDITION;
+        sendErrorAndShutdown(COOLProtocol::buildErrorFrame("load", contentCheck.errorKind(), contentCheck.message()), wsCode);
+    }
+}
+
+void RequestVettingStation::onContentCheckFinished(DLP::ContentCheckPoll& poll)
+{
+    const DLP::ContentCheck& contentCheck = poll.check();
+
+    if (_contentCheckPoll)
+    {
+        _contentCheckPoll->cancel();
+    }
+
+    LOG_INF("ContentCheck: checkId [" << contentCheck.checkId() << "] of ["
+                                      << Anonymizer::anonymizeUrl(_checkFileInfo->url().toString())
+                                      << "] is " << contentCheck.stateStr()
+                                      << " after " << poll.attempts() << " poll(s)");
+
+    handleContentCheckResult();
+}
+
+void RequestVettingStation::sendContentCheckStatus()
+{
+    if (!_ws || _contentCheckStatusSent)
+    {
+        return;
+    }
+
+    _contentCheckStatusSent = true;
+
+    static constexpr std::string_view statusContentCheck = R"(progress: { "id":"contentcheck" })";
+    LOG_TRC("Sending to Client [" << statusContentCheck << ']');
+    _ws->sendTextMessage(statusContentCheck);
+}
+
+void RequestVettingStation::proceedToDocBroker()
+{
+    assert(_checkFileInfo && _checkFileInfo->wopiInfo() && "Must have WopiInfo");
+
+    SharedSettings sharedSettings(_checkFileInfo->wopiInfo());
+    transferToDocBroker(_checkFileInfo->url().toString(), sharedSettings.getConfigId(),
+                        _checkFileInfo->getSslVerifyMessage());
 }
 #endif //!MOBILEAPP
 
@@ -558,7 +644,6 @@ void RequestVettingStation::createClientSession(const std::shared_ptr<DocumentBr
                 // Add and load the session.
                 // Will download synchronously, but in own docBroker thread.
                 docBroker->addSession(clientSession, std::move(*wopiFileInfo));
-
                 COOLWSD::checkDiskSpaceAndWarnClients(true);
                 // Users of development versions get just an info
                 // when reaching max documents or connections

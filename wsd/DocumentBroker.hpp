@@ -393,6 +393,22 @@ public:
     bool isModified() const { return _isModified; }
     void setModified(bool value);
 
+    /// Invoked when saving has finished: ok is false when the save or its
+    /// upload to the storage failed.
+    using SaveFinishedCallback = std::function<void(bool ok)>;
+
+    /// Invoke cb when the save that is in flight (or the one we are about to
+    /// request) has finished, with ok telling whether it reached the storage.
+    /// Unlike a polling loop, this cannot miss the completion, since
+    /// everything runs on our poll thread.
+    void whenSaved(SaveFinishedCallback cb);
+
+    /// The LastModifiedTime of the version last uploaded to the storage.
+    const std::string& getLastModifiedServerTimeString() const
+    {
+        return _storageManager.getLastModifiedServerTimeString();
+    }
+
     /// Save the document if the document is modified.
     /// @param force when true, will force saving if there
     /// has been any recent activity after the last save.
@@ -895,6 +911,9 @@ private:
     /// Handles the completion of failed uploading to storage.
     void handleUploadToStorageFailed(const StorageBase::UploadResult& uploadResult);
 
+    /// Invoke and clear the callbacks waiting for the save to finish.
+    void notifySaveFinished(bool ok);
+
     /// Send the error message about failed upload
     void reportUploadToStorageFailed(std::string_view reason = {});
 
@@ -910,7 +929,7 @@ private:
      * @param errorMsg: Long error msg (Error message from WOPI host if any)
      */
     void broadcastSaveResult(bool success, std::string_view result,
-                             const std::string& errorMsg = std::string()) const;
+                             const std::string& errorMsg = std::string());
 
     /// Broadcasts to all sessions the last modification time of the document.
     void broadcastLastModificationTime(const std::shared_ptr<ClientSession>& session = nullptr) const;
@@ -1862,6 +1881,9 @@ private:
 
     /// Manage uploading to Storage.
     StorageManager _storageManager;
+
+    /// Callbacks awaiting the completion of the in-flight (or next) save.
+    std::vector<SaveFinishedCallback> _saveFinishedCallbacks;
 
     /// All session of this DocBroker by ID.
     SessionMap<ClientSession> _sessions;

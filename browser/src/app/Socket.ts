@@ -24,7 +24,7 @@ class Socket {
 	};
 	private IndirectSocketReconnectCount: number = 0;
 	private _initialConnectRetries: number = 0;
-	private _dlpHandled: boolean = false;
+	private _contentCheckHandled: boolean = false;
 	// Once the compact /cool/ws URL has failed to connect and we have dropped
 	// back to the legacy /cool/<doc>/ws URL, stay on the legacy URL for the
 	// rest of the session.
@@ -494,9 +494,7 @@ class Socket {
 				event.reason,
 		);
 		if (!this._map._docLoadedOnce && this.ReconnectCount === 0) {
-			// A DLP denial/error dialog has already been shown; do not retry the
-			// connection (which would re-run the DLP check) nor show another error.
-			if (this._dlpHandled) {
+			if (this._contentCheckHandled) {
 				return;
 			}
 
@@ -2250,11 +2248,7 @@ class Socket {
 	// returns true if the caller need to exit immediately.
 	private _onErrorMsg(textMsg: string, command: ServerCommand): boolean {
 		const errorMessages = window.errorMessages;
-
-		// Once a DLP denial/error dialog has been shown, ignore any follow-up
-		// error frames (e.g. the generic 'storage loadfailed' that wsd emits while
-		// tearing the session down) so the user sees exactly one message.
-		if (this._dlpHandled && textMsg.startsWith('error:')) {
+		if (this._contentCheckHandled && textMsg.startsWith('error:')) {
 			return true;
 		}
 
@@ -2290,6 +2284,10 @@ class Socket {
 				storageError = errorMessages.storage.saveunauthorized;
 			} else if (command.errorKind === 'saveasfailed') {
 				storageError = errorMessages.storage.saveasfailed;
+			} else if (command.errorKind === 'printblocked') {
+				storageError = errorMessages.printblocked;
+			} else if (command.errorKind === 'printunavailable') {
+				storageError = errorMessages.printunavailable;
 			} else if (command.errorKind === 'loadfailed') {
 				storageError = errorMessages.storage.loadfailed;
 				// Since this is a document load failure, wsd will disconnect the socket anyway,
@@ -2369,10 +2367,18 @@ class Socket {
 
 			return true; // caller should exit immediately.
 		} else if (textMsg.startsWith('error:') && command.errorCmd === 'load') {
+			const errorKind = command.errorKind ? command.errorKind : '';
+
+			if (
+				errorKind === 'contentcheckblocked' ||
+				errorKind === 'contentcheckunavailable'
+			) {
+				this._contentCheckHandled = true;
+			}
+
 			this._map.hideBusy();
 			this.close();
 
-			const errorKind = command.errorKind ? command.errorKind : '';
 			let passwordNeeded = false;
 			if (errorKind.startsWith('passwordrequired')) {
 				passwordNeeded = true;
@@ -2424,15 +2430,16 @@ class Socket {
 				if (this.ReconnectCount > 1) {
 					this._map.showBusy(errorMessages.docunloadingretry, false);
 				}
-			} else if (errorKind == 'dlpdenied' || errorKind == 'dlperror') {
-				// DLP policy denied access, or the verification itself failed.
-				this._dlpHandled = true;
+			} else if (
+				errorKind === 'contentcheckblocked' ||
+				errorKind === 'contentcheckunavailable'
+			) {
 				this._map._fatal = true;
 				this._map.fire('error', {
 					msg:
-						errorKind == 'dlpdenied'
-							? errorMessages.dlpdenied
-							: errorMessages.dlperror,
+						errorKind === 'contentcheckblocked'
+							? errorMessages.contentcheckblocked
+							: errorMessages.contentcheckunavailable,
 					errorDetail: command.errorDetail,
 				});
 				this._map.fire('postMessage', {
@@ -2714,10 +2721,12 @@ class Socket {
 				this.ReconnectCount = 0;
 				clearTimeout(this.timer);
 			}
+		} else if (info.id == 'contentcheck') {
+			this._map.showBusy(_('Checking the file content...'), false);
+		} else if (info.id == 'contentcheckprint') {
+			this._map.showBusy(_('Preparing the document for printing...'), false);
 		} else if (info.id == 'start' || info.id == 'setvalue') {
 			this._map.fire('statusindicator', info);
-		} else if (info.id == 'dlp') {
-			this._map.showBusy(_('Checking DLP policy...'), false);
 		} else if (info.id == 'finish') {
 			this._map.fire('statusindicator', info);
 			this._map._fireInitComplete('statusindicatorfinish');

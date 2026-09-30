@@ -17,6 +17,7 @@
 #include <net/HttpRequest.hpp>
 #include <wsd/COOLWSD.hpp>
 #include <wsd/Storage.hpp>
+#include <wsd/wopi/ContentCheck.hpp>
 
 #include <Poco/JSON/Object.h>
 #include <Poco/URI.h>
@@ -89,7 +90,6 @@ public:
         bool getUserCanRename() const { return _userCanRename; }
         bool getUserCanOnlyComment() const { return _userCanOnlyComment; }
         bool getUserCanOnlyManageRedlines() const { return _userCanOnlyManageRedlines; }
-        bool getNeedsDlpVerification() const noexcept { return _needsDlpVerification; }
 
         std::optional<bool> getIsAdminUser() const { return _isAdminUser; }
         const std::string& getIsAdminUserError() const { return _isAdminUserError; }
@@ -194,42 +194,6 @@ public:
         bool _userCanOnlyManageRedlines = false;
         /// Used for directly starting follow me presentation
         std::string _presentationLeader;
-        /// True if dlp check is required
-        bool _needsDlpVerification = true;
-    };
-
-    struct Dlp final
-    {
-        static constexpr std::chrono::milliseconds PollIntervalMs{1000};
-        static constexpr unsigned PollAttempts = 120;
-
-        static constexpr const char* StartEndpoint = "/api/v2/wrapped/download/start";
-        static constexpr const char* StatusEndpoint = "/api/v2/statuses/";
-        static constexpr const char* DownloadEndpoint = "/api/v2/storage/download/";
-        static constexpr const char* DownloadModeFile = "DOWNLOAD_FILE";
-
-        class Result final
-        {
-        public:
-            static Result Approved() { return Result(true, ""); }
-            static Result Rejected() { return Result(false, ""); }
-            static Result Error(std::string msg) { return Result(false, std::move(msg)); }
-
-            explicit operator bool() const noexcept { return _approved; }
-            bool hasError() const noexcept { return !_error.empty(); }
-            std::string_view error() const noexcept { return _error; }
-
-        private:
-            explicit Result(bool approved, std::string error) noexcept
-            : _approved(approved)
-            , _error(std::move(error))
-            {
-            }
-
-        private:
-            bool _approved = false;
-            std::string _error;
-        };
     };
 
     WopiStorage(const Poco::URI& uri, const std::string& localStorePath,
@@ -268,9 +232,6 @@ public:
     std::string downloadStorageFileToLocal(const Authorization& auth, LockContext& lockCtx,
                                            const std::string& templateUri,
                                            AdditionalFilePaths& additionalFileLocalPaths) override;
-
-    /// Runs the DLP verification for this document.
-    Dlp::Result runDlpVerification(const Authorization& auth, const std::string& baseUri);
 
     std::size_t
     uploadLocalFileToStorageAsync(const Authorization& auth, LockContext& lockCtx,

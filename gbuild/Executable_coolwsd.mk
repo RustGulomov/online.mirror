@@ -97,6 +97,7 @@ $(eval $(call gb_Executable_add_generated_exception_objects,coolwsd, \
     wsd/coolwsd-fork \
     wsd/dumpWsdState \
     wsd/wopi/CheckFileInfo \
+    wsd/wopi/ContentCheckPoll \
     wsd/wopi/StorageConnectionManager \
     wsd/wopi/WopiProxy \
     wsd/wopi/WopiStorage \

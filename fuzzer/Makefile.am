@@ -97,6 +97,7 @@ coolwsd_sources = \
                   ../wsd/Unzip.cpp \
                   ../wsd/dumpWsdState.cpp \
                   ../wsd/wopi/CheckFileInfo.cpp \
+                  ../wsd/wopi/ContentCheckPoll \
                   ../wsd/wopi/StorageConnectionManager.cpp \
                   ../wsd/wopi/WopiProxy.cpp \
                   ../wsd/wopi/WopiStorage.cpp
