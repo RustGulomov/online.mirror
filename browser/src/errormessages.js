@@ -41,6 +41,8 @@ errorMessages.websocketproxyfailure = _('Failed to establish socket connection o
 errorMessages.websocketgenericfailure = _('Failed to establish socket connection or socket connection closed unexpectedly.');
 errorMessages.contentcheckblocked = _('This file cannot be opened: it contains information prohibited by the security policy.');
 errorMessages.contentcheckunavailable = _('The file could not be checked against the security policy. Please try to open it later.');
+errorMessages.printblocked = _('Printing is not allowed: the document contains information prohibited by the security policy.');
+errorMessages.printunavailable = _('The document could not be checked against the security policy. Please try printing again later.');
 if (window.ThisIsAMobileApp) {
 	errorMessages.storage = {
 		loadfailed: _('Failed to load document.'),

@@ -6466,6 +6466,10 @@ msgstr "Сервер выключается"
 msgid "Checking the file content..."
 msgstr "Идёт проверка содержимого файла…"
 
+#: src/app/Socket.ts:2727
+msgid "Preparing the document for printing..."
+msgstr "Подготовка документа к печати…"
+
 #: src/docdispatcher.ts:611
 msgid ""
 "AI is not configured. Go to File > Options > AI Assistant to set it up."
@@ -6670,6 +6674,22 @@ msgid ""
 msgstr ""
 "Не удалось проверить файл на соответствие политике безопасности. "
 "Попробуйте открыть его позже."
+
+#: src/errormessages.js:44
+msgid ""
+"Printing is not allowed: the document contains information prohibited by "
+"the security policy."
+msgstr ""
+"Документ нельзя напечатать: он содержит информацию, запрещённую политикой "
+"безопасности."
+
+#: src/errormessages.js:45
+msgid ""
+"The document could not be checked against the security policy. Please try "
+"printing again later."
+msgstr ""
+"Не удалось проверить документ на соответствие политике безопасности. "
+"Попробуйте напечатать его позже."
 
 #: src/errormessages.js:44
 msgid "Failed to load document."

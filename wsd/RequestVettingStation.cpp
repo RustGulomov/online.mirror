@@ -331,10 +331,6 @@ void RequestVettingStation::handleRequest(const std::string& id,
                      _checkFileInfo->wopiInfo())
             {
                 handleContentCheckResult();
-                // SharedSettings sharedSettings(_checkFileInfo->wopiInfo());
-                // transferToDocBroker(_checkFileInfo->url().toString(),
-                //                     sharedSettings.getConfigId(),
-                //                     _checkFileInfo->getSslVerifyMessage());
             }
             else if (_checkFileInfo == nullptr ||
                      _checkFileInfo->state() == CheckFileInfo::State::None ||

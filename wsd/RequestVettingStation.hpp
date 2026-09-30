@@ -16,7 +16,6 @@
 
 #pragma once
 
-// #include "wopi/ContentCheckPoll.hpp"
 #include <common/Util.hpp>
 #include <net/WebSocketHandler.hpp>
 #include <wsd/RequestDetails.hpp>

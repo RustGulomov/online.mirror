@@ -314,6 +314,8 @@ interface ErrorMessages {
 	websocketgenericfailure: string;
 	contentcheckblocked: string;
 	contentcheckunavailable: string;
+	printblocked: string;
+	printunavailable: string;
 
 	storage: {
 		loadfailed: string;

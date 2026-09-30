@@ -2284,6 +2284,10 @@ class Socket {
 				storageError = errorMessages.storage.saveunauthorized;
 			} else if (command.errorKind === 'saveasfailed') {
 				storageError = errorMessages.storage.saveasfailed;
+			} else if (command.errorKind === 'printblocked') {
+				storageError = errorMessages.printblocked;
+			} else if (command.errorKind === 'printunavailable') {
+				storageError = errorMessages.printunavailable;
 			} else if (command.errorKind === 'loadfailed') {
 				storageError = errorMessages.storage.loadfailed;
 				// Since this is a document load failure, wsd will disconnect the socket anyway,
@@ -2719,6 +2723,8 @@ class Socket {
 			}
 		} else if (info.id == 'contentcheck') {
 			this._map.showBusy(_('Checking the file content...'), false);
+		} else if (info.id == 'contentcheckprint') {
+			this._map.showBusy(_('Preparing the document for printing...'), false);
 		} else if (info.id == 'start' || info.id == 'setvalue') {
 			this._map.fire('statusindicator', info);
 		} else if (info.id == 'finish') {

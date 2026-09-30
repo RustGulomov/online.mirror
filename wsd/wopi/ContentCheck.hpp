@@ -1,9 +1,4 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; fill-column: 100 -*- */
-/*
- * The WOPI-native content check.
- * Classes: ContentCheck
- */
-
 #pragma once
 
 #include <common/JsonUtil.hpp>
@@ -13,8 +8,6 @@
 
 #include <net/HttpRequest.hpp>
 
-#include <cctype>
-#include <string>
 #include <string_view>
 
 namespace DLP
@@ -61,6 +54,10 @@ public:
     static ContentCheck createUnavaliable(const std::string& checkId = "", const std::string& version = "")
     {
         return ContentCheck(State::Unavailable, checkId, version);
+    }
+    static ContentCheck createPending(const std::string& checkId = "", const std::string& version = "")
+    {
+        return ContentCheck(State::Pending, checkId, version);
     }
 
     ContentCheck(std::string_view contentCheckHeader, const Poco::JSON::Object::Ptr& responseBody, http::StatusCode code)
