@@ -31,7 +31,8 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
     LOG_DBG("Getting info for wopi uri [" << uriAnonym << ']');
     _httpSession = StorageConnectionManager::getHttpSession(_url);
     Authorization auth = Authorization::create(_url);
-    const http::Request httpRequest = StorageConnectionManager::createHttpRequest(_url, auth);
+    http::Request httpRequest = StorageConnectionManager::createHttpRequest(_url, auth);
+    httpRequest.set("X-Vaulterix-Capabilities", "content-check");
 
     const auto startTime = std::chrono::steady_clock::now();
 
@@ -80,7 +81,6 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
                                                                   startTime);
 
         // Note: we don't log the response if obfuscation is enabled, except for failures.
-        const std::string& wopiResponse = httpResponse->getBody();
         const bool failed = (httpResponse->statusLine().statusCode() != http::StatusCode::OK);
         const bool unauthorized =
             http::isUnauthorizedStatusCode(httpResponse->statusLine().statusCode());
@@ -94,7 +94,7 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
 
             if (failed)
             {
-                oss << "\tBody: [" << COOLProtocol::getAbbreviatedMessage(wopiResponse) << ']';
+                oss << "\tBody: [" << COOLProtocol::getAbbreviatedMessage(httpResponse->getBody()) << ']';
                 LOG_ERR(oss.str());
             }
             else
@@ -103,21 +103,38 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
             }
         }
 
+        bool responseParsed = parseResponseAndValidate(*httpResponse);
+
         if (failed)
         {
-            _state = unauthorized ? State::Unauthorized : State::Fail;
-            if (unauthorized)
-                LOG_ERR("Access denied to CheckFileInfo [" << uriAnonym << ']');
+            if (_contentCheck.isBlocked())
+            {
+                _state = State::Pass;
+                LOG_INF("WOPI::CheckFileInfo reported content-check BLOCKED via header for URI ["
+                << uriAnonym << "], status [" << static_cast<unsigned>(statusCode) << ']');
+            }
+            else if (_contentCheck.isUnavailable())
+            {
+                _state = State::Pass;
+                LOG_WRN("WOPI::CheckFileInfo reported content-check UNAVAILABLE via header for URI ["
+                << uriAnonym << "], status [" << static_cast<unsigned>(statusCode) << ']');
+            }
             else
-                LOG_ERR("Failed or timed-out CheckFileInfo [" << uriAnonym << ']');
+            {
+                _state = unauthorized ? State::Unauthorized : State::Fail;
+                if (unauthorized)
+                    LOG_ERR("Access denied to CheckFileInfo [" << uriAnonym << ']');
+                else
+                    LOG_ERR("Failed or timed-out CheckFileInfo [" << uriAnonym << ']');
+            }
         }
         else
         {
-            if (parseResponseAndValidate(wopiResponse))
+            if (responseParsed)
             {
                 LOG_DBG("WOPI::CheckFileInfo ("
                         << callDurationMs
-                        << "): " << (Anonymizer::enabled() ? "obfuscated" : wopiResponse));
+                        << "): " << (Anonymizer::enabled() ? "obfuscated" : httpResponse->getBody()));
 
                 _state = State::Pass;
             }
@@ -129,7 +146,7 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
                         << callDurationMs
                         << ") failed or no valid JSON payload returned. Access denied. "
                            "Original response: ["
-                        << COOLProtocol::getAbbreviatedMessage(wopiResponse) << ']');
+                        << COOLProtocol::getAbbreviatedMessage(httpResponse->getBody()) << ']');
             }
         }
 
@@ -188,24 +205,35 @@ void CheckFileInfo::checkFileInfoSync(int redirectionLimit)
     }
 }
 
-bool CheckFileInfo::parseResponseAndValidate(const std::string& response)
+bool CheckFileInfo::parseResponseAndValidate(const http::Response& httpResponse)
 {
-    if (JsonUtil::parseJSON(response, _wopiInfo))
+    const std::string& response = httpResponse.getBody();
+    bool parsed = JsonUtil::parseJSON(response, _wopiInfo), validated = false;
+    if (parsed)
     {
         // Validate the filename is sane.
         std::string filename;
         if (JsonUtil::findJSONValue(_wopiInfo, "BaseFileName", filename) &&
             filename.find_first_of('/') == std::string::npos)
         {
-            return true; // We're good.
+            validated = true; // We're good.
         }
-
-        LOG_ERR("BaseFileName should be the name of the file without a path, but is: [" << filename
-                                                                                        << ']');
+        else
+        {
+            LOG_ERR("BaseFileName should be the name of the file without a path, but is: [" << filename << ']');
+        }
     }
 
-    _wopiInfo.reset(); // Clear the parsed JSON, if any.
-    return false;
+    _contentCheck = DLP::ContentCheck(httpResponse.get(
+        "X-Vaulterix-Content-Check"),
+        parsed ? _wopiInfo->getObject("VaulterixContentCheck") : nullptr,
+        httpResponse.statusLine().statusCode());
+
+    if (!validated)
+    {
+        _wopiInfo.reset(); // Clear the parsed JSON, if any.
+    }
+    return validated;
 }
 
 std::unique_ptr<WopiStorage::WOPIFileInfo>

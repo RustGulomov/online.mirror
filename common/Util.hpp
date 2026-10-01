@@ -330,7 +330,6 @@ namespace Util
 
     std::string getVersionJSON(bool enableExperimental, const std::string& timezone);
 
-#if ENABLE_DEBUG
     /// Returns the offset of the first invalid-UTF8 character.
     /// Otherwise, returns > len for all-valid UTF8 characters.
     /// for debugging validation only.
@@ -365,7 +364,6 @@ namespace Util
     {
         return Util::isValidUtf8(reinterpret_cast<unsigned char const*>(str.data()), str.size());
     }
-#endif
 
     size_t findInVector(const std::vector<char>& tokens, const char *cstring, std::size_t offset = 0);
 

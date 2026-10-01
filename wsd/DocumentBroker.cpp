@@ -3513,6 +3513,9 @@ void DocumentBroker::handleUploadToStorageSuccessful(const StorageBase::UploadRe
         // After a successful save, we are sure that document in the storage is same as ours
         _documentChangedInStorage = false;
 
+        // Whoever was waiting for this save (e.g. a deferred print) can go on.
+        notifySaveFinished(true);
+
         // Reset the storage attributes; They've been used and we can discard them.
         _lastStorageAttrs.reset();
 
@@ -3861,6 +3864,29 @@ void DocumentBroker::handleUploadToStorageFailed(const StorageBase::UploadResult
     // We failed to upload, merge the last attributes into the current one.
     _currentStorageAttrs.merge(_lastStorageAttrs);
     _lastStorageAttrs.reset();
+
+    // Nobody can act on a version we failed to upload.
+    notifySaveFinished(false);
+}
+
+void DocumentBroker::notifySaveFinished(const bool ok)
+{
+    if (_saveFinishedCallbacks.empty())
+        return;
+
+    std::vector<SaveFinishedCallback> callbacks;
+    callbacks.swap(_saveFinishedCallbacks);
+    for (const auto& callback : callbacks)
+    {
+        if (callback)
+            callback(ok);
+    }
+}
+
+void DocumentBroker::whenSaved(SaveFinishedCallback cb)
+{
+    ASSERT_CORRECT_THREAD();
+    _saveFinishedCallbacks.push_back(std::move(cb));
 }
 
 void DocumentBroker::handleDocumentConflict(std::string details)
@@ -3906,8 +3932,11 @@ void DocumentBroker::handleDocumentConflict(std::string details)
 }
 
 void DocumentBroker::broadcastSaveResult(bool success, const std::string_view result,
-                                         const std::string& errorMsg) const
+                                         const std::string& errorMsg)
 {
+    if (!success)
+        notifySaveFinished(false);
+
     const std::string_view resultstr = success ? "true" : "false";
     // Some sane limit, otherwise we get problems transferring this to the client with large strings (can be a whole webpage)
     std::string errorMsgFormatted = COOLProtocol::getAbbreviatedMessage(errorMsg);

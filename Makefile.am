@@ -246,6 +246,7 @@ coolwsd_sources = \
                   wsd/Unzip.cpp \
                   wsd/dumpWsdState.cpp \
                   wsd/wopi/CheckFileInfo.cpp \
+                  wsd/wopi/ContentCheckPoll.cpp \
                   wsd/wopi/StorageConnectionManager.cpp \
                   wsd/wopi/WopiProxy.cpp \
                   wsd/wopi/WopiStorage.cpp
@@ -352,6 +353,7 @@ wsd_headers = \
               wsd/UserMessages.hpp \
               wsd/WSDGlobals.hpp \
               wsd/wopi/CheckFileInfo.hpp \
+              wsd/wopi/ContentCheckPoll.hpp \
               wsd/wopi/StorageConnectionManager.hpp \
               wsd/wopi/WopiProxy.hpp \
               wsd/wopi/WopiStorage.hpp

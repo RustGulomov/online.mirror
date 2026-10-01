@@ -43,6 +43,13 @@ class DocumentBroker;
 class AIChatSession;
 #endif
 
+#if !MOBILEAPP
+namespace DLP
+{
+class ContentCheckPoll;
+}
+#endif // !MOBILEAPP
+
 /// Represents a session to a COOL client, in the WSD process.
 class ClientSession final : public Session
 {
@@ -503,6 +510,21 @@ private:
     bool handleSaveAs(const std::shared_ptr<Message>& payload,
                       const std::shared_ptr<DocumentBroker>& docBroker,
                       const std::shared_ptr<StreamSocket>& saveAsSocket);
+
+    /// Hold back a download the kit produced, until the document is saved and
+    /// the WOPI host has verified the saved version.  While a print is
+    /// pending, further print requests are discarded and the first one is
+    /// finished.  Returns true when the message was handled (swallowed).
+    bool deferPrint(const std::shared_ptr<Message>& payload, const std::string& downloadId);
+    /// Save the document if the storage doesn't have its current content, then
+    /// verify the version the host ends up with.
+    void saveForPrint();
+    /// Ask the host to verify printing the version we consider saved; the
+    /// verdict is handled in the check's completion callback.
+    void startPrintCheck();
+    /// Drop the deferred print, discarding the kit's download; when kind is
+    /// not empty, the client is told why.
+    void failPrint(const std::string& kind, const std::string& detail);
 #endif // !MOBILEAPP
 
 private:
@@ -548,6 +570,17 @@ private:
 
     /// Wopi FileInfo object
     std::unique_ptr<WopiStorage::WOPIFileInfo> _wopiFileInfo;
+
+#if !MOBILEAPP
+    /// The kit's print download, held back while we verify the print.
+    std::shared_ptr<Message> _deferredPrint;
+    /// The download id of the held-back print, to discard it when refused.
+    std::string _deferredPrintDownloadId;
+    /// The content check of the print operation, while it is running.
+    std::shared_ptr<DLP::ContentCheckPoll> _printCheck;
+    /// How many times we saved and re-checked the print request.
+    unsigned _printRetries = 0;
+#endif // !MOBILEAPP
 
     /// wire-ids's of the in-flight tiles. Push by sending and pop by tileprocessed message from the client.
     std::vector<std::pair<TileWireId, std::chrono::steady_clock::time_point>> _tilesOnFly;

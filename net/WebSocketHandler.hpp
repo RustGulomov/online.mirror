@@ -226,11 +226,17 @@ protected:
 
             if constexpr (!Util::isMobileApp())
             {
-                const size_t len = statusMessage.size();
+                // Max Close reason length: 125-byte control frame limit minus 2-byte status code (RFC 6455, 5.5).
+                // Message must be valid UTF-8.
+                constexpr size_t MaxReasonLen = 125 - 2;
+                std::string_view reason = statusMessage.substr(0, MaxReasonLen);
+                reason = reason.substr(0, std::min(reason.size(), Util::isValidUtf8(reason)));
+
+                const size_t len = reason.size();
                 std::vector<char> buf(2 + len);
                 buf[0] = ((int(statusCode) >> 8) & 0xff);
                 buf[1] = ((int(statusCode) >> 0) & 0xff);
-                std::copy(statusMessage.begin(), statusMessage.end(), buf.begin() + 2);
+                std::copy(reason.begin(), reason.end(), buf.begin() + 2);
                 const unsigned char flags = WSFrameMask::Fin | static_cast<char>(WSOpCode::Close);
 
                 sendFrame(socket, buf.data(), buf.size(), flags);

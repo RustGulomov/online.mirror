@@ -38,6 +38,9 @@
 #include <net/HttpHelper.hpp>
 #include <net/HttpServer.hpp>
 #include <wsd/wopi/StorageConnectionManager.hpp>
+#if !MOBILEAPP
+#include <wsd/wopi/ContentCheckPoll.hpp>
+#endif // !MOBILEAPP
 #include <wsd/COOLWSD.hpp>
 #include <wsd/DocumentBroker.hpp>
 #include <wsd/FileServer.hpp>
@@ -2964,6 +2967,154 @@ bool ClientSession::handlePresentationInfo(const std::shared_ptr<Message>& paylo
     return forwardToClient(payload);
 }
 
+#if !MOBILEAPP
+bool ClientSession::deferPrint(const std::shared_ptr<Message>& payload, const std::string& downloadId)
+{
+    const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker();
+    if (!docBroker)
+        return false;
+
+    if (_deferredPrint)
+    {
+        if (downloadId != _deferredPrintDownloadId)
+            docBroker->unregisterDownloadId(downloadId);
+        return true;
+    }
+
+    sendTextFrame("progress: { \"id\":\"contentcheckprint\" }");
+
+    _printRetries = 0;
+    _deferredPrint = payload;
+    _deferredPrintDownloadId = downloadId;
+
+    saveForPrint();
+    return true;
+}
+
+void ClientSession::saveForPrint()
+{
+    const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker();
+    if (!docBroker)
+    {
+        failPrint("savefailed", "the document is gone");
+        return;
+    }
+
+    if (!docBroker->isModified())
+    {
+        startPrintCheck();
+        return;
+    }
+
+    if (!docBroker->autoSave(/*force=*/true, /*dontSaveIfUnmodified=*/false))
+    {
+        LOG_WRN("ContentCheck: cannot save ["
+                << Anonymizer::anonymizeUrl(getPublicUri().toString())
+                << "] before printing: no session to save with");
+        failPrint("savefailed", "the document could not be saved before printing");
+        return;
+    }
+
+    const std::weak_ptr<ClientSession> selfWeak = client_from_this();
+    docBroker->whenSaved([selfWeak](const bool ok)
+    {
+        const std::shared_ptr<ClientSession> self = selfWeak.lock();
+        if (!self || !self->_deferredPrint)
+            return;
+
+        if (!ok)
+        {
+            self->failPrint("savefailed", std::string());
+            return;
+        }
+
+        self->startPrintCheck();
+    });
+}
+
+void ClientSession::startPrintCheck()
+{
+    const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker();
+    const std::shared_ptr<TerminatingPoll> poll =
+        docBroker ? std::dynamic_pointer_cast<TerminatingPoll>(docBroker->getPoll().lock())
+                  : nullptr;
+    if (!poll)
+    {
+        failPrint("savefailed", "the document is being unloaded");
+        return;
+    }
+
+    _printCheck = std::make_shared<DLP::ContentCheckPoll>(
+        poll, getPublicUri(), DLP::ContentCheck::createPending(),
+        [selfWeak = std::weak_ptr<ClientSession>(client_from_this())](DLP::ContentCheckPoll& checkPoll)
+        {
+            const std::shared_ptr<ClientSession> self = selfWeak.lock();
+            if (!self || !self->_deferredPrint)
+                return;
+
+            const DLP::ContentCheck& checkResult = checkPoll.check();
+            const std::shared_ptr<DocumentBroker> broker = self->getDocumentBroker();
+            const bool upToDate = broker &&
+                                  checkResult.isAllowed() &&
+                                  checkPoll.lastModifiedTime() == broker->getLastModifiedServerTimeString() &&
+                                  !broker->isModified();
+            if (upToDate)
+            {
+                self->forwardToClient(self->_deferredPrint);
+                self->_deferredPrint.reset();
+                self->_deferredPrintDownloadId.clear();
+                return;
+            }
+
+            if (!checkResult.isAllowed() || !broker)
+            {
+                self->failPrint(checkResult.isBlocked() ? "printblocked" : "printunavailable",
+                                checkResult.message());
+                return;
+            }
+
+            // Allowed, but the document changed while checking:
+            // save and check again (bounded, so we cannot loop forever).
+            if (++self->_printRetries > 3)
+            {
+                self->failPrint("printunavailable",
+                                "the document kept changing while preparing it for printing");
+                return;
+            }
+
+            const auto brokerPoll = broker->getPoll().lock();
+            if (!brokerPoll)
+            {
+                self->failPrint("printunavailable", "the document is being unloaded");
+                return;
+            }
+
+            brokerPoll->addCallback([selfWeak]()
+            {
+                if (const std::shared_ptr<ClientSession> session = selfWeak.lock())
+                    session->saveForPrint();
+            });
+        },
+        /*operation=*/"print");
+    _printCheck->start();
+}
+
+void ClientSession::failPrint(const std::string& kind, const std::string& detail)
+{
+    if (!_deferredPrint)
+        return;
+
+    if (const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker())
+        docBroker->unregisterDownloadId(_deferredPrintDownloadId);
+
+    _deferredPrint.reset();
+    _deferredPrintDownloadId.clear();
+
+    if (!kind.empty())
+        sendTextFrame(COOLProtocol::buildErrorFrame("downloadas", kind, detail));
+}
+#endif // !MOBILEAPP
+
 bool ClientSession::handleKitToClientMessage(const std::shared_ptr<Message>& payload)
 {
     LOG_TRC("handling kit-to-client [" << payload->abbr() << ']');
@@ -2992,6 +3143,18 @@ bool ClientSession::handleKitToClientMessage(const std::shared_ptr<Message>& pay
             LOG_WRN("Ignoring kit to client message of: " << firstLine);
             return false;
         }
+
+#if !MOBILEAPP
+        if (id == "print")
+        {
+            std::string downloadId;
+            if (tokens.size() >= 2 && getTokenString(tokens[1], "downloadid", downloadId) &&
+                deferPrint(payload, downloadId))
+            {
+                return true;
+            }
+        }
+#endif // !MOBILEAPP
     }
     else if (tokens.equals(0, "unocommandresult:"))
     {
