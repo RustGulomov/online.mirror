@@ -728,6 +728,12 @@ void WhiteBoxTests::testJson()
 
     JsonUtil::findJSONValue(object, "UserId", stringValue);
     LOK_ASSERT_EQUAL_STR("user@user.com", stringValue);
+
+    LOK_ASSERT_EQUAL_STR(std::string(), JsonUtil::getJSONValue<std::string>(object, "WatermarkText"));
+    LOK_ASSERT_EQUAL(false, JsonUtil::getJSONValue<bool>(object, "WatermarkText"));
+    bool nullBoolValue = true;
+    JsonUtil::findJSONValue(object, "WatermarkText", nullBoolValue);
+    LOK_ASSERT_EQUAL(false, nullBoolValue);
 }
 
 void WhiteBoxTests::testAnonymization()

@@ -90,7 +90,7 @@ template <typename T> T getJSONValue(const std::string& key, const Poco::Dynamic
 {
     try
     {
-        return valueVar.convert<T>();
+        return valueVar.isEmpty() ? T() : valueVar.convert<T>();
     }
     catch (const Poco::Exception& exc)
     {
