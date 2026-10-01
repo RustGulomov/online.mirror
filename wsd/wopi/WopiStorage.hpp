@@ -17,6 +17,7 @@
 #include <net/HttpRequest.hpp>
 #include <wsd/COOLWSD.hpp>
 #include <wsd/Storage.hpp>
+#include <wsd/wopi/ContentCheck.hpp>
 
 #include <Poco/JSON/Object.h>
 #include <Poco/URI.h>
