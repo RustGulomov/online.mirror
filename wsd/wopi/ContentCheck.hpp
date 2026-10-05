@@ -3,6 +3,7 @@
 
 #include <common/JsonUtil.hpp>
 #include <common/StateEnum.hpp>
+#include <config.h>
 
 #include <Poco/JSON/Object.h>
 
@@ -12,6 +13,15 @@
 
 namespace DLP
 {
+constexpr bool enabled() noexcept
+{
+#if ENABLE_DEBUG
+    return false;
+#else
+    return true;
+#endif
+}
+
 /// The verdict of the WOPI-native content check.
 ///
 /// A WOPI host that supports content checks is told so through the

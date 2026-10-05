@@ -2970,6 +2970,9 @@ bool ClientSession::handlePresentationInfo(const std::shared_ptr<Message>& paylo
 #if !MOBILEAPP
 bool ClientSession::deferPrint(const std::shared_ptr<Message>& payload, const std::string& downloadId)
 {
+    if (!DLP::enabled())
+        return false;
+
     const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker();
     if (!docBroker)
         return false;

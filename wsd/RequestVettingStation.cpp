@@ -434,6 +434,12 @@ void RequestVettingStation::checkFileInfo(const Poco::URI& uri, int redirectLimi
 
 void RequestVettingStation::handleContentCheckResult()
 {
+    if (!DLP::enabled() && _checkFileInfo->wopiInfo())
+    {
+        proceedToDocBroker();
+        return;
+    }
+
     const auto contentCheck = _contentCheckPoll->check();
 
     LOG_INF("ContentCheck: checkId ["

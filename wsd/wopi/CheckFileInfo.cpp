@@ -32,7 +32,10 @@ bool CheckFileInfo::checkFileInfo(int redirectLimit)
     _httpSession = StorageConnectionManager::getHttpSession(_url);
     Authorization auth = Authorization::create(_url);
     http::Request httpRequest = StorageConnectionManager::createHttpRequest(_url, auth);
-    httpRequest.set("X-Vaulterix-Capabilities", "content-check");
+    if (DLP::enabled())
+    {
+        httpRequest.set("X-Vaulterix-Capabilities", "content-check");
+    }
 
     const auto startTime = std::chrono::steady_clock::now();
 
@@ -224,10 +227,14 @@ bool CheckFileInfo::parseResponseAndValidate(const http::Response& httpResponse)
         }
     }
 
-    _contentCheck = DLP::ContentCheck(httpResponse.get(
-        "X-Vaulterix-Content-Check"),
-        parsed ? _wopiInfo->getObject("VaulterixContentCheck") : nullptr,
-        httpResponse.statusLine().statusCode());
+    if (DLP::enabled())
+    {
+        _contentCheck = DLP::ContentCheck(httpResponse.get(
+            "X-Vaulterix-Content-Check"),
+            parsed ? _wopiInfo->getObject("VaulterixContentCheck") : nullptr,
+            httpResponse.statusLine().statusCode()
+        );
+    }
 
     if (!validated)
     {

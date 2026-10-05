@@ -65,13 +65,7 @@ ContentCheckPoll::ContentCheckPoll(const std::shared_ptr<TerminatingPoll>& poll,
     , _onFinished(std::move(onFinished))
     , _pollIntervalMs(std::chrono::seconds(1))
     , _timeout(std::chrono::minutes(2))
-{
-    LOG_INF("ContentCheck: "
-            << (_operation.empty() ? "polling" : _operation) << " checkId [" << _check.checkId()
-            << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString()) << "] every "
-            << _pollIntervalMs.count() << "ms for up to " << _timeout.count() << "s (" << MaxAttempts
-            << " attempts max)");
-}
+{}
 
 bool ContentCheckPoll::start()
 {
@@ -82,6 +76,12 @@ bool ContentCheckPoll::start()
     {
         return false;
     }
+
+    LOG_INF("ContentCheck: "
+        << (_operation.empty() ? "polling" : _operation) << " checkId [" << _check.checkId()
+        << "] of [" << Anonymizer::anonymizeUrl(_wopiSrc.toString()) << "] every "
+        << _pollIntervalMs.count() << "ms for up to " << _timeout.count() << "s (" << MaxAttempts
+        << " attempts max)");
 
     _started = true;
     _deadline = std::chrono::steady_clock::now() + _timeout;
