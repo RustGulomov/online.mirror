@@ -52,6 +52,8 @@ jobs:
         run: make
 
       - name: Configure
+        env:
+          CPPFLAGS: -ffile-prefix-map=${{ github.workspace }}/=
         run: |
           ./autogen.sh \
           --enable-feature-restriction \
