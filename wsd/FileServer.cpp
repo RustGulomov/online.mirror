@@ -566,6 +566,14 @@ bool FileServerRequestHandler::handleRequest(const HTTPRequest& request,
         if (FileHash.find(relPath) == FileHash.end() &&
             FileHash.find(relPath + ".br") == FileHash.end())
         {
+            // supress "WRN  FileServerRequestHandler: File not found: Invalid URI request"
+            if (relPath.starts_with("/browser/dist/images/"))
+            {
+                LOG_DBG("FileServerRequestHandler: missing icon: [" << requestUri.toString() << ']');
+                sendError(http::StatusCode::NotFound, getRequestPathname(request, requestDetails),
+                        socket, "404 - file not found!", "There seems to be a problem locating");
+                return true;
+            }
             throw Poco::FileNotFoundException("Invalid URI request (hash): [" +
                                               requestUri.toString() + "].");
         }

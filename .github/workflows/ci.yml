@@ -19,6 +19,8 @@ env:
 jobs:
   build-on-selfhosted:
     runs-on: [self-hosted, linux]
+    env:
+      CPPFLAGS: -ffile-prefix-map=${{ github.workspace }}/=
     steps:
       - name: Checkout (do not wipe the persisted build tree)
         uses: actions/checkout@v4
@@ -57,13 +59,13 @@ jobs:
           --enable-feature-restriction \
           --with-app-branding="${GITHUB_WORKSPACE}/branding" \
           --disable-tests \
-          --disable-symbols \
           --prefix=/usr \
           --sysconfdir=/etc \
           --with-lokit-path="${GITHUB_WORKSPACE}/engine/include" \
           --with-lo-path=/opt/collaboraoffice \
           --localstatedir=/var \
-          --with-app-name="Vaulterix Online Editor"
+          --with-app-name="Vaulterix Online Editor" \
+          --with-lang="en-US ru"
 
       - name: Build
         run: make -j ${BUILD_J} build-nocheck
