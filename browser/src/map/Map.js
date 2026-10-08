@@ -531,7 +531,7 @@ window.L.Map = window.L.Evented.extend({
 			var dateValue;
 
 			var elapsed = Date.now() - dateTime;
-			var rtf1 = new Intl.RelativeTimeFormat(String.locale, { style: 'narrow' });
+			var rtf1 = new Intl.RelativeTimeFormat(String.locale, { style: 'short' });
 			if (('minSavedMessageTimeoutSecs' in window) && (elapsed < (window.minSavedMessageTimeoutSecs * 1000))) {
 				timeout = window.minSavedMessageTimeoutSecs * 1000;
 				dateValue = '';
