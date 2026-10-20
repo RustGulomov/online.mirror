@@ -468,6 +468,12 @@ TEST_EXTENSIONS = .la
 LA_LOG_DRIVER = ${top_builddir}/test/run_unit.sh
 LOG_DRIVER = ${top_builddir}/test/run_unit_standalone.sh
 
+if !STEGO_REAL_LIB
+unittest_SOURCES += $(top_srcdir)/kit/stego/StegoStub.cpp
+else
+unittest_LDADD += @STEGO_LIBS@
+endif
+
 CLEANFILES = test.log PerformanceMetricsSummary.csv $(srcdir)/data/docStructureTransformed.docx
 MAINTAINERCLEANFILES = Makefile.in
 

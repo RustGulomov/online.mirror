@@ -14,6 +14,7 @@
 #include <common/Session.hpp>
 #include <kit/Kit.hpp>
 #include <kit/StateRecorder.hpp>
+#include <kit/StegoNoise.hpp>
 #include <kit/Watermark.hpp>
 
 #include <chrono>
@@ -91,7 +92,7 @@ public:
 
     void loKitCallback(COKitCallbackType type, const std::string& payload);
 
-    /// Initializes the watermark support, if enabled and required.
+    /// Initializes the watermark and stego-noise support, if enabled and required.
     /// Returns true if watermark is enabled and initialized.
     bool initWatermark()
     {
@@ -101,10 +102,13 @@ public:
                                                         getWatermarkOpacity());
         }
 
+        _stegoNoise = std::make_shared<StegoNoise>(getViewUserId(), _docManager->getDocId());
+
         return _docWatermark != nullptr;
     }
 
     const std::shared_ptr<Watermark>& watermark() const { return _docWatermark; };
+    const std::shared_ptr<StegoNoise>& stegoNoise() const { return _stegoNoise; }
 
     bool sendTextFrame(const char* buffer, int length) override
     {
@@ -310,6 +314,8 @@ private:
     Document* _docManager;
 
     std::shared_ptr<Watermark> _docWatermark;
+
+    std::shared_ptr<StegoNoise> _stegoNoise;
 
     std::queue<std::chrono::steady_clock::time_point> _cursorInvalidatedEvent;
     static constexpr std::chrono::seconds EventStorageInterval{ 15 };

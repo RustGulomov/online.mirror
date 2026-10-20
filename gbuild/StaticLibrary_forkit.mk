@@ -47,6 +47,16 @@ $(eval $(call gb_StaticLibrary_add_generated_exception_objects,forkit, \
     kit/forkit-main \
 ))
 
+# Fallback: when the real libstegonoise.so is not provided, compile the
+# built-in stub so the kit process still links (mirrors the inproc logic in
+# the top-level Makefile.am).
+ifneq ($(ONLINE.STEGO_REAL_LIB),yes)
+$(eval $(call gb_StaticLibrary_add_generated_exception_objects,forkit, \
+    kit/stego/StegoStub \
+))
+endif
+
+
 #TODO: For now, engine builds Poco without the --enable-dbgutil debug libstdc++:
 $(eval $(call gb_StaticLibrary_add_defs,forkit,-U_GLIBCXX_DEBUG))
 

@@ -48,6 +48,7 @@ $(eval $(call gb_Executable_add_libs,coolforkit-caps, \
     $(UNIX_DLAPI_LIBS) \
     $(if $(filter LINUX,$(OS)),-lrt) \
     $(ONLINE.CAP_LIBS) \
+    $(ONLINE.STEGO_LIBS) \
 ))
 $(call gb_Executable_get_target,coolforkit-caps): \
     $(foreach lib,$(online_poco_whole_libs),$(call gb_StaticLibrary_get_target,$(lib)))

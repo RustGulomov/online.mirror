@@ -1057,6 +1057,12 @@ void Document::renderTiles(TileCombined &tileCombined)
                                                  std::size_t tilesPixmapWidth, std::size_t tilesPixmapHeight,
                                                  int pixelWidth, int pixelHeight, COKitTileMode mode,
                                                  long tilePosX, long tilePosY, long tileTwipWidth, long tileTwipHeight) {
+        if (session->stegoNoise())
+            session->stegoNoise()->apply(data,
+                                         static_cast<int>(tilesPixmapWidth),
+                                         static_cast<int>(tilesPixmapHeight),
+                                         offsetX, offsetY,
+                                         pixelWidth, pixelHeight);
         if (session->watermark())
             session->watermark()->blending2(data, tilesPixmapWidth, tilesPixmapHeight,
                                             Watermark::TileParams{.twipPosX = tilePosX, .twipPosY = tilePosY,
