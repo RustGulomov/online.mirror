@@ -201,6 +201,7 @@ test_base_sources = \
 	NetUtilWhiteBoxTests.cpp \
 	NumUtilWhiteBoxTests.cpp \
 	RequestDetailsTests.cpp \
+	StegoNoiseTests.cpp \
 	StringVectorTests.cpp \
 	TestGlobals.cpp \
 	UriTests.cpp \
@@ -465,13 +466,13 @@ endif
 endif
 
 TEST_EXTENSIONS = .la
-LA_LOG_DRIVER = ${top_builddir}/test/run_unit.sh
-LOG_DRIVER = ${top_builddir}/test/run_unit_standalone.sh
 
 CLEANFILES = test.log PerformanceMetricsSummary.csv $(srcdir)/data/docStructureTransformed.docx
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = data/delta-text.png data/delta-text2.png data/delta-graphic.png data/delta-graphic2.png data/hello.odt data/hello.txt data/embedded_font.odt $(test_SOURCES) $(unittest_SOURCES) run_unit.sh run_unit_standalone.sh
+EXTRA_DIST = data/delta-text.png data/delta-text2.png data/delta-graphic.png data/delta-graphic2.png data/hello.odt data/hello.txt data/embedded_font.odt $(test_SOURCES) $(unittest_SOURCES) run_unit.sh run_unit_standalone.sh \
+	stego/stb_image.h \
+	data/stego/test.jpg data/stego/test2.jpg data/stego/test4.jpg
 
 build-tests: ${all_la_unit_tests}
 	@echo "All test libraries built."

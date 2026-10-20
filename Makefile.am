@@ -441,6 +441,7 @@ kit_headers = \
               kit/SetupKitEnvironment.hpp \
               kit/SlideCompressor.hpp \
               kit/StateRecorder.hpp \
+              kit/StegoNoise.hpp \
               kit/Watermark.hpp
 
 noinst_HEADERS = \
