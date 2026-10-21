@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "third-party/reed-solomon/rs.hpp"
+
 namespace stego
 {
 constexpr int TileSize = 256;
