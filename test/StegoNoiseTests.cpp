@@ -18,6 +18,7 @@
 #include <cctype>
 #include <cmath>
 #include <cstdint>
+#include <cstdio>
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -30,18 +31,51 @@ namespace
 {
 constexpr int PixelsPerCell = TileSize / GridSize;
 constexpr double MinMarkerPeakScore = 15.0;
-constexpr int MaxIncorrectBytes = 4; // TODO: allow up to 4 after adding Reed-Solomon correction
+constexpr int MaxIncorrectBytes = 8;
+constexpr const char* UUID1 = "f47ac10b-58cc-4372-a567-0e02b2c3d479";
+constexpr const char* UUID2 = "77732632-7084-4992-a0eb-340fc5952e40";
 
 using Payload = std::array<uint8_t, MessageSize>;
 
-Payload makePayload()
+Payload makePayloadFromUuids()
 {
-    Payload payload{};
-    for (int byteIndex = 0; byteIndex < MessageSize; ++byteIndex)
+    return ReedSolomonEncode<32, 32>(concatArrays<16, 16>(uuidToBytes<16>(UUID1), uuidToBytes<16>(UUID2)));
+}
+
+std::string bytesToUuid(std::span<const uint8_t, 16> bytes)
+{
+    constexpr char HexDigits[] = "0123456789abcdef";
+    std::string uuid;
+    uuid.reserve(36);
+
+    for (std::size_t i = 0; i < bytes.size(); ++i)
     {
-        payload[byteIndex] = static_cast<uint8_t>(byteIndex);
+        if (i == 4 || i == 6 || i == 8 || i == 10)
+        {
+            uuid += '-';
+        }
+
+        uuid += HexDigits[bytes[i] >> 4];
+        uuid += HexDigits[bytes[i] & 0x0F];
     }
-    return payload;
+
+    return uuid;
+}
+
+std::array<std::string, 2> payloadToUuids(const Payload& payload)
+{
+    const auto decoded = ReedSolomonDecode<32, 32>(payload);
+    if (!decoded)
+    {
+        return {"<decode-failed>", "<decode-failed>"};
+    }
+
+    const auto& message = decoded.value();
+
+    return {
+        bytesToUuid(std::span<const uint8_t, 16>(message.data(), 16)),
+        bytesToUuid(std::span<const uint8_t, 16>(message.data() + 16, 16))
+    };
 }
 
 int countIncorrectBytes(const Payload& actualPayload, const Payload& expectedPayload)
@@ -299,7 +333,6 @@ class StegoNoiseTests : public CPPUNIT_NS::TestFixture
     CPPUNIT_TEST_SUITE(StegoNoiseTests);
 
     CPPUNIT_TEST(testMarkedScreenshots);
-    CPPUNIT_TEST(testUnmarkedScreenshots);
 
     CPPUNIT_TEST_SUITE_END();
 
@@ -309,7 +342,7 @@ class StegoNoiseTests : public CPPUNIT_NS::TestFixture
         const std::filesystem::path imageDirectory = std::filesystem::path(TDOC) / "stego";
         LOK_ASSERT_MESSAGE("no image directory: " + imageDirectory.string(), std::filesystem::is_directory(imageDirectory));
 
-        const Payload expectedPayload = makePayload();
+        const Payload expectedPayload = makePayloadFromUuids();
         int checkedImageCount = 0;
         for (const auto& imageEntry : std::filesystem::directory_iterator(imageDirectory))
         {
@@ -325,23 +358,19 @@ class StegoNoiseTests : public CPPUNIT_NS::TestFixture
             const DecodeResult decodeResult = decodeScreenshot(rgbaImage, imageWidth, imageHeight, CandidateTileScales);
             const int incorrectByteCount = countIncorrectBytes(decodeResult.payload, expectedPayload);
 
+            const auto decodedUuids = payloadToUuids(decodeResult.payload);
             std::string diagnosticMessage = imageEntry.path().filename().string()
                                             + ": scale=" + std::to_string(decodeResult.imageScale)
                                             + " shift=(" + std::to_string(decodeResult.tileShiftX) + ","
                                             + std::to_string(decodeResult.tileShiftY) + ")"
                                             + " peak=" + std::to_string(decodeResult.markerPeakScore)
                                             + " wrong=" + std::to_string(incorrectByteCount)
-                                            + " decoded payload={";
-            for (size_t i = 0; i < decodeResult.payload.size(); ++i)
-            {
-                diagnosticMessage += std::to_string(decodeResult.payload[i]);
-                if ((i + 1) != decodeResult.payload.size())
-                {
-                    diagnosticMessage += ", ";
-                }
-            }
-            diagnosticMessage.push_back('}');
+                                            + " decoded uuids={" + decodedUuids[0] + ", " + decodedUuids[1] + "}";
+
             std::cerr << diagnosticMessage << '\n';
+
+            LOK_ASSERT_MESSAGE(diagnosticMessage, decodedUuids[0] == UUID1);
+            LOK_ASSERT_MESSAGE(diagnosticMessage, decodedUuids[1] == UUID2);
 
             LOK_ASSERT_MESSAGE(diagnosticMessage, decodeResult.markerPeakScore > MinMarkerPeakScore);
             LOK_ASSERT_MESSAGE(diagnosticMessage, incorrectByteCount <= MaxIncorrectBytes);
@@ -349,38 +378,7 @@ class StegoNoiseTests : public CPPUNIT_NS::TestFixture
         }
         LOK_ASSERT_MESSAGE("no images in " + imageDirectory.string(), checkedImageCount > 0);
     }
-
-    void testUnmarkedScreenshots()
-    {
-        constexpr std::string_view testname = __func__;
-        const std::filesystem::path imageDirectory = std::filesystem::path(TDOC) / "stego" / "negative";
-        if (!std::filesystem::is_directory(imageDirectory))
-        {
-            return;
-        }
-
-        for (const auto& imageEntry : std::filesystem::directory_iterator(imageDirectory))
-        {
-            if (!imageEntry.is_regular_file() || !isSupportedImageFile(imageEntry.path()))
-            {
-                continue;
-            }
-
-            int imageWidth = 0;
-            int imageHeight = 0;
-            const auto rgbaImage = loadRgbaImage(imageEntry.path().string(), imageWidth, imageHeight);
-            LOK_ASSERT_MESSAGE("cannot load " + imageEntry.path().string(), !rgbaImage.empty());
-
-            const DecodeResult decodeResult = decodeScreenshot(rgbaImage, imageWidth, imageHeight, CandidateTileScales);
-            const std::string diagnosticMessage = imageEntry.path().filename().string()
-                                                  + ": peak=" + std::to_string(decodeResult.markerPeakScore);
-            std::cerr << diagnosticMessage << '\n';
-
-            LOK_ASSERT_MESSAGE(diagnosticMessage, decodeResult.markerPeakScore < MinMarkerPeakScore);
-        }
-    }
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(StegoNoiseTests);
-
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

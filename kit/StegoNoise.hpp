@@ -5,6 +5,7 @@
 #include <bitset>
 #include <cstdint>
 #include <numeric>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -16,11 +17,11 @@ constexpr int TileSize = 256;
 constexpr int GridSize = TileSize / 2; // 2x2 pixels grid from 256x256 pixels tile is 128x128 cells
 constexpr int CellCount = GridSize * GridSize;
 constexpr int MarkerCount = 4096; // Marker cells
-constexpr int MessageSize = 48;
+constexpr int MessageSize = 64;
 constexpr int BitCount = MessageSize * 8;
 constexpr uint64_t Seed = 0x1234ABCD5678EF01ULL;
 
-inline uint64_t next(uint64_t& seed)
+inline uint64_t splitmix64(uint64_t& seed)
 {
     uint64_t z = (seed += 0x9E3779B97F4A7C15ULL);
     z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9ULL;
@@ -46,26 +47,79 @@ inline const Layout& layout()
 
         for (int i = CellCount - 1; i > 0; --i)
         {
-            std::swap(cellsOrder[i], cellsOrder[next(seed) % (i + 1)]);
+            std::swap(cellsOrder[i], cellsOrder[splitmix64(seed) % (i + 1)]);
         }
         for (int i = 0; i < CellCount; ++i)
         {
             const int cellIdx = cellsOrder[i];
             l.ownerBit[cellIdx] = (i < MarkerCount) ? -1 : (i - MarkerCount) % BitCount;
-            l.pattern[cellIdx] = (next(seed) & 1) ? 1 : 0;
+            l.pattern[cellIdx] = (splitmix64(seed) & 1) ? 1 : 0;
         }
         return l;
     }();
     return L;
+}
+
+template <size_t N = 16>
+inline std::array<uint8_t, N> uuidToBytes(std::string uuid)
+{
+    std::array<uint8_t, N> bytes{};
+
+    uuid.erase(std::remove(uuid.begin(), uuid.end(), '-'), uuid.end());
+
+    for (size_t i = 0; i < std::min(bytes.size(), uuid.size() / 2); ++i)
+    {
+        bytes[i] = static_cast<uint8_t>(std::stoul(uuid.substr(i * 2, 2), nullptr, 16));
+    }
+
+    return bytes;
+}
+
+template <size_t N1, size_t N2>
+inline std::array<uint8_t, N1 + N2> concatArrays(const std::array<uint8_t, N1>& first,
+                                                 const std::array<uint8_t, N2>& second)
+{
+    std::array<uint8_t, N1 + N2> result{};
+    std::copy(first.cbegin(), first.cend(), result.begin());
+    std::copy(second.cbegin(), second.cend(), result.begin() + N1);
+    return result;
+}
+
+template <size_t msg_length = 32, size_t ecc_length = 16>
+std::array<uint8_t, msg_length + ecc_length> ReedSolomonEncode(const std::array<uint8_t, msg_length> & message)
+{
+    RS::ReedSolomon<msg_length, ecc_length> rs;
+    std::array<uint8_t, msg_length + ecc_length> encoded;
+    encoded.fill(0);
+    rs.Encode(message.data(), encoded.data());
+    return encoded;
+}
+
+template <size_t msg_length = 32, size_t ecc_length = 16>
+inline std::optional<std::array<uint8_t, msg_length>>
+ReedSolomonDecode(const std::array<uint8_t, msg_length + ecc_length>& encoded)
+{
+    RS::ReedSolomon<msg_length, ecc_length> rs;
+
+    std::array<uint8_t, msg_length> message{};
+    if (rs.Decode(encoded.data(), message.data()) != 0)
+    {
+        return std::nullopt;
+    }
+    return message;
 }
 }
 
 class StegoNoise final
 {
 public:
-    explicit StegoNoise(const std::array<uint8_t, stego::MessageSize>& payload, int amplitude = 3)
+    explicit StegoNoise(const std::string& uuid1, const std::string& uuid2, int amplitude = 3)
         : _amplitude(amplitude)
     {
+        const auto payload = stego::ReedSolomonEncode<32, 32>(
+            stego::concatArrays<16, 16>(stego::uuidToBytes<16>(uuid1), stego::uuidToBytes<16>(uuid2))
+        );
+
         const stego::Layout& L = stego::layout();
         for (int cell = 0; cell < stego::CellCount; ++cell)
         {
@@ -95,7 +149,7 @@ public:
 
             unsigned char* px = canvas + 4 * ((offsetY + y) * canvasWidth + offsetX);
 
-            for (int x = 0; x < width && offsetX + x < canvasWidth; ++x, px += 4)
+            for (int x = 0; x < width && offsetX + x < canvasWidth; ++x, px += 4 /*magic const*/)
             {
                 const int8_t adjustment = pixelAdjustments[rowOffset + x];
                 if (adjustment == 0 || px[3] == 0)

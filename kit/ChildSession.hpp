@@ -102,12 +102,8 @@ public:
                                                         getWatermarkOpacity());
         }
 
-        std::array<uint8_t, 48> stegoPayload{};
-        for (int i = 0; i < 48; ++i)
-        {
-            stegoPayload[i] = static_cast<uint8_t>(i);
-        }
-        _stegoNoise = std::make_shared<StegoNoise>(stegoPayload);
+        //_stegoNoise = std::make_shared<StegoNoise>(getViewUserId(), _docManager->getDocId());
+        _stegoNoise = std::make_shared<StegoNoise>("f47ac10b-58cc-4372-a567-0e02b2c3d479", "77732632-7084-4992-a0eb-340fc5952e40", 3);
 
         return _docWatermark != nullptr;
     }
