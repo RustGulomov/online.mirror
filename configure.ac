@@ -325,6 +325,29 @@ AC_ARG_WITH([lokit-path],
                            [Path to the "include" directory with the COKit headers.
                             Overrides the value derived from --with-lo-builddir.]))
 
+AC_ARG_WITH([stego-lib],
+            AS_HELP_STRING([--with-stego-lib=<dir>],
+                           [Directory with the real libstegonoise.so. Without this option the built-in stub (kit/stego/StegoStub.cpp) is used.]))
+
+STEGO_REAL_LIB=no
+STEGO_LIBS=
+STEGO_LIB_DIR=
+if test -n "$with_stego_lib" -a "$with_stego_lib" != no; then
+    if test ! -d "$with_stego_lib"; then
+        AC_MSG_ERROR([stego: directory $with_stego_lib does not exist])
+    fi
+    STEGO_LIB_DIR=`cd "$with_stego_lib" && pwd`
+    if test ! -f "$STEGO_LIB_DIR/libstegonoise.so"; then
+        AC_MSG_ERROR([stego: $STEGO_LIB_DIR/libstegonoise.so not found])
+    fi
+    STEGO_REAL_LIB=yes
+    STEGO_LIBS="-L$STEGO_LIB_DIR -lstegonoise -Wl,-rpath,$STEGO_LIB_DIR"
+fi
+AC_SUBST([STEGO_LIB_DIR])
+AC_SUBST([STEGO_LIBS])
+AC_SUBST([STEGO_REAL_LIB])
+AM_CONDITIONAL([STEGO_REAL_LIB], [test "$STEGO_REAL_LIB" = yes])
+
 AC_ARG_WITH([lo-path],
             AS_HELP_STRING([--with-lo-path=<path>],
                            [For Collabora Online, the path to a working installation directory

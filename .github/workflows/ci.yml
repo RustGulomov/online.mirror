@@ -53,6 +53,20 @@ jobs:
         working-directory: engine
         run: make
 
+      # - name: Download stego library
+      #   env:
+      #     GH_TOKEN: ${{ secrets.STEGO_REPO_TOKEN }}
+      #   run: |
+      #     STEGO_DIR="$RUNNER_TEMP/stego"
+      #     rm -rf "$STEGO_DIR"
+      #     mkdir -p "$STEGO_DIR"
+      #     RUN_ID=$(gh run list --repo bibasmall/Vaulterix-Stego \
+      #       --workflow build.yml --branch main --status success \
+      #       --limit 1 --json databaseId -q '.[0].databaseId')
+      #     gh run download "$RUN_ID" --repo bibasmall/Vaulterix-Stego \
+      #       --name libstegonoise --dir "$STEGO_DIR"
+      #     ls -l "$STEGO_DIR/libstegonoise.so"
+
       - name: Configure
         run: |
           ./autogen.sh \
@@ -66,6 +80,7 @@ jobs:
           --localstatedir=/var \
           --with-app-name="Vaulterix Online Editor" \
           --with-lang="en-US ru"
+        # --with-stego-lib="$STEGO_DIR"
 
       - name: Build
         run: make -j ${BUILD_J} build-nocheck
