@@ -3039,7 +3039,7 @@ void ClientSession::startPrintCheck()
 {
     const std::shared_ptr<DocumentBroker> docBroker = getDocumentBroker();
     const std::shared_ptr<TerminatingPoll> poll =
-        docBroker ? std::dynamic_pointer_cast<TerminatingPoll>(docBroker->getPoll().lock())
+        docBroker ? std::static_pointer_cast<TerminatingPoll>(docBroker->getPoll().lock())
                   : nullptr;
     if (!poll)
     {
@@ -3144,6 +3144,11 @@ bool ClientSession::handleKitToClientMessage(const std::shared_ptr<Message>& pay
         if (!filterDownloadAs(id))
         {
             LOG_WRN("Ignoring kit to client message of: " << firstLine);
+            if (_wopiFileInfo && _wopiFileInfo->getDisablePrint())
+            {
+                sendTextFrame(COOLProtocol::buildErrorFrame(
+                    "downloadas", "printwopiblocked", "WOPI host has disabled print."));
+            }
             return false;
         }
 
