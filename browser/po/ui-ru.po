@@ -6635,38 +6635,6 @@ msgid ""
 msgstr ""
 "Не удалось установить соединение, или соединение было неожиданно прервано."
 
-#: src/errormessages.js:42
-msgid ""
-"This file cannot be opened: it contains information prohibited by the "
-"security policy."
-msgstr ""
-"Файл нельзя открыть: он содержит информацию, запрещённую политикой "
-"безопасности."
-
-#: src/errormessages.js:43
-msgid ""
-"The file could not be checked against the security policy. Please try to "
-"open it later."
-msgstr ""
-"Не удалось проверить файл на соответствие политике безопасности. "
-"Попробуйте открыть его позже."
-
-#: src/errormessages.js:44
-msgid ""
-"Printing is not allowed: the document contains information prohibited by "
-"the security policy."
-msgstr ""
-"Документ нельзя напечатать: он содержит информацию, запрещённую политикой "
-"безопасности."
-
-#: src/errormessages.js:45
-msgid ""
-"The document could not be checked against the security policy. Please try "
-"printing again later."
-msgstr ""
-"Не удалось проверить документ на соответствие политике безопасности. "
-"Попробуйте напечатать его позже."
-
 #: src/errormessages.js:44
 msgid "Failed to load document."
 msgstr "Не удалось загрузить документ."
@@ -6754,6 +6722,44 @@ msgstr "Не удалось загрузить файл на сервер, фа�
 #: src/errormessages.js:65
 msgid "Uploading file to server failed, the file is too large."
 msgstr "Не удалось загрузить файл на сервер, слишком большой размер файла."
+
+#: src/errormessages.js:69
+msgid ""
+"This file cannot be opened: it contains information prohibited by the "
+"security policy."
+msgstr ""
+"Файл нельзя открыть: он содержит информацию, запрещённую политикой "
+"безопасности."
+
+#: src/errormessages.js:70
+msgid ""
+"The file could not be checked against the security policy. Please try to "
+"open it later."
+msgstr ""
+"Не удалось проверить файл на соответствие политике безопасности. "
+"Попробуйте открыть его позже."
+
+#: src/errormessages.js:71
+msgid ""
+"Printing is not allowed: the document contains information prohibited by "
+"the security policy."
+msgstr ""
+"Документ нельзя напечатать: он содержит информацию, запрещённую политикой "
+"безопасности."
+
+#: src/errormessages.js:72
+msgid ""
+"The document could not be checked against the security policy. Please try "
+"printing again later."
+msgstr ""
+"Не удалось проверить документ на соответствие политике безопасности. "
+"Попробуйте напечатать его позже."
+
+#: src/errormessages.js:73
+msgid ""
+"Printing is restricted by the document owner."
+msgstr ""
+"Печать запрещена владельцем документа. "
 
 #: src/layer/marker/A11yTextInput.js:252
 msgid "Out of table"

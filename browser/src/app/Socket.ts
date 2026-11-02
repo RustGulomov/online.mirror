@@ -2288,6 +2288,8 @@ class Socket {
 				storageError = errorMessages.printblocked;
 			} else if (command.errorKind === 'printunavailable') {
 				storageError = errorMessages.printunavailable;
+			} else if (command.errorKind === 'printwopiblocked') {
+				storageError = errorMessages.printwopiblocked;
 			} else if (command.errorKind === 'loadfailed') {
 				storageError = errorMessages.storage.loadfailed;
 				// Since this is a document load failure, wsd will disconnect the socket anyway,
