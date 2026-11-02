@@ -722,6 +722,10 @@ window.L.Map.WOPI = window.L.Handler.extend({
 			}
 		}
 		else if (msg.MessageId === 'Action_Print') {
+			if (this.DisablePrint || this.HidePrintOption) {
+				this.uiManager.showInfoModal('print-wopi-blocked', _('Print'), _('Printing is restricted by the document owner.'), '', _('Close'));
+				return;
+			}
 			this._map.print();
 		}
 		else if (msg.MessageId === 'Action_Export') {

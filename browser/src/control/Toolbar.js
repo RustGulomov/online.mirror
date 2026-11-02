@@ -146,6 +146,7 @@ window.L.Map.include({
 		if ((id === 'print' && this['wopi'].DisablePrint) ||
 			(id === 'export' && this['wopi'].DisableExport)) {
 			this.hideBusy();
+			this.uiManager.showInfoModal('print-wopi-blocked', _('Print'), _('Printing is restricted by the document owner.'), '', _('Close'));
 			return;
 		}
 
