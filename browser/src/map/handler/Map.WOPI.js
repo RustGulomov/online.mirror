@@ -723,13 +723,7 @@ window.L.Map.WOPI = window.L.Handler.extend({
 		}
 		else if (msg.MessageId === 'Action_Print') {
 			if (this.DisablePrint || this.HidePrintOption) {
-				this._map.uiManager.showInfoModal(
-					'error',
-					_('Printing is restricted by the document owner.'),
-					_('Printing is restricted by the document owner.'),
-					'',
-					_('Close')
-				);
+				this.uiManager.showInfoModal('print-wopi-blocked', _('Print'), _('Printing is restricted by the document owner.'), '', _('Close'));
 				return;
 			}
 			this._map.print();

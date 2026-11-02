@@ -3144,11 +3144,6 @@ bool ClientSession::handleKitToClientMessage(const std::shared_ptr<Message>& pay
         if (!filterDownloadAs(id))
         {
             LOG_WRN("Ignoring kit to client message of: " << firstLine);
-            if (_wopiFileInfo && _wopiFileInfo->getDisablePrint())
-            {
-                sendTextFrame(COOLProtocol::buildErrorFrame(
-                    "downloadas", "printwopiblocked", "WOPI host has disabled print."));
-            }
             return false;
         }
 
