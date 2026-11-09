@@ -10,12 +10,14 @@ FROM debian:stable
 # install an editor
 # tdf#117557 - Add CJK Fonts to Collabora Online Docker Image
 RUN apt-get update && \
-    apt-get -y install libpng16-16 fontconfig adduser cpio \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends \
+               libpng16-16 fontconfig adduser cpio \
                findutils nano libcap2-bin openssl \
-               libubsan1 openssh-client fonts-wqy-zenhei \
+               libubsan1 fonts-wqy-zenhei \
                fonts-wqy-microhei fonts-droid-fallback fonts-noto-cjk \
                ca-certificates
-
+     && rm -rf /var/lib/apt/lists/*
 
 # copy freshly built engine and Collabora Online
 COPY /instdir /
