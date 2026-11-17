@@ -1,4 +1,4 @@
-name: Build CO Alpine (vaulterix/co-26.04)
+name: Build CO (vaulterix/co-26.04)
 
 on:
   push:
@@ -9,30 +9,27 @@ permissions:
   contents: read
 
 concurrency:
-  group: vaulterix-co-build-alpine
+  group: vaulterix-co-build
   cancel-in-progress: false
 
 env:
   BUILD_J: 8
-  TAG: ${{ vars.TAG }}-alpine
-  BUILDER_IMAGE: vaulterix-co-builder:alpine3.21
-  SRC: ${{ github.workspace }}/alpine-src
+  TAG: ${{ vars.TAG }}
 
 jobs:
   build-on-selfhosted:
     runs-on: [self-hosted, linux]
     env:
-      CPPFLAGS: -ffile-prefix-map=${{ github.workspace }}/alpine-src/=
+      CPPFLAGS: -ffile-prefix-map=${{ github.workspace }}/=
     steps:
-      - name: Checkout (separate persisted tree for musl)
+      - name: Checkout (do not wipe the persisted build tree)
         uses: actions/checkout@v4
         with:
           clean: false
           ref: vaulterix/co-26.04
-          path: alpine-src
 
       - name: Prepare LibreOffice translations
-        working-directory: alpine-src/engine
+        working-directory: engine
         run: |
           TRANSLATIONS_DIR="$PWD/translations"
 
@@ -47,73 +44,55 @@ jobs:
           fi
           cp -a ../translations-local/ru/. "$TRANSLATIONS_DIR/source/ru/"
 
-      - name: Build Alpine builder image
-        working-directory: alpine-src
-        run: |
-          docker build -t "$BUILDER_IMAGE" \
-            -f docker/from-source/Alpine.builder docker/from-source
-
-      - name: Create in-builder wrapper
-        run: |
-          cat > "$RUNNER_TEMP/in-builder" <<'EOF'
-          #!/bin/sh
-          exec docker run --rm \
-            --user "$(id -u):$(id -g)" \
-            -e HOME=/tmp/builder-home \
-            -e CPPFLAGS -e BUILD_J -e SRC -e RUNNER_TEMP \
-            -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*' \
-            -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" \
-            -v "$RUNNER_TEMP:$RUNNER_TEMP" \
-            -w "$PWD" \
-            "$BUILDER_IMAGE" bash -euo pipefail -c "$1"
-          EOF
-          chmod +x "$RUNNER_TEMP/in-builder"
-
       - name: Configure engine (release)
-        working-directory: alpine-src/engine
+        working-directory: engine
         run: |
-          "$RUNNER_TEMP/in-builder" '
-            ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols --with-lang="en-US ru"
-          '
+          ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols --with-lang="en-US ru"
 
       - name: Build engine (incremental)
-        working-directory: alpine-src/engine
-        run: |
-          "$RUNNER_TEMP/in-builder" 'make'
+        working-directory: engine
+        run: make
+
+      # - name: Download stego library
+      #   env:
+      #     GH_TOKEN: ${{ secrets.STEGO_REPO_TOKEN }}
+      #   run: |
+      #     STEGO_DIR="$RUNNER_TEMP/stego"
+      #     rm -rf "$STEGO_DIR"
+      #     mkdir -p "$STEGO_DIR"
+      #     RUN_ID=$(gh run list --repo bibasmall/Vaulterix-Stego \
+      #       --workflow build.yml --branch main --status success \
+      #       --limit 1 --json databaseId -q '.[0].databaseId')
+      #     gh run download "$RUN_ID" --repo bibasmall/Vaulterix-Stego \
+      #       --name libstegonoise --dir "$STEGO_DIR"
+      #     ls -l "$STEGO_DIR/libstegonoise.so"
 
       - name: Configure
-        working-directory: alpine-src
         run: |
-          "$RUNNER_TEMP/in-builder" '
-            ./autogen.sh \
-              --enable-feature-restriction \
-              --with-app-branding="${SRC}/branding" \
-              --disable-tests \
-              --prefix=/usr \
-              --sysconfdir=/etc \
-              --with-lokit-path="${SRC}/engine/include" \
-              --with-lo-path=/opt/collaboraoffice \
-              --localstatedir=/var \
-              --with-app-name="Vaulterix Online Editor" \
-              --with-lang="en-US ru"
-          '
+          ./autogen.sh \
+          --enable-feature-restriction \
+          --with-app-branding="${GITHUB_WORKSPACE}/branding" \
+          --disable-tests \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --with-lokit-path="${GITHUB_WORKSPACE}/engine/include" \
+          --with-lo-path=/opt/collaboraoffice \
+          --localstatedir=/var \
+          --with-app-name="Vaulterix Online Editor" \
+          --with-lang="en-US ru"
+        # --with-stego-lib="$STEGO_DIR"
 
       - name: Build
-        working-directory: alpine-src
-        run: |
-          "$RUNNER_TEMP/in-builder" 'make -j ${BUILD_J} build-nocheck'
+        run: make -j ${BUILD_J} build-nocheck
 
       - name: Install build
-        working-directory: alpine-src
         run: |
-          CTX="$RUNNER_TEMP/docker-ctx-alpine"
+          CTX="$RUNNER_TEMP/docker-ctx"
           rm -rf "$CTX"
+          mkdir -p "$CTX/instdir"
+          make install DESTDIR="$CTX/instdir"
           mkdir -p "$CTX/instdir/opt"
-          "$RUNNER_TEMP/in-builder" '
-            CTX="$RUNNER_TEMP/docker-ctx-alpine"
-            make install DESTDIR="$CTX/instdir"
-            make -C engine install INSTALLDIR="$CTX/instdir/opt/collaboraoffice"
-          '
+          make -C engine install INSTALLDIR="$CTX/instdir/opt/collaboraoffice"
 
       - name: Docker Registry login
         uses: docker/login-action@v3
@@ -125,8 +104,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ${{ runner.temp }}/docker-ctx-alpine
-          file: ${{ github.workspace }}/alpine-src/docker/from-source/Alpine
+          context: ${{ runner.temp }}/docker-ctx
+          file: ${{ github.workspace }}/docker/from-source/Debian
           push: true
           tags: |
             registry.vaulterix.ru/dev/collabora:${{ env.TAG }}
@@ -134,8 +113,8 @@ jobs:
       - name: Cleanup Docker images on host
         if: always()
         run: |
-          docker rmi registry.vaulterix.ru/dev/collabora:${{ env.TAG }} || true
-          docker builder prune -f
+            docker rmi registry.vaulterix.ru/dev/collabora:${{ env.TAG }} || true
+            docker builder prune -f
 
   deploy-to-dev:
     runs-on: ubuntu-22.04
