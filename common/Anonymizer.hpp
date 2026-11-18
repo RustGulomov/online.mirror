@@ -202,6 +202,8 @@ public:
     }
 
     /// Anonymize the basename of filenames only, preserving the path and extension.
+    /// Sensitive query parameters (e.g. access_token) are stripped so they never
+    /// leak into logs in release builds.
     static std::string anonymizeUrl(const std::string& url)
     {
         std::string base;
@@ -210,7 +212,23 @@ public:
         std::string params;
         std::tie(base, filename, ext, params) = Util::splitUrl(url);
 
-        return base + anonymize(filename) + ext + params;
+#if !ENABLE_DEBUG
+        std::size_t pos = 0;
+
+        while ((pos = params.find("access_token=", pos)) != std::string::npos)
+        {
+            const auto valueStart = pos + sizeof("access_token=") - 1;
+            const auto valueEnd = params.find('&', valueStart);
+
+            params.replace(valueStart,
+                           valueEnd == std::string::npos ? std::string::npos : valueEnd - valueStart,
+                           "***");
+
+            pos = valueStart + 3;
+        }
+#endif
+
+        return base + anonymize(filename) + ext + (params.empty() ? std::string() : "?" + params);
     }
 
 private:

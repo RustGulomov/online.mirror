@@ -168,7 +168,7 @@ private:
         switch (code)
         {
             case http::StatusCode::OK:
-                return isAllowed() || (isPending() && !_checkId.empty());
+                return isAllowed() || isBlocked() || (isPending() && !_checkId.empty());
             case http::StatusCode::Forbidden:
                 return isBlocked();
             case http::StatusCode::ServiceUnavailable:
