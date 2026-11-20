@@ -1,4 +1,10 @@
-FROM alpine:3.21 AS builder
+# syntax=docker/dockerfile:1.7
+ARG ALPINE_VERSION=3.21
+
+############################
+# Stage 1: build
+############################
+FROM alpine:${ALPINE_VERSION} AS builder
 
 ENV COLLABORA_ONLINE_BRANCH=main
 ENV BUILDDIR=/build
@@ -9,7 +15,8 @@ WORKDIR /build
 # core refuses to build as root
 RUN adduser -D builder && chown builder: /build
 
-RUN apk add --no-cache \
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add \
     # Basic build tools
     build-base autoconf automake libtool pkgconf git wget ccache \
     gperf nasm libxslt flex bison zip rsync curl bash coreutils findutils tar \
@@ -33,60 +40,90 @@ COPY --chown=builder / $BUILDDIR/
 USER builder
 RUN bash build-alpine.sh
 
-# Build the final image
-FROM alpine:3.21
+
+############################
+# Stage 2: runtime
+############################
+FROM alpine:${ALPINE_VERSION}
 
 # UTF-8 locale -- musl has built-in UTF-8 support
 ENV LC_CTYPE=C.UTF-8
 
-# install engine run-time dependencies
-# install findutils, openssl and cpio that we need later
-# install tzdata to accept the TZ environment variable
-# install an editor
-# tdf#117557 - Add CJK Fonts to Collabora Online Docker Image
-RUN apk add --no-cache \
-    libpng fontconfig cpio tzdata findutils nano \
-    libcap libcap-utils openssl openssh-client \
+# Runtime-зависимости.
+# ВАЖНО (причина "невидимых символов"): в исходном образе был только
+# font-noto-cjk, т.е. ни одного латинского/кириллического шрифта.
+# Добавлены СТАТИЧЕСКИЕ шрифты. font-noto / font-noto-extra не ставим:
+# в Alpine 3.20+ это variable TTF, LibreOffice с ними работает нестабильно.
+# cpio/findutils/bash оставлены: нужны coolwsd-systemplate-setup.
+# ssl_client нужен busybox wget для HEALTHCHECK по https.
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add \
+    libpng fontconfig cpio tzdata findutils \
+    libcap libcap-utils openssl openssh-client ssl_client \
     libxcb libxrender libxext \
     libstdc++ libgcc linux-pam zstd-libs libintl \
-    font-noto-cjk ca-certificates bash
+    ca-certificates bash \
+    font-liberation font-dejavu ttf-freefont font-noto-cjk \
+    font-carlito font-caladea
 
 # copy freshly built engine and Collabora Online
 COPY --from=builder /build/instdir /
 
 # set up Collabora Online (normally done by postinstall script of package)
-# Fix permissions
-RUN setcap cap_fowner,cap_chown,cap_sys_chroot=ep /usr/bin/coolforkit-caps && \
-    setcap cap_sys_admin=ep /usr/bin/coolmount && \
-    addgroup -S -g 1001 cool && \
-    adduser -S -G cool -u 1001 -h /opt/cool -s /sbin/nologin cool && \
-    rm -rf /opt/cool || true && \
-    mkdir -p /opt/cool/child-roots /opt/cool/cache && \
-    chown cool: /opt/cool && \
-    chown cool: /opt/cool/child-roots && \
-    chown cool: /opt/cool/cache && \
-    fc-cache /opt/collaboraoffice/share/fonts/truetype && \
-    coolwsd-systemplate-setup /opt/cool/systemplate /opt/collaboraoffice >/dev/null 2>&1 && \
-    touch /var/log/coolwsd.log && \
-    chown cool:cool /var/log/coolwsd.log && \
-    chown -R cool:cool /etc/coolwsd && \
-    chown cool:cool /etc/coolwsd/coolwsd.xml && \
-    chmod 640 /etc/coolwsd/coolwsd.xml && \
-    chown cool:cool /etc/coolwsd && \
-    rm -rf /etc/coolwsd/proof_key* && \
+RUN set -eux; \
+    setcap cap_fowner,cap_chown,cap_sys_chroot=ep /usr/bin/coolforkit-caps; \
+    setcap cap_sys_admin=ep /usr/bin/coolmount; \
+    addgroup -S -g 1001 cool; \
+    adduser -S -G cool -u 1001 -h /opt/cool -s /sbin/nologin cool; \
+    rm -rf /opt/cool; \
+    mkdir -p /opt/cool/child-roots /opt/cool/cache; \
+    chown cool: /opt/cool /opt/cool/child-roots /opt/cool/cache; \
+    \
+    # Шрифты в собственный каталог LibreOffice: он попадает в jail независимо
+    # от fontconfig. Копируем файлы (-L), не симлинки.
+    mkdir -p /opt/collaboraoffice/share/fonts/truetype; \
+    for d in liberation dejavu freefont carlito caladea; do \
+      if [ -d "/usr/share/fonts/$d" ]; then \
+        cp -aL "/usr/share/fonts/$d/." /opt/collaboraoffice/share/fonts/truetype/; \
+      fi; \
+    done; \
+    fc-cache -f /opt/collaboraoffice/share/fonts/truetype /usr/share/fonts; \
+    \
+    # fail-fast: сборка падает, если нужных шрифтов нет
+    fc-list | grep -qi liberation; \
+    fc-list | grep -qi dejavu; \
+    \
+    # systemplate строится ПОСЛЕ установки шрифтов; вывод не скрываем
+    coolwsd-systemplate-setup /opt/cool/systemplate /opt/collaboraoffice; \
+    \
+    # битые симлинки fontconfig в jail => пустой список шрифтов; чиним
+    if [ -n "$(find /opt/cool/systemplate/etc/fonts -xtype l 2>/dev/null)" ]; then \
+      echo "WARN: dangling symlinks in systemplate fonts config, dereferencing"; \
+      rm -rf /opt/cool/systemplate/etc/fonts; \
+      mkdir -p /opt/cool/systemplate/etc/fonts; \
+      cp -rL /etc/fonts/. /opt/cool/systemplate/etc/fonts/; \
+    fi; \
+    ls -la /opt/cool/systemplate/etc/fonts | head -20; \
+    \
+    touch /var/log/coolwsd.log; \
+    chown cool:cool /var/log/coolwsd.log; \
+    chown -R cool:cool /etc/coolwsd; \
+    chmod 640 /etc/coolwsd/coolwsd.xml; \
+    rm -f /etc/coolwsd/proof_key*; \
     # coolwsd appends a mapping for an arbitrary (e.g. OpenShift) UID to
     # /etc/passwd at startup, so it must be writable by the root group
     chmod g+w /etc/passwd
 
 EXPOSE 9980
 
-# switch to cool user (use numeric user id to be compatible with Kubernetes Pod Security Policies)
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
+  CMD wget -q -O /dev/null --no-check-certificate https://127.0.0.1:9980/hosting/discovery \
+   || wget -q -O /dev/null http://127.0.0.1:9980/hosting/discovery || exit 1
+
+# numeric uid for Kubernetes Pod Security Policies
 USER 1001
 
-# Start coolwsd directly, with no shell in between: self-signed certificate
-# generation (unless DONT_GEN_SSL_CERT is set) and arbitrary-UID handling are
-# done inside coolwsd itself. The configuration is still driven dynamically by
-# environment variables (--use-env-vars).
+# Start coolwsd directly, with no shell in between.
 ENTRYPOINT ["/usr/bin/coolwsd", \
             "--use-env-vars", \
             "--o:sys_template_path=/opt/cool/systemplate", \
