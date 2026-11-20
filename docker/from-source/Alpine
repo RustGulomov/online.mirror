@@ -1,5 +1,4 @@
-FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.21
+FROM alpine:3.21
 # UTF-8 locale -- musl has built-in UTF-8 support
 ENV LC_CTYPE=C.UTF-8
 
