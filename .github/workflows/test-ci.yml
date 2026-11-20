@@ -3,7 +3,7 @@ name: Build test
 on:
   workflow_dispatch:
     inputs:
-      tag: 
+      tag:
         description: Задайте тег образа
         type: string
         required: true
@@ -31,13 +31,16 @@ jobs:
     env:
       CPPFLAGS: -ffile-prefix-map=${{ github.workspace }}/=
     steps:
+      # ---------- Debian: сборка на хосте (glibc), в образ копируется instdir ----------
       - name: Checkout (do not wipe the persisted build tree)
+        if: ${{ inputs.base_image == 'Debian' }}
         uses: actions/checkout@v4
         with:
           clean: false
           ref: vaulterix/co-26.04
 
       - name: Prepare LibreOffice translations
+        if: ${{ inputs.base_image == 'Debian' }}
         working-directory: engine
         run: |
           TRANSLATIONS_DIR="$PWD/translations"
@@ -54,29 +57,18 @@ jobs:
           cp -a ../translations-local/ru/. "$TRANSLATIONS_DIR/source/ru/"
 
       - name: Configure engine (release)
+        if: ${{ inputs.base_image == 'Debian' }}
         working-directory: engine
         run: |
           ./autogen.sh --with-distro=CPLinux-LOKit --disable-epm --without-package-format --without-vendor --disable-symbols --with-lang="en-US ru"
 
       - name: Build engine (incremental)
+        if: ${{ inputs.base_image == 'Debian' }}
         working-directory: engine
         run: make
 
-      # - name: Download stego library
-      #   env:
-      #     GH_TOKEN: ${{ secrets.STEGO_REPO_TOKEN }}
-      #   run: |
-      #     STEGO_DIR="$RUNNER_TEMP/stego"
-      #     rm -rf "$STEGO_DIR"
-      #     mkdir -p "$STEGO_DIR"
-      #     RUN_ID=$(gh run list --repo bibasmall/Vaulterix-Stego \
-      #       --workflow build.yml --branch main --status success \
-      #       --limit 1 --json databaseId -q '.[0].databaseId')
-      #     gh run download "$RUN_ID" --repo bibasmall/Vaulterix-Stego \
-      #       --name libstegonoise --dir "$STEGO_DIR"
-      #     ls -l "$STEGO_DIR/libstegonoise.so"
-
       - name: Configure
+        if: ${{ inputs.base_image == 'Debian' }}
         run: |
           ./autogen.sh \
           --enable-feature-restriction \
@@ -89,12 +81,13 @@ jobs:
           --localstatedir=/var \
           --with-app-name="Vaulterix Online Editor" \
           --with-lang="en-US ru"
-        # --with-stego-lib="$STEGO_DIR"
 
       - name: Build
+        if: ${{ inputs.base_image == 'Debian' }}
         run: make -j ${BUILD_J} build-nocheck
 
       - name: Install build
+        if: ${{ inputs.base_image == 'Debian' }}
         run: |
           CTX="$RUNNER_TEMP/docker-ctx"
           rm -rf "$CTX"
@@ -103,6 +96,17 @@ jobs:
           mkdir -p "$CTX/instdir/opt"
           make -C engine install INSTALLDIR="$CTX/instdir/opt/collaboraoffice"
 
+      # ---------- Alpine: сборка ВНУТРИ Docker (musl), нужен чистый контекст с исходниками ----------
+      # Хостовый instdir (glibc) для Alpine непригоден: "exec /usr/bin/coolwsd: no such file or directory".
+      - name: Checkout clean sources for Alpine build
+        if: ${{ inputs.base_image == 'Alpine' }}
+        uses: actions/checkout@v4
+        with:
+          ref: vaulterix/co-26.04
+          path: _alpine-src
+          clean: true
+          # submodules: recursive   # раскомментируйте, если engine/ - сабмодуль
+
       - name: Docker Registry login
         uses: docker/login-action@v3
         with:
@@ -110,27 +114,40 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image (Debian)
+        if: ${{ inputs.base_image == 'Debian' }}
         uses: docker/build-push-action@v5
         with:
           context: ${{ runner.temp }}/docker-ctx
-          file: ${{ github.workspace }}/docker/from-source/${{ env.BASE_IMAGE }}
+          file: ${{ github.workspace }}/docker/from-source/Debian
           push: true
           tags: |
             registry.vaulterix.ru/dev/collabora:${{ env.TAG }}
 
-      - name: Cleanup Docker images on host
+      - name: Build and push Docker image (Alpine)
+        if: ${{ inputs.base_image == 'Alpine' }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ github.workspace }}/_alpine-src
+          file: ${{ github.workspace }}/_alpine-src/docker/from-source/Alpine
+          platforms: linux/amd64
+          push: true
+          tags: |
+            registry.vaulterix.ru/dev/collabora:${{ env.TAG }}
+
+      - name: Cleanup on host
         if: always()
         run: |
-            docker rmi registry.vaulterix.ru/dev/collabora:${{ env.TAG }} || true
-            docker builder prune -f
+          docker rmi registry.vaulterix.ru/dev/collabora:${{ env.TAG }} || true
+          docker builder prune -f
+          rm -rf "${GITHUB_WORKSPACE}/_alpine-src"
 
   deploy-to-dev:
     runs-on: ubuntu-22.04
     needs: build-on-selfhosted
     steps:
       - name: Deploy to Dev2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@master   # лучше закрепить на тег/SHA
         env:
           SERVICE_NAME: collabora
           TAG: ${{ env.TAG }}
