@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-FROM debian:stable
+FROM debian:13-slim
 
 # get the latest fixes
 # install engine run-time dependencies
@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends \
                libpng16-16 fontconfig adduser cpio \
-               findutils nano libcap2-bin openssl \
+               findutils libcap2-bin openssl \
                libubsan1 fonts-wqy-zenhei \
                fonts-wqy-microhei fonts-droid-fallback fonts-noto-cjk \
                ca-certificates \
