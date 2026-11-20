@@ -1,7 +1,62 @@
-FROM alpine:3.21
+# syntax=docker/dockerfile:1.7
+ARG ALPINE_VERSION=3.21
+
+############################
+# Stage 1: build
+############################
+FROM alpine:${ALPINE_VERSION} AS builder
+
+# Зафиксируйте конкретный тег/коммит вместо main для воспроизводимости
+ENV COLLABORA_ONLINE_BRANCH=main
+ENV BUILDDIR=/build
+ENV ONLINE_EXTRA_BUILD_OPTIONS=--enable-experimental
+
+WORKDIR /build
+
+# core refuses to build as root
+RUN adduser -D builder && chown builder: /build
+
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add \
+    # Basic build tools
+    build-base autoconf automake libtool pkgconf git wget ccache \
+    gperf nasm libxslt flex bison zip rsync curl bash coreutils findutils tar \
+    meson ninja perl python3 \
+    # Core build deps
+    zlib-dev util-linux-dev \
+    # X11 headers (needed even for headless VCL backend)
+    libx11-dev libxrender-dev libxext-dev libxrandr-dev libxinerama-dev \
+    # Font rendering headers
+    fontconfig-dev freetype-dev \
+    # COOL build deps
+    libpng-dev openssl-dev zstd-dev libcap-dev linux-pam-dev cppunit-dev \
+    linux-headers \
+    # Python modules for COOL build
+    py3-lxml py3-polib \
+    # Node.js for COOL browser client
+    nodejs npm
+
+COPY --chown=builder / $BUILDDIR/
+
+USER builder
+RUN bash docker/from-source/build-alpine.sh
+
+
+############################
+# Stage 2: runtime
+############################
+FROM alpine:${ALPINE_VERSION}
+
 # UTF-8 locale -- musl has built-in UTF-8 support
 ENV LC_CTYPE=C.UTF-8
 
+# Runtime-зависимости.
+# ВАЖНО (причина "невидимых символов"): в исходном образе был только
+# font-noto-cjk, т.е. ни одного латинского/кириллического шрифта.
+# Добавлены СТАТИЧЕСКИЕ шрифты. font-noto / font-noto-extra не ставим:
+# в Alpine 3.20+ это variable TTF, LibreOffice с ними работает нестабильно.
+# cpio/findutils/bash оставлены: нужны coolwsd-systemplate-setup.
+# ssl_client нужен busybox wget для HEALTHCHECK по https.
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add \
     libpng fontconfig cpio tzdata findutils \
@@ -13,7 +68,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     font-carlito
 
 # copy freshly built engine and Collabora Online
-COPY /instdir /
+COPY --from=builder /build/instdir /
 
 # set up Collabora Online (normally done by postinstall script of package)
 RUN set -eux; \
