@@ -1553,6 +1553,8 @@ window.L.Map = window.L.Evented.extend({
 				this.showBusy(e.text ? e.text : _('Please wait!'));
 				if (e.forceid)
 					this._progressBar.forceid = e.forceid;
+				if (this.saveState)
+					this.saveState.showSavingStatus();
 				break;
 			case 'setvalue':
 				this._progressBar.setBar(true);
@@ -1565,6 +1567,8 @@ window.L.Map = window.L.Evented.extend({
 					return;
 				this.hideBusy();
 				this._progressBar.forceid = undefined;
+				if (this.saveState)
+					this.saveState.showSavedStatus();
 				break;
 			}
 		}
