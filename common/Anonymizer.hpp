@@ -228,7 +228,7 @@ public:
         }
 #endif
 
-        return base + anonymize(filename) + ext + (params.empty() ? std::string() : "?" + params);
+        return base + anonymize(filename) + ext + params;
     }
 
 private:
