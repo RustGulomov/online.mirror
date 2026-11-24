@@ -205,6 +205,15 @@ export class ScrollSection extends CanvasSectionObject {
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	public onHandleAutoScroll (e: any): void {
+		// Do not trigger edge autoscroll while the user is interacting with a
+		// scroll bar (e.g. dragging the horizontal scroll bar at the bottom edge).
+		// Otherwise the scroll bar being at the canvas edge is mistaken for the
+		// pointer being at the viewport edge, which starts an unwanted autoscroll
+		// and can push the document to the bottom-right corner.
+		if (this.sectionProperties.clickScrollHorizontal ||
+			this.sectionProperties.clickScrollVertical) {
+			return;
+		}
 		var vx = 0;
 		var vy = 0;
 
@@ -814,6 +823,7 @@ export class ScrollSection extends CanvasSectionObject {
 		window.L.DomUtil.removeClass(document.documentElement, 'prevent-select');
 		this.map.scrollingIsHandled = false;
 		this.clearQuickScrollTimeout();
+		this.cancelAutoScroll();
 		this.unfreezeDocumentSize();
 
 		if (this.sectionProperties.clickScrollVertical) {
