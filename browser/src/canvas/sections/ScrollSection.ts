@@ -205,6 +205,15 @@ export class ScrollSection extends CanvasSectionObject {
 
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	public onHandleAutoScroll (e: any): void {
+		// Do not trigger edge autoscroll while the user is interacting with a
+		// scroll bar (e.g. dragging the horizontal scroll bar at the bottom edge).
+		// Otherwise the scroll bar being at the canvas edge is mistaken for the
+		// pointer being at the viewport edge, which starts an unwanted autoscroll
+		// and can push the document to the bottom-right corner.
+		if (this.sectionProperties.clickScrollHorizontal ||
+			this.sectionProperties.clickScrollVertical) {
+			return;
+		}
 		var vx = 0;
 		var vy = 0;
 
@@ -767,6 +776,7 @@ export class ScrollSection extends CanvasSectionObject {
 				|| (mirrorX && point.pY <= scrollProps.usableThickness)) {
 				if (point.pY > scrollProps.yOffset) {
 					this.sectionProperties.clickScrollVertical = true;
+					this.cancelAutoScroll();
 					this.map.scrollingIsHandled = true;
 					this.containerObject.capturePointerForDrag();
 					this.freezeDocumentSize();
@@ -783,16 +793,20 @@ export class ScrollSection extends CanvasSectionObject {
 			}
 		}
 
-		// Same reasoning as vertical: CompareChanges can have negative pX1.
-		const canScrollH = layout.type === 'ViewLayoutCompareChanges'
-			? layout.canScrollHorizontal(documentAnchor)
-			: layout.viewedRectangle.pX1 >= 0;
+		// Use canScrollHorizontal() for all layouts: viewedRectangle.pX1 can be
+		// negative after scrolling, which would wrongly disable scroll bar clicks.
+		const canScrollH = layout.canScrollHorizontal(documentAnchor);
+
 
 		if (canScrollH) {
-			if (point.pY >= this.size[1] - scrollProps.usableThickness) {
-				if ((!mirrorX && point.pX >= scrollProps.xOffset && point.pX <= this.size[0] - scrollProps.horizontalScrollRightOffset)
-					|| (mirrorX && point.pX >= scrollProps.xOffset && point.pX >= scrollProps.horizontalScrollRightOffset)) {
-					this.sectionProperties.clickScrollHorizontal = true;
+			// Rely on the flag already computed by isMouseOnScrollBar() (called via
+			// onMouseMove() above) instead of re-checking coordinates here. This avoids
+			// subtle mismatches between the hit test used for hover and the one used
+			// for clicking, which can make the scroll bar rail unclickable at some
+			// zoom levels.
+			if (this.sectionProperties.mouseIsOnHorizontalScrollBar) {
+				this.sectionProperties.clickScrollHorizontal = true;
+					this.cancelAutoScroll();
 					this.map.scrollingIsHandled = true;
 					this.containerObject.capturePointerForDrag();
 					this.freezeDocumentSize();
@@ -803,10 +817,6 @@ export class ScrollSection extends CanvasSectionObject {
 				else {
 					this.sectionProperties.clickScrollHorizontal = false;
 				}
-			}
-			else {
-				this.sectionProperties.clickScrollHorizontal = false;
-			}
 		}
 	}
 
@@ -814,6 +824,7 @@ export class ScrollSection extends CanvasSectionObject {
 		window.L.DomUtil.removeClass(document.documentElement, 'prevent-select');
 		this.map.scrollingIsHandled = false;
 		this.clearQuickScrollTimeout();
+		this.cancelAutoScroll();
 		this.unfreezeDocumentSize();
 
 		if (this.sectionProperties.clickScrollVertical) {
