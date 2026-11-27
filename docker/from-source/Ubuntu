@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-FROM ubuntu:24.04
+FROM registry.vaulterix.ru/components/library/ubuntu@sha256:ed2128eae94f1dce83f9aafb8e1dc2e3f098b5ce733ed4a13ccaf94330e3e0a8
 
 # refresh repos otherwise installations later may fail
 # install engine run-time dependencies
@@ -11,10 +11,9 @@ FROM ubuntu:24.04
 # install an editor
 # tdf#117557 - Add CJK Fonts to Collabora Online Docker Image
 RUN apt-get update && \
-    apt-get -y install libpng16-16 fontconfig adduser cpio tzdata \
-               findutils nano \
-               libcap2-bin openssl openssh-client \
-               libxcb-shm0 libxcb-render0 libxrender1 libxext6 \
+    apt-get -y install --no-install-recommends libpng16-16 fontconfig adduser cpio tzdata \
+               findutils \
+               libcap2-bin openssl \
                fonts-wqy-zenhei fonts-wqy-microhei fonts-droid-fallback \
                fonts-noto-cjk ca-certificates
 
